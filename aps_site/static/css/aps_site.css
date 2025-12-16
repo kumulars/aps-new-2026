@@ -790,3 +790,282 @@ hr.blue {
         margin-top: 10px;
     }
 }
+
+/* ============================================
+   MERRIFIELD ESSAY PAGE
+   ============================================ */
+.template-merrifield-essay .lead {
+    font-size: 1.15rem;
+    margin-bottom: 1.5rem;
+}
+
+.merrifield-media-sidebar {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--aps-blue, #3a53a4);
+    position: sticky;
+    top: 100px;
+}
+
+.merrifield-media-sidebar .sidebar-header {
+    color: var(--aps-blue, #3a53a4);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--aps-orange, #FFA800);
+}
+
+.merrifield-media-sidebar .media-item a {
+    display: block;
+    transition: transform 0.2s ease;
+}
+
+.merrifield-media-sidebar .media-item a:hover {
+    transform: scale(1.02);
+}
+
+.merrifield-media-sidebar .media-item img {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.merrifield-media-sidebar .media-caption {
+    font-size: 0.9rem;
+    color: var(--aps-text, #5A5A5A);
+}
+
+@media (max-width: 991.98px) {
+    .merrifield-media-sidebar {
+        position: static;
+        margin-top: 2rem;
+    }
+}
+
+/* ============================================
+   STUDENT ACTIVITIES COMMITTEE PAGE
+   ============================================ */
+.template-student-activities .sac-subheader {
+    color: var(--aps-blue, #3a53a4);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+    border-left: 4px solid var(--aps-orange, #FFA800);
+}
+
+.template-student-activities .sac-person {
+    margin-bottom: 1rem;
+}
+
+.template-student-activities .sac-sidebar-header {
+    color: var(--aps-blue, #3a53a4);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--aps-orange, #FFA800);
+}
+
+.template-student-activities .sac-image-block {
+    margin-bottom: 1rem;
+}
+
+.template-student-activities .sac-image-block img {
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.template-student-activities .sac-caption {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.5rem;
+    line-height: 1.5;
+}
+
+.template-student-activities .sac-divider {
+    border: 0;
+    border-top: 2px solid var(--aps-blue, #3a53a4);
+    margin: 1.5rem 0;
+}
+
+/* ============================================
+   IN MEMORIAM PAGES
+   ============================================ */
+
+/* Index Page - Card Layout */
+.memoriam-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 100%;
+}
+
+.memoriam-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.memoriam-card-inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.memoriam-photo-link {
+    display: block;
+}
+
+.memoriam-photo {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 973/1200;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 8px 8px 0 0;
+}
+
+.memoriam-photo-placeholder {
+    width: 100%;
+    aspect-ratio: 973/1200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+    border-radius: 8px 8px 0 0;
+    color: #adb5bd;
+    font-size: 3rem;
+}
+
+.memoriam-info {
+    padding: 1.25rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.memoriam-name {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.memoriam-name a {
+    color: var(--aps-blue, #3a53a4);
+    text-decoration: none;
+}
+
+.memoriam-name a:hover {
+    text-decoration: underline;
+}
+
+.memoriam-blurb {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.5;
+    flex-grow: 1;
+    margin-bottom: 0.75rem;
+}
+
+.memoriam-read-more {
+    font-size: 0.85rem;
+    color: var(--aps-link, #cb3b2d);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.memoriam-read-more:hover {
+    text-decoration: underline;
+}
+
+/* Detail Page */
+.memoriam-detail-photo-container {
+    position: sticky;
+    top: 100px;
+}
+
+.memoriam-detail-photo {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.memoriam-detail-photo-placeholder {
+    width: 100%;
+    aspect-ratio: 4/5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+    border-radius: 8px;
+    color: #adb5bd;
+    font-size: 5rem;
+}
+
+.memoriam-detail-name {
+    color: var(--aps-blue, #3a53a4);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid var(--aps-orange, #FFA800);
+}
+
+.memoriam-detail-content {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #333;
+}
+
+.memoriam-detail-content p {
+    margin-bottom: 1rem;
+}
+
+/* Navigation to other entries */
+.memoriam-nav-section h4 {
+    font-size: 1rem;
+}
+
+.memoriam-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.memoriam-nav-item:hover {
+    opacity: 0.8;
+}
+
+.memoriam-nav-photo {
+    width: 80px;
+    height: 100px;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+
+.memoriam-nav-placeholder {
+    width: 80px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e9ecef;
+    border-radius: 4px;
+    color: #adb5bd;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.memoriam-nav-name {
+    font-size: 0.8rem;
+    color: var(--aps-text, #5A5A5A);
+    text-align: center;
+}
+
+@media (max-width: 991.98px) {
+    .memoriam-detail-photo-container {
+        position: static;
+        margin-bottom: 1.5rem;
+    }
+}

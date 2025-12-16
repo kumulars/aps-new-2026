@@ -95,11 +95,17 @@
     color: var(--aps-blue, #1a5276);
 }
 
-/* Card images - show top, crop bottom */
+/* Card images - cropped version */
 .gpg-card-img {
     height: 200px;
     object-fit: cover;
     object-position: top;
+}
+
+/* Card images - fluid version (no crop) */
+.gpg-card-img-fluid {
+    width: 100%;
+    height: auto;
 }
 
 .card-img-placeholder {

@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Student Activities Committee{% endblock %}
+
+{% block body_class %}template-student-activities{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    <h1 class="page-top-header">Student Activities Committee</h1>
+
+    <div class="row mt-4">
+        <!-- Main Content -->
+        <div class="col-lg-7">
+            <p>The Student Activities Committee, SAC, is the heartbeat of the American Peptide Symposium's vibrant student and postdoc community. Our mission is simple but essential: to create an inclusive, energetic environment that fosters connection, collaboration, and memorable experiences for all attendees. Whether you're presenting research, making new friends, or discovering the broader peptide community, SAC is here to make your symposium experience truly exceptional.</p>
+
+            <p>Each year, SAC is led by a small group of dedicated co-chairs and a passionate team of students and postdocs who work together to organize signature events like the Schram Young Investigator Competitions (oral and poster), the Student Mixer, and the Dr. Elizabeth Schram Networking Lunch. These events are more than just scheduled activities—they are opportunities to learn, connect, and grow as emerging members of the scientific community. Our SAC team plays an essential role in shaping these moments, offering behind-the-scenes support and warm, welcoming energy throughout the symposium.</p>
+
+            <p>Serving on SAC is both an honor and an unforgettable experience. Members help organize judging sessions, coordinate networking activities, and ensure our student-focused events run smoothly. In return, SAC members are recognized on the APS website and at the awards ceremony—but even more importantly, they gain direct access to a powerful network of peers and professionals. If you're passionate about community, science, and making the most of your symposium journey, we invite you to join us next year and help shape the future of APS together!</p>
+
+            <h2 class="secondary-header mt-4">Do You Want to Participate?</h2>
+            <p>Students and professionals that are interested in participating in SAC should contact the SAC co-chairs, below.</p>
+
+            <h2 class="secondary-header mt-4">2025-27 APS Student Activities Committee</h2>
+
+            <h3 class="sac-subheader">Co-Chairs</h3>
+
+            <div class="sac-person">
+                <p><strong>James Checco, Ph.D.</strong><br>
+                Assistant Professor<br>
+                Department of Chemistry<br>
+                University of Nebraska-Lincoln</p>
+            </div>
+
+            <div class="sac-person">
+                <p><strong>Arunika Ekanayake, Ph.D.</strong><br>
+                Advisor Chemistry and Chemical Biology<br>
+                Eli Lilly and Company</p>
+            </div>
+
+            <div class="sac-person">
+                <p><strong>Ross Cheloha, Ph.D.</strong><br>
+                Principal Investigator in Chemical Biology of Signaling Section<br>
+                The National Institutes of Health</p>
+            </div>
+
+            <h3 class="sac-subheader mt-4">Student Members</h3>
+            <p>Whitney Ong<br>
+            Gopal Dubey<br>
+            A'Lester Wiggins-Allen<br>
+            Karl Ocius<br>
+            Hassan Seyrani<br>
+            Karlee McKinney<br>
+            Brittney Chau<br>
+            Nishant Raj</p>
+        </div>
+
+        <!-- Sidebar - Images -->
+        <div class="col-lg-5">
+            <h2 class="sac-sidebar-header">Images from San Diego</h2>
+
+            <div class="sac-image-block">
+                <img src="{% static 'images/sac/san_diego_oral_competition_winner.jpg' %}" alt="Oral Presentation Winners" class="img-fluid rounded">
+                <p class="sac-caption">The 2025 Dr. Elizabeth Schram Award for Young Investigator Oral Presentation winners with presenters. From left to right: Professors Jean Chmielewski and Eileen Kennedy, Doctors Emel Adaligil, James Checco, and Michael Bertucci, flanked by the 1st prize winner Thu Nguyen, NYU, and 2nd prize winner Kira Podolsky, MIT.</p>
+            </div>
+
+            <hr class="sac-divider">
+
+            <div class="sac-image-block">
+                <img src="{% static 'images/sac/san_diego_poster_winner.jpg' %}" alt="Poster Presentation Winners" class="img-fluid rounded">
+                <p class="sac-caption">The 2025 Dr. Elizabeth Schram Award for Young Investigator Poster Presentation winners with presenters, Chuanhao Peng, University of Alberta, Kristiana Witte, NC State University, Hassan Seyrani, University of Missouri, Haley Anchukaitis, Tufts University, Minhee Lee, Columbia University, Xue Zhao, University of South Florida, Rida Ibrahim, Iowa State University, Rachita Dash, University of Virginia, Albert Kakkis, Scripps Research, and Tristan Dinsmore, Tufts University</p>
+            </div>
+
+            <hr class="sac-divider">
+
+            <div class="sac-image-block">
+                <img src="{% static 'images/sac/san_diego_co_chairs.jpg' %}" alt="SAC Co-Chairs" class="img-fluid rounded">
+                <p class="sac-caption">Newly elected co-chairs of the Student Activities Committee, from left to right, Doctors James Checco, Ross Cheloha, and Arunika Ekanayake.</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

@@ -1394,3 +1394,74 @@ class GlobalPeptideGroupIndexPage(Page):
 
     class Meta:
         verbose_name = "Global Peptide Groups Index Page"
+
+
+# =============================================================================
+# IN MEMORIAM / OBITUARIES
+# =============================================================================
+
+@register_snippet
+class InMemoriam(models.Model):
+    """
+    Represents a person who has passed away, honored in the In Memoriam section.
+    """
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=150, unique=True, blank=True)
+
+    photo = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    # Short summary for index page
+    blurb = models.TextField(
+        blank=True,
+        help_text="Short summary for the index page (HTML allowed)"
+    )
+
+    # Full obituary text for detail page
+    full_text = models.TextField(
+        blank=True,
+        help_text="Full obituary content (HTML allowed)"
+    )
+
+    # Ordering - higher numbers appear first
+    display_order = models.IntegerField(
+        default=0,
+        help_text="Higher numbers appear first"
+    )
+
+    panels = [
+        FieldPanel('first_name'),
+        FieldPanel('last_name'),
+        FieldPanel('slug'),
+        FieldPanel('photo'),
+        FieldPanel('blurb'),
+        FieldPanel('full_text'),
+        FieldPanel('display_order'),
+    ]
+
+    class Meta:
+        ordering = ['-display_order']
+        verbose_name = "In Memoriam Entry"
+        verbose_name_plural = "In Memoriam Entries"
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
+
+    @property
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base_slug = slugify(f"{self.first_name}-{self.last_name}")
+            self.slug = base_slug
+        super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('in_memoriam_detail', kwargs={'slug': self.slug})

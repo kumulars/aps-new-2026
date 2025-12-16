@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block title %}{{ person.full_name }} - In Memoriam{% endblock %}
+
+{% block body_class %}template-in-memoriam-detail{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    <div class="row">
+        <div class="col-12">
+            <h1 class="page-top-header">{{ person.full_name }}</h1>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <!-- Photo Column - appears first on mobile, right on desktop -->
+        <div class="col-lg-4 mb-4 order-1 order-lg-2">
+            <div class="memoriam-detail-photo-container">
+                {% if person.photo %}
+                    {% image person.photo width-400 as detail_photo %}
+                    <img src="{{ detail_photo.url }}" alt="{{ person.full_name }}" class="memoriam-detail-photo">
+                {% else %}
+                    <div class="memoriam-detail-photo-placeholder">
+                        <i class="bi bi-person"></i>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Content Column - appears second on mobile, left on desktop -->
+        <div class="col-lg-8 order-2 order-lg-1">
+            <div class="memoriam-detail-content">
+                {{ person.full_text|safe }}
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

@@ -21,6 +21,11 @@ urlpatterns = [
     path("awards/recipient/<slug:slug>/", home_views.award_recipient_detail, name="award_recipient_detail"),
     # Static pages
     path("about/", home_views.about, name="about"),
+    path("merrifield-essay/", home_views.merrifield_essay, name="merrifield_essay"),
+    path("people/student-activities-committee/", home_views.student_activities_committee, name="student_activities_committee"),
+    # In Memoriam
+    path("people/in-memoriam/", home_views.in_memoriam_index, name="in_memoriam_index"),
+    path("people/in-memoriam/<slug:slug>/", home_views.in_memoriam_detail, name="in_memoriam_detail"),
 ]
 
 
