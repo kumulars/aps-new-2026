@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block title %}{% if current_award %}{{ current_award.name }} - {% endif %}Awards{% endblock %}
+
+{% block body_class %}template-awards-index{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/awards.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    <div class="row">
+
+        {# Sidebar Navigation - 2 cols #}
+        <div class="col-12 col-lg-2 awards-sidebar-col">
+            <div class="awards-sidebar">
+                <div class="awards-nav-sidebar">
+                    {% for award in award_types %}
+                    <a href="?award={{ award.slug }}"
+                       class="awards-nav-btn {% if award.slug == current_award.slug %}active{% endif %}">
+                        {{ award.short_name|default:award.name }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        {# Main Content - 6 cols #}
+        <div class="col-12 col-lg-6 awards-main-col">
+
+            {# Title in center column #}
+            <h1 class="page-top-header">{% if current_award %}{{ current_award.name }}{% else %}APS Awards{% endif %}</h1>
+
+            {% if current_award %}
+
+                {# Award Description #}
+                {% if current_award.description %}
+                <div class="award-description">
+                    {{ current_award.description|linebreaks }}
+                </div>
+                {% endif %}
+
+                {# Additional Content (e.g., Merrifield essay) #}
+                {% if current_award.additional_content %}
+                <div class="award-additional-content">
+                    {{ current_award.additional_content|safe }}
+                </div>
+                {% endif %}
+
+                {# Recipients List #}
+                <div class="recipients-section">
+                    <h2 class="recipients-section-header">Recipients</h2>
+
+                    {% for decade, recipients in recipients_by_decade %}
+                    <h3 class="decade-header">{{ decade }}</h3>
+
+                    {% for recipient in recipients %}
+                    <div class="recipient-entry">
+                        <a href="{{ recipient.get_absolute_url }}" class="recipient-photo-link">
+                            <div class="recipient-photo">
+                                {% if recipient.photo %}
+                                    {% image recipient.photo fill-120x150 %}
+                                {% else %}
+                                    <div class="recipient-photo-placeholder">
+                                        <i class="bi bi-person"></i>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </a>
+                        <div class="recipient-info">
+                            <div class="recipient-year-name">
+                                <span class="recipient-year">{{ recipient.year }}</span>
+                                <a href="{{ recipient.get_absolute_url }}" class="recipient-name-link">{{ recipient.full_name }}</a>
+                            </div>
+                            {% if recipient.institution %}
+                            <div class="recipient-institution">{{ recipient.institution }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    {% empty %}
+                    <p class="text-muted">Recipient information is being updated.</p>
+                    {% endfor %}
+                </div>
+
+            {% else %}
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle me-2"></i>Select an award from the menu to view recipients.
+                </div>
+            {% endif %}
+
+        </div>
+
+        {# Sponsor Column - 4 cols #}
+        <div class="col-12 col-lg-4 awards-sponsor-col">
+            <div class="sponsor-section">
+
+                {% if current_award.sponsor_logo or current_award.sponsor_description %}
+                <div class="award-image-card">
+                    {% if current_award.sponsor_logo %}
+                    <div class="award-image">
+                        {% image current_award.sponsor_logo original class="img-fluid" %}
+                    </div>
+                    {% endif %}
+
+                    {% if current_award.sponsor_description %}
+                    <div class="award-image-caption">
+                        {{ current_award.sponsor_description }}
+                    </div>
+                    {% endif %}
+
+                    {% if current_award.sponsor_name %}
+                    <div class="sponsor-name">{{ current_award.sponsor_name }}</div>
+                    {% endif %}
+
+                    {% if current_award.sponsor_url %}
+                    <a href="{{ current_award.sponsor_url }}" target="_blank" class="sponsor-link">
+                        <i class="bi bi-box-arrow-up-right me-1"></i>Visit Sponsor Website
+                    </a>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block title %}Global Peptide Groups{% endblock %}
+
+{% block body_class %}template-global-peptide-groups-index{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/global_peptide_groups.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    <h1 class="page-top-header">Global Peptide Groups</h1>
+
+    {% if page.intro %}
+    <div class="intro-text mb-4">
+        {{ page.intro|linebreaks }}
+    </div>
+    {% endif %}
+
+    {# Groups Grid #}
+    <div class="row">
+        {% for group in groups %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 gpg-card">
+                {% if group.featured_image %}
+                <a href="{% pageurl group %}">
+                    {% image group.featured_image width-400 as card_img %}
+                    <img src="{{ card_img.url }}" class="card-img-top gpg-card-img" alt="{{ group.lab_name }}">
+                </a>
+                {% else %}
+                <a href="{% pageurl group %}">
+                    <div class="card-img-placeholder">
+                        <i class="bi bi-building"></i>
+                    </div>
+                </a>
+                {% endif %}
+                <div class="card-body">
+                    <h3 class="card-title h5">
+                        <a href="{% pageurl group %}" class="text-decoration-none">
+                            {{ group.lab_name }}
+                        </a>
+                    </h3>
+                    {% if group.pi_name or group.institution %}
+                    <p class="card-text small text-muted">
+                        {% if group.pi_name %}{{ group.pi_name }}{% endif %}
+                        {% if group.institution %}<br>{{ group.institution }}{% endif %}
+                    </p>
+                    {% endif %}
+                    {% if group.blurb %}
+                    <p class="card-text small">{{ group.blurb|truncatewords:20 }}</p>
+                    {% endif %}
+                </div>
+                <div class="card-footer bg-transparent">
+                    {% if group.feature_date %}
+                    <small class="text-muted">Featured {{ group.feature_date|date:"F Y" }}</small>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="text-muted">No groups have been featured yet.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock content %}

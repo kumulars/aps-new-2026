@@ -1,0 +1,234 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block title %}{{ view_config.title }} - {{ page.title }}{% endblock %}
+
+{% block body_class %}template-people-index{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/people.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row">
+
+        {# Sidebar Navigation - col-2 on desktop, horizontal on mobile #}
+        <div class="col-12 col-lg-2 people-sidebar-col">
+            <div class="people-sidebar">
+                <div class="people-nav-sidebar">
+                    {% for item in nav_items %}
+                    <a href="?view={{ item.key }}"
+                       class="people-nav-btn {% if item.key == current_view %}active{% endif %}">
+                        <span class="nav-label">{{ item.label }}</span>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        {# Main Content - col-10 on desktop #}
+        <div class="col-12 col-lg-10 people-main-col">
+
+            {# Page Title #}
+            <div class="people-header">
+                <h1 class="page-top-header">{{ view_config.title }}</h1>
+            </div>
+
+            {# Description - Two Columns #}
+            <div class="people-description">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <p>{{ description_1 }}</p>
+                    </div>
+                    <div class="col-lg-6">
+                        <p>{{ description_2 }}</p>
+                    </div>
+                </div>
+            </div>
+
+            {# ================================================================ #}
+            {# OFFICERS & COUNCILORS VIEW #}
+            {# ================================================================ #}
+            {% if current_view == 'officers' %}
+
+                {# Officers Section #}
+                {% if officers %}
+                <div class="people-section">
+                    <h2 class="people-section-header">Officers</h2>
+                    <div class="people-grid">
+                        {% for person in officers %}
+                        <div class="person-card">
+                            <div class="person-photo-wrapper">
+                                {% if person.photo %}
+                                    {% image person.photo fill-280x340 class="person-photo" %}
+                                {% else %}
+                                    <div class="person-photo-placeholder">
+                                        <i class="bi bi-person"></i>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="person-info">
+                                <div class="person-name">{{ person.full_name }}</div>
+                                <div class="person-role">{{ person.current_role_display }}</div>
+                                {% if person.professional_title %}
+                                <div class="person-title">{{ person.professional_title }}</div>
+                                {% endif %}
+                                {% if person.institution %}
+                                <div class="person-institution">{{ person.institution }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                {# Councilors Section #}
+                {% if councilors %}
+                <div class="people-section">
+                    <h2 class="people-section-header orange-accent">Councilors</h2>
+                    <div class="people-grid">
+                        {% for person in councilors %}
+                        <div class="person-card">
+                            <div class="person-photo-wrapper">
+                                {% if person.photo %}
+                                    {% image person.photo fill-280x340 class="person-photo" %}
+                                {% else %}
+                                    <div class="person-photo-placeholder">
+                                        <i class="bi bi-person"></i>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="person-info">
+                                <div class="person-name">{{ person.full_name }}</div>
+                                {% if person.professional_title %}
+                                <div class="person-title">{{ person.professional_title }}</div>
+                                {% endif %}
+                                {% if person.institution %}
+                                <div class="person-institution">{{ person.institution }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                {# Staff Section #}
+                {% if staff %}
+                <div class="people-section">
+                    <h2 class="people-section-header green-accent">Society Staff</h2>
+                    <div class="people-grid">
+                        {% for person in staff %}
+                        <div class="person-card">
+                            <div class="person-photo-wrapper">
+                                {% if person.photo %}
+                                    {% image person.photo fill-280x340 class="person-photo" %}
+                                {% else %}
+                                    <div class="person-photo-placeholder">
+                                        <i class="bi bi-person"></i>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="person-info">
+                                <div class="person-name">{{ person.full_name }}</div>
+                                <div class="person-role">{{ person.current_role_display }}</div>
+                                {% if person.professional_title %}
+                                <div class="person-title">{{ person.professional_title }}</div>
+                                {% endif %}
+                                {% if person.institution %}
+                                <div class="person-institution">{{ person.institution }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+            {# ================================================================ #}
+            {# PAST PRESIDENTS VIEW #}
+            {# ================================================================ #}
+            {% elif current_view == 'past-presidents' %}
+
+                {% if past_presidents %}
+                <div class="people-section">
+                    <div class="people-grid">
+                        {% for person in past_presidents %}
+                        <div class="person-card">
+                            <div class="person-photo-wrapper">
+                                {% if person.photo %}
+                                    {% image person.photo fill-280x340 class="person-photo" %}
+                                {% else %}
+                                    <div class="person-photo-placeholder">
+                                        <i class="bi bi-person"></i>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="person-info">
+                                <div class="person-name">{{ person.full_name }}</div>
+                                {% for assignment in person.role_assignments.all %}
+                                    {% if assignment.role.category == 'past_president' and assignment.service_years %}
+                                    <span class="person-years">{{ assignment.service_years }}</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% else %}
+                <div class="people-section">
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle me-2"></i>No past presidents have been added yet.
+                    </div>
+                </div>
+                {% endif %}
+
+            {# ================================================================ #}
+            {# COMMITTEES VIEW #}
+            {# ================================================================ #}
+            {% elif current_view == 'committees' %}
+
+                {% if committees %}
+                    {% for item in committees %}
+                    <div class="committee-block">
+                        <h3 class="committee-name">{{ item.committee.name }}</h3>
+                        <div class="committee-members-grid">
+                            {% for membership in item.members %}
+                            <div class="member-card {% if membership.membership_role == 'chair' or membership.membership_role == 'co_chair' %}is-chair{% endif %}">
+                                <div class="member-photo-wrapper">
+                                    {% if membership.person.photo %}
+                                        {% image membership.person.photo fill-120x120 class="member-photo" %}
+                                    {% else %}
+                                        <div class="person-photo-placeholder" style="font-size: 1.5rem;">
+                                            <i class="bi bi-person"></i>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="member-name">{{ membership.person.full_name }}</div>
+                                {% if membership.membership_role == 'chair' %}
+                                <div class="member-role-badge">Chair</div>
+                                {% elif membership.membership_role == 'co_chair' %}
+                                <div class="member-role-badge">Co-Chair</div>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                <div class="people-section">
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle me-2"></i>No committees have been set up yet.
+                    </div>
+                </div>
+                {% endif %}
+
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+{% endblock content %}

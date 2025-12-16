@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load static wagtailimages_tags %}
+
+{% block title %}Research Archive{% endblock %}
+
+{% block body_class %}template-research-archive{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    <h1 class="page-top-header">News &amp; Research Archive</h1>
+
+    {# Category Filter Tabs #}
+    <div class="mb-4">
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link{% if not active_category %} active{% endif %}" href="{% url 'research_archive' %}">
+                    All
+                </a>
+            </li>
+            {% for cat in categories %}
+            <li class="nav-item">
+                <a class="nav-link{% if active_category.slug == cat.slug %} active{% endif %}"
+                   href="{% url 'research_archive' %}?category={{ cat.slug }}">
+                    {{ cat.name }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    {% if active_category %}
+    <p class="text-muted mb-4">
+        Showing items in <strong>{{ active_category.name }}</strong>
+        &middot; <a href="{% url 'research_archive' %}">Clear filter</a>
+    </p>
+    {% endif %}
+
+    {# Research Items Grid #}
+    <div class="row">
+        {% for item in page_obj %}
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card h-100">
+                {% if item.main_image %}
+                <a href="{% url 'research_item_detail' slug=item.slug %}">
+                    {% image item.main_image fill-400x280 as card_img %}
+                    <img src="{{ card_img.url }}" class="card-img-top" alt="{{ item.short_title }}">
+                </a>
+                {% else %}
+                <a href="{% url 'research_item_detail' slug=item.slug %}">
+                    <div class="bg-secondary" style="height: 180px;"></div>
+                </a>
+                {% endif %}
+                <div class="card-body">
+                    <h2 class="card-title h5">
+                        <a href="{% url 'research_item_detail' slug=item.slug %}" class="text-decoration-none text-dark">
+                            {{ item.short_title }}
+                        </a>
+                    </h2>
+                    <p class="card-text small text-muted">{{ item.lab_name }}</p>
+                    {% if item.blurb %}
+                    <p class="card-text small">{{ item.blurb|truncatewords:25 }}</p>
+                    {% endif %}
+                </div>
+                <div class="card-footer bg-transparent">
+                    <small class="text-muted">Highlighted here {{ item.publish_date|date:"M j, Y" }}</small>
+                    {% if item.category %}
+                    <span class="badge bg-light text-dark float-end">{{ item.category.name }}</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="text-muted">No research items found.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    {# Pagination #}
+    {% if page_obj.has_other_pages %}
+    <nav aria-label="Archive pagination" class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}{% if active_category %}&category={{ active_category.slug }}{% endif %}">{{ num }}</a>
+                </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </nav>
+    {% endif %}
+
+</div>
+{% endblock content %}

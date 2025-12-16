@@ -1,0 +1,792 @@
+/* APS Site Styles - Wagtail Edition */
+/* Cleaned from WordPress original, December 2024 */
+
+/* ============================================
+   FONTS
+   ============================================ */
+@import url("https://use.typekit.net/dvt1uyd.css");
+
+/* ============================================
+   CSS CUSTOM PROPERTIES
+   ============================================ */
+:root {
+    /* Colors */
+    --aps-text:         #5A5A5A;
+    --aps-link:         #cb3b2d;
+    --aps-link-hover:   #5A5A5A;
+    --aps-blue:         #3a53a4;
+    --aps-orange:       #FFA800;
+    --aps-orange-alt:   #f26522;
+    --aps-green:        #7ebd01;
+    --aps-footer:       #284b63;
+    --aps-footer-nav:   #2A628F;
+    --aps-white:        #FFFFFF;
+    --aps-light-gray:   #f2f2f2;
+    --aps-border-gray:  #ddd;
+    --aps-cream:        #fffdd0;
+
+    /* Typography */
+    --font-family:      "azo-sans-web", sans-serif;
+    --font-size-base:   1.1em;
+    --line-height-base: 1.3em;
+
+    /* Spacing */
+    --space-xs:  7px;
+    --space-sm:  9px;
+    --space-md:  19px;
+    --space-lg:  29px;
+    --space-xl:  39px;
+
+    /* Container */
+    --container-max:    1679px;
+}
+
+/* ============================================
+   BASE RESET & TYPOGRAPHY
+   ============================================ */
+body {
+    font-family: var(--font-family);
+    color: var(--aps-text);
+}
+
+p {
+    color: var(--aps-text);
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family);
+    text-transform: none;
+}
+
+a {
+    color: var(--aps-link);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--aps-link-hover);
+}
+
+td {
+    color: var(--aps-text);
+    font-family: var(--font-family);
+    font-size: 1.2em;
+    line-height: 1.8em;
+    font-weight: 400;
+}
+
+/* ============================================
+   CONTAINER
+   ============================================ */
+.container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+}
+
+@media (min-width: 1679px) {
+    .container {
+        padding: 0;
+    }
+}
+
+/* ============================================
+   HEADER STYLES (Left Border Accent Pattern)
+   ============================================ */
+
+/* Main page header - large, red accent */
+.main-page-header {
+    font-weight: 400;
+    font-size: 3em;
+    margin-bottom: var(--space-md);
+    padding-left: var(--space-xs);
+    border-left: 3px solid var(--aps-link);
+    line-height: 1em;
+    letter-spacing: 0.01em;
+}
+
+/* Page top header - consistent red accent on all pages */
+.page-top-header {
+    font-weight: 300;
+    font-size: 2em;
+    margin-bottom: var(--space-lg);
+    padding-left: var(--space-sm);
+    margin-left: 0;
+    border-left: 8px solid var(--aps-link);
+    line-height: 1em;
+    letter-spacing: 0.01em;
+}
+
+/* Secondary page header - no accent */
+.secondary-page-header {
+    font-weight: 400;
+    font-size: 1.8em;
+    margin-bottom: var(--space-md);
+    line-height: 1em;
+    letter-spacing: 0.01em;
+    margin-top: 0;
+}
+
+/* Secondary header with top padding */
+.secondary-header {
+    font-weight: 400;
+    font-size: 1.8em;
+    padding-top: var(--space-md);
+    margin-bottom: var(--space-md);
+    line-height: 1em;
+    letter-spacing: 0.01em;
+}
+
+/* Secondary homepage header - blue accent */
+.secondary-homepage-header-left {
+    font-weight: 600;
+    font-size: 1.5em;
+    margin-bottom: var(--space-md);
+    padding-left: var(--space-xs);
+    border-left: 4px solid var(--aps-blue);
+    line-height: 1em;
+    letter-spacing: 0.01em;
+    margin-top: 0;
+}
+
+/* Smaller blue accent header */
+.secondary-homepage-header-left-2 {
+    font-weight: 600;
+    font-size: 1.3em;
+    margin-bottom: var(--space-md);
+    padding-left: var(--space-xs);
+    border-left: 4px solid var(--aps-blue);
+    line-height: 1em;
+    letter-spacing: 0.01em;
+    margin-top: var(--space-xl);
+}
+
+/* News header - orange accent */
+.news-header {
+    font-weight: 600;
+    color: var(--aps-blue);
+    font-size: 1.2em;
+    margin-bottom: var(--space-md);
+    padding-left: var(--space-xs);
+    border-left: 4px solid var(--aps-orange);
+    line-height: 1em;
+    letter-spacing: 0.03em;
+    margin-top: 0;
+}
+
+/* Publication info header - orange accent */
+.publication-info {
+    font-weight: 600;
+    font-size: 1.3em;
+    margin-bottom: 17px;
+    padding-left: var(--space-xs);
+    border-left: 4px solid var(--aps-orange);
+    line-height: 1em;
+    letter-spacing: 0.03em;
+    margin-top: var(--space-md);
+}
+
+/* Media header - orange-alt accent */
+.media-header-four {
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-sm);
+    font-weight: 600;
+    font-size: 1.6em;
+    padding-left: var(--space-xs);
+    border-left: 7px solid var(--aps-orange-alt);
+    line-height: 1em;
+    letter-spacing: 0.01em;
+}
+
+/* Social header - green accent */
+.social-header {
+    font-weight: 600;
+    color: var(--aps-text);
+    font-size: 1.2em;
+    margin-top: var(--space-xl);
+    padding-left: var(--space-xs);
+    border-left: 4px solid var(--aps-green);
+    line-height: 1em;
+    letter-spacing: 0.05em;
+}
+
+/* Memoriam header */
+.memoriam-header {
+    font-weight: 400;
+    font-size: 1.8em;
+    margin-bottom: var(--space-sm);
+    line-height: 1em;
+    letter-spacing: 0.01em;
+}
+
+/* ============================================
+   TEXT UTILITY CLASSES
+   ============================================ */
+
+.intro {
+    font-size: 1.5em;
+    line-height: 1.3em;
+}
+
+.welcome {
+    color: var(--aps-text);
+    font-family: var(--font-family);
+    font-size: 1.5em;
+    line-height: 1.4em;
+    font-weight: 400;
+}
+
+.subheader {
+    font-size: 1.5em;
+    line-height: 1.7em;
+    font-weight: 600;
+}
+
+.small {
+    color: var(--aps-text);
+    font-family: var(--font-family);
+    font-size: 0.9em;
+    line-height: 1.3em;
+    font-weight: 400;
+}
+
+.justify {
+    text-align: justify;
+    font-size: 1.3em;
+    line-height: 1.4em;
+}
+
+.bullet-type {
+    color: var(--aps-text);
+    font-family: var(--font-family);
+    font-size: 1.2em;
+    line-height: 1.4em;
+    font-weight: 400;
+}
+
+.setting {
+    color: var(--aps-text);
+    font-family: var(--font-family);
+    font-size: 1.2em;
+    line-height: 1.4em;
+    font-weight: 400;
+}
+
+.location {
+    color: var(--aps-text);
+    font-family: var(--font-family);
+    font-size: 1.2em;
+    line-height: 1.4em;
+    font-weight: 400;
+}
+
+.sidebar {
+    color: var(--aps-text);
+    font-family: var(--font-family);
+    font-size: 1em;
+    line-height: 1.4em;
+    font-weight: 400;
+}
+
+.labinfo {
+    font-size: 0.9em;
+    margin-top: var(--space-sm);
+    font-style: italic;
+    font-weight: 600;
+}
+
+.year {
+    color: var(--aps-blue);
+    font-family: var(--font-family);
+    font-size: 2em;
+    line-height: 1.4em;
+    font-weight: 600;
+}
+
+.tagline {
+    color: var(--aps-text);
+    font-family: var(--font-family);
+    font-size: 1.6em;
+    line-height: 1.4em;
+    font-weight: 400;
+}
+
+/* ============================================
+   PEOPLE / PROFILES
+   ============================================ */
+
+.people-name {
+    font-weight: 300;
+    font-size: 2em;
+    margin-bottom: var(--space-md);
+    line-height: 1.2em;
+    letter-spacing: 0.05em;
+    margin: var(--space-md) 0 var(--space-xs) 0;
+}
+
+.people-title {
+    font-weight: 700;
+}
+
+.person-descript {
+    font-weight: 600;
+    font-size: 2em;
+    margin-bottom: var(--space-md);
+    margin-left: 0;
+    line-height: 1em;
+    letter-spacing: 0.01em;
+    color: var(--aps-blue);
+}
+
+.work-location {
+    font-weight: 400;
+    font-size: 1.8em;
+    padding-top: 0;
+    font-style: italic;
+    margin-bottom: var(--space-md);
+    line-height: 1em;
+    margin-left: 21px;
+    letter-spacing: 0.01em;
+}
+
+.chair-head {
+    color: var(--aps-text);
+    font-family: var(--font-family);
+    font-size: 1.2em;
+    line-height: 1.4em;
+    font-weight: 700;
+    padding-top: 5px;
+}
+
+.chair {
+    color: var(--aps-text);
+    font-family: var(--font-family);
+    font-size: 1.2em;
+    line-height: 1.4em;
+    font-weight: 400;
+    padding-top: 5px;
+}
+
+/* ============================================
+   LISTS
+   ============================================ */
+
+li.litlist {
+    color: var(--aps-text);
+    font-family: var(--font-family);
+    font-size: 1em;
+    line-height: 1.3em;
+    font-weight: 400;
+    margin-bottom: var(--space-sm);
+}
+
+.ul-link-text {
+    font-size: 1.2em;
+}
+
+/* ============================================
+   TABLES
+   ============================================ */
+
+.aps-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.aps-table th,
+.aps-table td {
+    border: 1px solid var(--aps-border-gray);
+    padding: 8px;
+}
+
+.aps-table th {
+    background-color: #e0e0e0;
+    text-align: left;
+}
+
+.aps-table tbody tr:nth-child(even) {
+    background-color: var(--aps-light-gray);
+}
+
+.iam-table {
+    color: var(--aps-text);
+    font-family: var(--font-family);
+    font-size: 0.8em;
+    line-height: 0.8em;
+    font-weight: 400;
+    border: none;
+    border-collapse: collapse;
+    width: 70%;
+}
+
+.iam-table td {
+    border: none;
+    vertical-align: top;
+}
+
+/* ============================================
+   BACKGROUND BOXES
+   ============================================ */
+
+.backgrblue {
+    background: rgba(75, 156, 211, 0.2);
+    padding: var(--space-lg);
+    border-radius: 9px;
+    border: 1px solid #555555;
+}
+
+.backgrgray {
+    background: rgba(153, 153, 152, 0.2);
+    padding: var(--space-lg);
+    border-radius: 9px;
+    border: 1px solid #555555;
+}
+
+.disclaimer-box {
+    padding: var(--space-lg) var(--space-lg) var(--space-sm) var(--space-lg);
+    border: 1px solid red;
+    margin-bottom: var(--space-md);
+    background-color: var(--aps-cream);
+}
+
+.panel-title {
+    padding-top: var(--space-sm);
+    background-color: var(--aps-link);
+    padding: 12px;
+    margin-bottom: var(--space-lg);
+}
+
+.panel-title p {
+    font-weight: 700;
+    font-size: 1.8em;
+    color: var(--aps-white);
+    margin: 0;
+}
+
+/* ============================================
+   IMAGE ALIGNMENT
+   ============================================ */
+
+.img-align {
+    margin-top: 45px;
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.align-right {
+    float: right;
+    margin-left: 15px;
+    max-width: 100%;
+    height: auto;
+    padding-bottom: var(--space-sm);
+}
+
+.float-center {
+    margin: var(--space-lg) 0;
+    text-align: center;
+}
+
+.float-center img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+}
+
+/* ============================================
+   LAYOUT UTILITIES
+   ============================================ */
+
+.nopad {
+    padding: 0 var(--space-lg) 0 0;
+}
+
+.nopad-none {
+    padding: 0;
+}
+
+/* ============================================
+   DIVIDERS
+   ============================================ */
+
+hr.blue {
+    border: none;
+    border-top: 1px solid rgba(58, 83, 164, 1);
+    margin: var(--space-xl) 0 var(--space-md) 0;
+}
+
+/* ============================================
+   VIDEO EMBEDS
+   ============================================ */
+
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.iframecontainer {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding-top: 56.25%;
+}
+
+.responsive-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* ============================================
+   STICKY SIDEBAR
+   ============================================ */
+
+.floating-sidebar {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 20px;
+}
+
+/* ============================================
+   NAVBAR
+   ============================================ */
+
+.navbar {
+    min-height: 100px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.navbar-brand img {
+    height: 80px;
+    max-height: 80px;
+    width: auto;
+}
+
+.navbar .nav-link {
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: #000000;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+    color: #FFA500;
+}
+
+.navbar .nav-link.active,
+.navbar .nav-item.show > .nav-link,
+.navbar .nav-link[aria-expanded="true"] {
+    color: #CB3B2D !important;
+}
+
+.navbar .dropdown-item {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 0.95rem;
+    text-transform: none;
+    color: #000000;
+}
+
+.navbar .dropdown-item:hover,
+.navbar .dropdown-item:focus {
+    background-color: #DCDCDC;
+    color: #000000;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+#colophon,
+.site-footer {
+    background-color: var(--aps-footer);
+}
+
+#footer-nav,
+.footer-nav {
+    background-color: var(--aps-footer-nav);
+}
+
+/* ============================================
+   BUTTONS - APS Blue Override
+   ============================================ */
+
+.btn-outline-primary {
+    color: var(--aps-blue);
+    border-color: var(--aps-blue);
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:active {
+    background-color: var(--aps-blue);
+    border-color: var(--aps-blue);
+    color: var(--aps-white);
+}
+
+.btn-primary {
+    background-color: var(--aps-blue);
+    border-color: var(--aps-blue);
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+    background-color: #2d4283;
+    border-color: #2d4283;
+}
+
+/* Nav Pills - APS Blue */
+.nav-pills .nav-link {
+    color: var(--aps-blue);
+}
+
+.nav-pills .nav-link:hover,
+.nav-pills .nav-link:focus {
+    color: #2d4283;
+}
+
+.nav-pills .nav-link.active {
+    background-color: var(--aps-blue);
+    color: var(--aps-white);
+}
+
+/* Pagination - APS Blue */
+.page-link {
+    color: var(--aps-blue);
+}
+
+.page-link:hover,
+.page-link:focus {
+    color: #2d4283;
+}
+
+.page-item.active .page-link {
+    background-color: var(--aps-blue);
+    border-color: var(--aps-blue);
+}
+
+/* ============================================
+   RESEARCH CARDS - Flexbox Grid
+   ============================================ */
+
+.research-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: flex-start;
+}
+
+.research-card-link {
+    text-decoration: none;
+    color: inherit;
+    flex: 0 0 calc(50% - 0.5rem);  /* Mobile: 2 per row */
+    max-width: calc(50% - 0.5rem);
+}
+
+.research-card {
+    height: 100%;
+}
+
+.research-card .card-img-top {
+    aspect-ratio: 400 / 275;
+    object-fit: cover;
+    width: 100%;
+}
+
+.research-card .card-img-placeholder {
+    aspect-ratio: 400 / 275;
+    width: 100%;
+}
+
+.research-card .card-title {
+    color: var(--aps-text);
+    font-weight: 600;
+    font-size: 1em;
+    line-height: 1.2;
+}
+
+.research-card-link:hover .card {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: box-shadow 0.2s ease;
+}
+
+.research-view-all .card {
+    min-height: 150px;
+    background-color: var(--aps-light-gray);
+}
+
+/* Tablet: 3 per row */
+@media (min-width: 576px) {
+    .research-card-link {
+        flex: 0 0 calc(33.333% - 0.667rem);
+        max-width: calc(33.333% - 0.667rem);
+    }
+}
+
+/* Desktop: 4 per row */
+@media (min-width: 768px) {
+    .research-card-link {
+        flex: 0 0 calc(25% - 0.75rem);
+        max-width: calc(25% - 0.75rem);
+    }
+}
+
+/* Large Desktop: 6 per row */
+@media (min-width: 1200px) {
+    .research-card-link {
+        flex: 0 0 calc(16.666% - 0.833rem);
+        max-width: calc(16.666% - 0.833rem);
+    }
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+    .img-align {
+        margin-top: 20px;
+    }
+
+    .align-right {
+        float: none;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .float-center img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+@media (max-width: 576px) {
+    .img-align {
+        margin-top: 10px;
+    }
+}

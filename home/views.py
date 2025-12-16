@@ -1,0 +1,56 @@
+from django.shortcuts import render, get_object_or_404
+from django.core.paginator import Paginator
+
+from .models import ResearchItem, ResearchItemCategory, AwardRecipient, AwardType
+
+
+def research_item_detail(request, slug):
+    """Display a single research item."""
+    item = get_object_or_404(ResearchItem, slug=slug)
+    return render(request, 'home/research_item_detail.html', {'item': item})
+
+
+def about(request):
+    """Display the About page."""
+    return render(request, 'home/about.html')
+
+
+def research_archive(request):
+    """
+    Display paginated archive of research items.
+    Optional category filter via ?category=slug
+    """
+    items = ResearchItem.objects.all().order_by('-publish_date', '-created_at')
+    categories = ResearchItemCategory.objects.all()
+
+    # Filter by category if provided
+    category_slug = request.GET.get('category')
+    active_category = None
+    if category_slug:
+        active_category = get_object_or_404(ResearchItemCategory, slug=category_slug)
+        items = items.filter(category=active_category)
+
+    # Paginate - 12 items per page
+    paginator = Paginator(items, 12)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'home/research_archive.html', {
+        'page_obj': page_obj,
+        'categories': categories,
+        'active_category': active_category,
+    })
+
+
+def award_recipient_detail(request, slug):
+    """Display a single award recipient's detail page."""
+    recipient = get_object_or_404(AwardRecipient, slug=slug)
+
+    # Get all award types for sidebar navigation
+    award_types = AwardType.objects.filter(is_active=True)
+
+    return render(request, 'home/award_recipient_detail.html', {
+        'recipient': recipient,
+        'award_types': award_types,
+        'current_award': recipient.award_type,
+    })

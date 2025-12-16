@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% load static wagtailimages_tags %}
+
+{% block title %}{{ item.short_title }} - Research{% endblock %}
+
+{% block body_class %}template-research-detail{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    {# Page Top - Full Width Header #}
+    <div class="row">
+        <div class="col-12">
+            <header class="mb-4">
+                <h1 class="page-top-header">
+                    {{ item.short_title }}
+                </h1>
+                <h2 style="font-size: 1.4em; font-weight: 600; padding-left: 8px; border-left: 4px solid var(--aps-blue); margin-top: 0; margin-bottom: 10px; color: var(--aps-text);">
+                    Reflecting work in the {{ item.lab_name }}
+                </h2>
+                <p class="small text-muted">
+                    Published here {{ item.publish_date|date:"F j, Y" }}
+                </p>
+            </header>
+        </div>
+    </div>
+
+    {# Content Columns #}
+    <div class="row">
+        {# Main Content Column #}
+        <div class="col-lg-7">
+            {# Article Body - raw HTML #}
+            <article class="research-article-body mb-4">
+                {{ item.body|safe }}
+            </article>
+
+            <div class="mb-5">
+                <a href="{% url 'research_archive' %}" class="btn btn-sm btn-outline-primary">
+                    <i class="bi bi-arrow-left me-1"></i> Article Archive
+                </a>
+            </div>
+        </div>
+
+        {# Sidebar #}
+        <div class="col-lg-5">
+
+            {# Main Figure #}
+            {% if item.main_image %}
+            <figure class="figure mb-4 w-100">
+                {% image item.main_image width-800 as main_img %}
+                <img src="{{ main_img.url }}" alt="{{ item.short_title }}" class="figure-img img-fluid w-100 rounded">
+                {% if item.main_image_caption %}
+                <figcaption class="figure-caption">{{ item.main_image_caption|safe }}</figcaption>
+                {% endif %}
+            </figure>
+            {% endif %}
+
+            <hr class="blue">
+
+            {# Publication Information #}
+            <section class="mb-4">
+                <h3 style="font-weight: 600; font-size: 1.3em; padding-left: 8px; border-left: 4px solid var(--aps-orange); margin-bottom: 12px;">
+                    Original Publication
+                </h3>
+                <p class="mb-2"><strong>{{ item.publication_title }}</strong></p>
+                {% if item.publication_authors %}
+                <p class="small text-muted mb-2">{{ item.publication_authors }}</p>
+                {% endif %}
+                {% if item.publication_citation %}
+                <p class="small mb-2">{{ item.publication_citation|safe }}</p>
+                {% endif %}
+                {% if item.publication_url %}
+                <p>
+                    <a href="{{ item.publication_url }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-box-arrow-up-right me-1"></i> View Publication
+                    </a>
+                </p>
+                {% endif %}
+            </section>
+
+            {# Author Spotlights #}
+            {% if item.author_1_info or item.author_2_info or item.author_3_info %}
+            <hr class="blue">
+            <section class="author-spotlights mb-4">
+                <h3 style="font-weight: 600; font-size: 1.3em; padding-left: 8px; border-left: 4px solid var(--aps-green); margin-bottom: 12px;">
+                    Author Spotlight
+                </h3>
+
+                {% if item.author_1_info %}
+                <div class="mb-4">
+                    {% if item.author_1_image %}
+                    {% image item.author_1_image original as author1_img %}
+                    <img src="{{ author1_img.url }}" alt="Author" class="img-fluid w-100 rounded mb-2">
+                    {% endif %}
+                    <div class="small">
+                        {{ item.author_1_info|safe }}
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if item.author_2_info %}
+                <div class="mb-4">
+                    {% if item.author_2_image %}
+                    {% image item.author_2_image original as author2_img %}
+                    <img src="{{ author2_img.url }}" alt="Author" class="img-fluid w-100 rounded mb-2">
+                    {% endif %}
+                    <div class="small">
+                        {{ item.author_2_info|safe }}
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if item.author_3_info %}
+                <div class="mb-4">
+                    {% if item.author_3_image %}
+                    {% image item.author_3_image original as author3_img %}
+                    <img src="{{ author3_img.url }}" alt="Author" class="img-fluid w-100 rounded mb-2">
+                    {% endif %}
+                    <div class="small">
+                        {{ item.author_3_info|safe }}
+                    </div>
+                </div>
+                {% endif %}
+            </section>
+            {% endif %}
+
+            {# Category Badge #}
+            {% if item.category %}
+            <div class="mb-4">
+                <span class="badge bg-secondary">{{ item.category.name }}</span>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

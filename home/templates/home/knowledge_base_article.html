@@ -1,0 +1,386 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+
+{% block title %}{{ article.title }} - Knowledge Base{% endblock %}
+
+{% block body_class %}template-knowledge-base-article{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/knowledge_base.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    <div class="row">
+
+        {# Sidebar Navigation - 2 cols #}
+        <div class="col-12 col-lg-2 kb-sidebar-col">
+            <div class="kb-sidebar">
+                <div class="kb-nav-accordion">
+                    {% for ch in all_chapters %}
+                    <div class="kb-chapter-nav-item">
+                        <button class="kb-chapter-btn {% if ch.slug == chapter.slug %}active expanded{% endif %}"
+                                onclick="toggleChapter(this)" type="button">
+                            <span>
+                                <span class="chapter-num">{{ ch.chapter_number }}</span>
+                                {{ ch.title|truncatewords:3 }}
+                            </span>
+                            <i class="bi bi-chevron-right expand-icon"></i>
+                        </button>
+
+                        <div class="kb-sections-list {% if ch.slug == chapter.slug %}show{% endif %}">
+                            {% for sec in ch.sections.all %}
+                            <div class="kb-section-nav-item">
+                                <a href="{{ sec.get_absolute_url }}"
+                                   class="kb-section-link {% if sec.slug == section.slug %}active{% endif %}"
+                                   onclick="toggleSection(event, this)">
+                                    {{ sec.title|truncatewords:3 }}
+                                </a>
+
+                                <div class="kb-articles-list {% if sec.slug == section.slug %}show{% endif %}">
+                                    {% for art in sec.articles.all %}
+                                    <a href="{{ art.get_absolute_url }}"
+                                       class="kb-article-link {% if art.slug == article.slug %}active{% endif %}">
+                                        {{ art.title|truncatewords:5 }}
+                                    </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        {# Main Content - 6 cols #}
+        <div class="col-12 col-lg-6 kb-main-col">
+
+            {# Breadcrumb #}
+            <nav class="kb-breadcrumb">
+                <a href="/knowledge-base/">Knowledge Base</a>
+                <span class="separator">&raquo;</span>
+                <a href="{{ chapter.get_absolute_url }}">Ch. {{ chapter.chapter_number }}</a>
+                <span class="separator">&raquo;</span>
+                <a href="{{ section.get_absolute_url }}">{{ section.title|truncatewords:3 }}</a>
+            </nav>
+
+            {# Article Header #}
+            <h1 class="page-top-header">{{ article.title }}</h1>
+
+            {# Excerpt #}
+            {% if article.excerpt %}
+            <div class="kb-excerpt">
+                {{ article.excerpt }}
+            </div>
+            {% endif %}
+
+            {# Article Content #}
+            <div class="kb-article-content">
+                {{ article.content|safe }}
+            </div>
+
+            {# Citations #}
+            {% if article.citations %}
+            <div class="kb-citations">
+                <h3><i class="bi bi-journal-text me-2"></i>References</h3>
+                <div>{{ article.citations|safe }}</div>
+            </div>
+            {% endif %}
+
+            {# Comments Section #}
+            <div class="kb-comments">
+                <h3><i class="bi bi-chat-dots me-2"></i>Comments ({{ comments.count }})</h3>
+
+                {% for comment in comments %}
+                <div class="kb-comment">
+                    <div class="kb-comment-header">
+                        <span class="kb-comment-author">{{ comment.author_name }}</span>
+                        <span class="kb-comment-date">{{ comment.created_at|date:"M d, Y" }}</span>
+                    </div>
+                    <div class="kb-comment-content">
+                        {{ comment.content|linebreaks }}
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-muted">No comments yet. Be the first to share your thoughts!</p>
+                {% endfor %}
+
+                {# Comment Form #}
+                <div class="kb-comment-form">
+                    <h4>Leave a Comment</h4>
+                    <form id="commentForm">
+                        <input type="text" name="author_name" placeholder="Your name" required>
+                        <input type="email" name="author_email" placeholder="Your email (optional)">
+                        <textarea name="content" placeholder="Your comment..." required></textarea>
+                        <button type="submit">Submit Comment</button>
+                        <p class="moderation-note">
+                            <i class="bi bi-info-circle me-1"></i>
+                            Comments are moderated and will appear after approval.
+                        </p>
+                    </form>
+                </div>
+            </div>
+
+            {# Article Navigation #}
+            <div class="kb-article-nav">
+                {% if prev_article %}
+                <a href="{{ prev_article.get_absolute_url }}" class="kb-nav-btn">
+                    <i class="bi bi-arrow-left"></i>
+                    Previous
+                </a>
+                {% else %}
+                <span></span>
+                {% endif %}
+
+                {% if next_article %}
+                <a href="{{ next_article.get_absolute_url }}" class="kb-nav-btn">
+                    Next
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+                {% endif %}
+            </div>
+
+        </div>
+
+        {# Info Sidebar - 4 cols #}
+        <div class="col-12 col-lg-4 kb-info-col">
+            <div class="kb-info-section">
+
+                {# Article Info Card #}
+                <div class="kb-info-card">
+                    <h4>Article Info</h4>
+
+                    <div class="kb-info-item">
+                        <i class="bi bi-speedometer2"></i>
+                        <span class="label">Level:</span>
+                        <span class="difficulty-badge {{ article.difficulty }}">
+                            {{ article.get_difficulty_display }}
+                        </span>
+                    </div>
+
+                    <div class="kb-info-item">
+                        <i class="bi bi-clock"></i>
+                        <span class="label">Reading:</span>
+                        <span class="value">{{ article.reading_time }} min</span>
+                    </div>
+
+                    {% if article.author %}
+                    <div class="kb-info-item">
+                        <i class="bi bi-person"></i>
+                        <span class="label">Author:</span>
+                        <span class="value">{{ article.author }}</span>
+                    </div>
+                    {% endif %}
+
+                    <div class="kb-info-item">
+                        <i class="bi bi-eye"></i>
+                        <span class="label">Views:</span>
+                        <span class="value">{{ article.view_count }}</span>
+                    </div>
+
+                    {% if article.published_date %}
+                    <div class="kb-info-item">
+                        <i class="bi bi-calendar"></i>
+                        <span class="label">Published:</span>
+                        <span class="value">{{ article.published_date|date:"M Y" }}</span>
+                    </div>
+                    {% endif %}
+
+                    {% if article.tags %}
+                    <div class="mt-3">
+                        <i class="bi bi-tags me-1"></i>
+                        {% for tag in article.get_tags_list %}
+                        <span class="badge bg-light text-dark me-1">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                {# Rating Widget #}
+                <div class="kb-rating-widget">
+                    <h4>Rate This Article</h4>
+
+                    <div class="star-rating" id="starRating">
+                        {% for i in "12345" %}
+                        <span class="star {% if avg_rating >= forloop.counter %}filled{% endif %}"
+                              data-rating="{{ forloop.counter }}">&#9733;</span>
+                        {% endfor %}
+                    </div>
+
+                    <div class="rating-count">
+                        {% if rating_count %}
+                        {{ avg_rating|floatformat:1 }} average from {{ rating_count }} rating{{ rating_count|pluralize }}
+                        {% else %}
+                        Be the first to rate this article
+                        {% endif %}
+                    </div>
+
+                    <div class="helpful-buttons">
+                        <button class="helpful-btn yes" onclick="markHelpful(true)">
+                            <i class="bi bi-hand-thumbs-up me-1"></i> Helpful
+                        </button>
+                        <button class="helpful-btn no" onclick="markHelpful(false)">
+                            <i class="bi bi-hand-thumbs-down me-1"></i> Not Helpful
+                        </button>
+                    </div>
+                </div>
+
+                {# Related Articles #}
+                {% if related_articles %}
+                <div class="kb-related">
+                    <h4>Related Articles</h4>
+                    {% for related in related_articles %}
+                    <a href="{{ related.get_absolute_url }}" class="kb-related-link">
+                        {{ related.title }}
+                    </a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+const articleId = {{ article.id }};
+
+// Star rating
+document.querySelectorAll('#starRating .star').forEach(function(star) {
+    star.addEventListener('click', function() {
+        const rating = this.dataset.rating;
+        submitRating(rating);
+    });
+
+    star.addEventListener('mouseover', function() {
+        const rating = this.dataset.rating;
+        highlightStars(rating);
+    });
+
+    star.addEventListener('mouseout', function() {
+        resetStars();
+    });
+});
+
+function highlightStars(rating) {
+    document.querySelectorAll('#starRating .star').forEach(function(star, index) {
+        if (index < rating) {
+            star.classList.add('active');
+        } else {
+            star.classList.remove('active');
+        }
+    });
+}
+
+function resetStars() {
+    document.querySelectorAll('#starRating .star').forEach(function(star) {
+        star.classList.remove('active');
+    });
+}
+
+function submitRating(rating) {
+    fetch('/api/knowledge-base/rate/', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            article_id: articleId,
+            rating: parseInt(rating)
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.querySelectorAll('#starRating .star').forEach(function(star, index) {
+                if (index < rating) {
+                    star.classList.add('filled');
+                } else {
+                    star.classList.remove('filled');
+                }
+            });
+            document.querySelector('.rating-count').textContent =
+                data.avg_rating.toFixed(1) + ' average from ' + data.rating_count + ' rating' + (data.rating_count > 1 ? 's' : '');
+        }
+    });
+}
+
+function markHelpful(isHelpful) {
+    fetch('/api/knowledge-base/rate/', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            article_id: articleId,
+            helpful: isHelpful,
+            rating: 0
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert(isHelpful ? 'Thank you for your feedback!' : 'Thanks for letting us know.');
+        }
+    });
+}
+
+// Comment form
+document.getElementById('commentForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+
+    fetch('/api/knowledge-base/comment/', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            article_id: articleId,
+            author_name: formData.get('author_name'),
+            author_email: formData.get('author_email'),
+            content: formData.get('content')
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Comment submitted! It will appear after moderation.');
+            this.reset();
+        } else {
+            alert('Error: ' + data.error);
+        }
+    });
+});
+
+// Chapter/section accordion
+function toggleChapter(btn) {
+    const sectionsList = btn.nextElementSibling;
+    const isExpanded = btn.classList.contains('expanded');
+
+    document.querySelectorAll('.kb-chapter-btn.expanded').forEach(function(otherBtn) {
+        if (otherBtn !== btn && !otherBtn.classList.contains('active')) {
+            otherBtn.classList.remove('expanded');
+            otherBtn.nextElementSibling.classList.remove('show');
+        }
+    });
+
+    if (isExpanded && !btn.classList.contains('active')) {
+        btn.classList.remove('expanded');
+        sectionsList.classList.remove('show');
+    } else {
+        btn.classList.add('expanded');
+        sectionsList.classList.add('show');
+    }
+}
+
+function toggleSection(event, link) {
+    // Don't prevent navigation, just toggle articles visibility
+    const articlesList = link.nextElementSibling;
+    if (articlesList) {
+        articlesList.classList.toggle('show');
+    }
+}
+</script>
+{% endblock %}
+{% endblock content %}

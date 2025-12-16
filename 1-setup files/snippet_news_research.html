@@ -1,0 +1,48 @@
+📋 NewsResearchItem Database Fields
+
+  Metadata
+
+  - id - Auto-generated primary key
+  - news_item_id - Legacy ID field (for migration compatibility)
+  - news_item_entry_date - Publication date
+  - created_at - Record creation timestamp
+
+  Principal Investigator / Author Information
+
+  - news_item_pi_first_name - PI first name (required)
+  - news_item_pi_last_name - PI last name (required)
+  - news_item_pi_title - PI title (e.g., Professor, Dr.)
+  - news_item_pi_institution - Institution name (required)
+  - news_item_pi_website - Lab/PI website URL
+
+  Content Fields
+
+  - news_item_short_title - Short title (max 100 chars) - for carousel
+  - slug - URL-friendly slug (auto-generated from short title)
+  - news_item_full_title - Full publication title (max 300 chars)
+  - news_item_blurb - Brief summary for homepage (max 120 words)
+  - news_item_full_text - Full article content (max 2000 words, HTML
+  allowed)
+  - news_item_authors - Publication authors (required)
+  - news_item_citation - Full citation with HTML formatting
+  - news_item_journal_url - Link to journal article (required)
+
+  Images
+
+  - news_item_image - Main article image (973x670px recommended)
+  - news_item_image_caption - Image caption (max 400 words, HTML allowed)
+  - news_item_inline_image_1 - First inline image (reference as {{image1}})
+  - news_item_inline_image_2 - Second inline image (reference as {{image2}})
+
+  Additional Author Information (New fields)
+
+  - news_item_first_author_information - First author bio (max 300 words)
+  - news_item_first_author_image - First author photo
+  - news_item_second_author_information - Second author bio
+  - news_item_second_author_image - Second author photo
+  - news_item_third_author_information - Third author bio
+  - news_item_third_author_image - Third author photo
+
+  Categorization
+
+  - category - Foreign key to NewsItemCategory (single selection)

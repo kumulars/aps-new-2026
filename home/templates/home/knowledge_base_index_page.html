@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+
+{% block title %}Knowledge Base - Peptide Science Education{% endblock %}
+
+{% block body_class %}template-knowledge-base-index{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/knowledge_base.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    {# Header #}
+    <div class="kb-index-header">
+        <h1 class="page-top-header">Knowledge Base</h1>
+        {% if page.intro %}
+        <div class="kb-index-intro">
+            {{ page.intro|linebreaks }}
+        </div>
+        {% else %}
+        <div class="kb-index-intro">
+            <p>Explore our comprehensive educational resources on peptide science, from fundamental concepts to advanced research techniques.</p>
+        </div>
+        {% endif %}
+    </div>
+
+    {# Stats #}
+    <div class="kb-stats">
+        <div class="kb-stat">
+            <div class="kb-stat-value">{{ total_chapters }}</div>
+            <div class="kb-stat-label">Chapters</div>
+        </div>
+        <div class="kb-stat">
+            <div class="kb-stat-value">{{ total_sections }}</div>
+            <div class="kb-stat-label">Sections</div>
+        </div>
+        <div class="kb-stat">
+            <div class="kb-stat-value">{{ total_articles }}</div>
+            <div class="kb-stat-label">Articles</div>
+        </div>
+    </div>
+
+    {# Search #}
+    <div class="kb-search">
+        <form method="get" action="">
+            <input type="text" name="q" class="kb-search-input"
+                   placeholder="Search articles..."
+                   value="{{ search_query|default:'' }}">
+        </form>
+    </div>
+
+    {# Search Results #}
+    {% if search_results %}
+    <div class="search-results mb-4">
+        <h2>Search Results for "{{ search_query }}"</h2>
+        <p class="text-muted">Found {{ search_results.count }} article{{ search_results.count|pluralize }}</p>
+
+        {% for article in search_results %}
+        <div class="kb-section-card mb-3">
+            <h3><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h3>
+            <p class="text-muted mb-2">
+                <span class="difficulty-badge {{ article.difficulty }}">{{ article.get_difficulty_display }}</span>
+                &bull; {{ article.section.chapter.title }} &raquo; {{ article.section.title }}
+            </p>
+            {% if article.excerpt %}
+            <p>{{ article.excerpt|truncatewords:30 }}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {# Chapter Grid #}
+    {% if not search_results %}
+    <div class="kb-chapter-grid">
+        {% for chapter in chapters %}
+        <div class="kb-chapter-card">
+            <div class="kb-chapter-card-header">
+                <div class="kb-chapter-number">{{ chapter.chapter_number }}</div>
+                <h3>{{ chapter.title }}</h3>
+            </div>
+
+            {% if chapter.description %}
+            <div class="kb-chapter-card-description">
+                {{ chapter.description|truncatewords:25 }}
+            </div>
+            {% endif %}
+
+            <div class="kb-chapter-card-stats">
+                <span><i class="bi bi-folder me-1"></i>{{ chapter.section_count }} sections</span>
+                <span><i class="bi bi-file-text me-1"></i>{{ chapter.article_count }} articles</span>
+            </div>
+
+            <a href="{{ chapter.get_absolute_url }}" class="kb-chapter-card-link">
+                Explore Chapter <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle me-2"></i>
+                Knowledge Base content is being prepared. Check back soon!
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+</div>
+{% endblock content %}

@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+
+{% block title %}{{ section.title }} - Knowledge Base{% endblock %}
+
+{% block body_class %}template-knowledge-base-section{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/knowledge_base.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    <div class="row">
+
+        {# Sidebar Navigation - 2 cols #}
+        <div class="col-12 col-lg-2 kb-sidebar-col">
+            <div class="kb-sidebar">
+                <div class="kb-nav-accordion">
+                    {% for ch in all_chapters %}
+                    <div class="kb-chapter-nav-item">
+                        <button class="kb-chapter-btn {% if ch.slug == chapter.slug %}active expanded{% endif %}"
+                                onclick="toggleChapter(this)" type="button">
+                            <span>
+                                <span class="chapter-num">{{ ch.chapter_number }}</span>
+                                {{ ch.title|truncatewords:3 }}
+                            </span>
+                            <i class="bi bi-chevron-right expand-icon"></i>
+                        </button>
+
+                        <div class="kb-sections-list {% if ch.slug == chapter.slug %}show{% endif %}">
+                            {% for sec in ch.sections.all %}
+                            <a href="{{ sec.get_absolute_url }}"
+                               class="kb-section-link {% if sec.slug == section.slug %}active{% endif %}">
+                                {{ ch.chapter_number }}.{{ sec.section_order }}: {{ sec.title|truncatewords:4 }}
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        {# Main Content - 10 cols #}
+        <div class="col-12 col-lg-10 kb-main-col" style="border-right: none;">
+
+            {# Breadcrumb #}
+            <nav class="kb-breadcrumb">
+                <a href="/knowledge-base/">Knowledge Base</a>
+                <span class="separator">&raquo;</span>
+                <a href="{{ chapter.get_absolute_url }}">Chapter {{ chapter.chapter_number }}</a>
+                <span class="separator">&raquo;</span>
+                <span>{{ section.title }}</span>
+            </nav>
+
+            {# Section Header #}
+            <h1 class="page-top-header">{{ section.title }}</h1>
+
+            <p class="text-muted mb-4">
+                <span class="badge bg-secondary">Chapter {{ chapter.chapter_number }}: {{ chapter.title }}</span>
+                &bull; {{ articles.count }} article{{ articles.count|pluralize }}
+            </p>
+
+            {% if section.description %}
+            <div class="kb-section-description mb-4">
+                {{ section.description|linebreaks }}
+            </div>
+            {% endif %}
+
+            {# Articles List #}
+            <div class="kb-articles-grid">
+                {% for article in articles %}
+                <div class="kb-section-card mb-3">
+                    <h3>
+                        <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
+                    </h3>
+
+                    <p class="text-muted small mb-2">
+                        <span class="difficulty-badge {{ article.difficulty }}">
+                            {{ article.get_difficulty_display }}
+                        </span>
+                        &bull;
+                        <i class="bi bi-clock me-1"></i>{{ article.reading_time }} min read
+                        {% if article.view_count %}
+                        &bull;
+                        <i class="bi bi-eye me-1"></i>{{ article.view_count }} views
+                        {% endif %}
+                    </p>
+
+                    {% if article.excerpt %}
+                    <p class="mb-0">{{ article.excerpt|truncatewords:40 }}</p>
+                    {% endif %}
+                </div>
+                {% empty %}
+                <p class="text-muted">No articles in this section yet.</p>
+                {% endfor %}
+            </div>
+
+            {# Section Navigation #}
+            <div class="kb-article-nav mt-4">
+                {% with prev_section=chapter.sections.all|dictsort:"section_order" %}
+                {% for sec in prev_section %}
+                    {% if sec.section_order < section.section_order %}
+                        {% with prev_sec=sec %}{% endwith %}
+                    {% endif %}
+                {% endfor %}
+                {% endwith %}
+
+                <a href="{{ chapter.get_absolute_url }}" class="kb-nav-btn">
+                    <i class="bi bi-arrow-left"></i> Back to Chapter
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+function toggleChapter(btn) {
+    const sectionsList = btn.nextElementSibling;
+    const isExpanded = btn.classList.contains('expanded');
+
+    // Close all other chapters
+    document.querySelectorAll('.kb-chapter-btn.expanded').forEach(function(otherBtn) {
+        if (otherBtn !== btn) {
+            otherBtn.classList.remove('expanded');
+            otherBtn.nextElementSibling.classList.remove('show');
+        }
+    });
+
+    // Toggle current chapter
+    if (isExpanded) {
+        btn.classList.remove('expanded');
+        sectionsList.classList.remove('show');
+    } else {
+        btn.classList.add('expanded');
+        sectionsList.classList.add('show');
+    }
+}
+</script>
+{% endblock %}
+{% endblock content %}

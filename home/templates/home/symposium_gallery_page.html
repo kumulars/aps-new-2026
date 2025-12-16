@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block body_class %}template-symposium-gallery{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/gallery.css' %}">
+{% endblock %}
+
+{% block content %}
+{# Full-width Banner #}
+{% if symposium_banner %}
+<div class="symposium-banner-full">
+    <img src="/media/{{ symposium_banner }}" alt="APS {{ active_year }} - {{ symposium_location }}" class="img-fluid w-100">
+</div>
+{% endif %}
+
+<div class="container py-4">
+    <div class="row">
+
+        {# Sidebar Navigation - col-2 on desktop, horizontal on mobile #}
+        <div class="col-12 col-lg-2 gallery-sidebar-col">
+            <div class="gallery-sidebar">
+                <div class="gallery-year-nav-sidebar">
+                    {% for item in year_data %}
+                    <a href="?year={{ item.year }}"
+                       class="gallery-year-btn {% if item.year == active_year %}active{% endif %}">
+                        <span class="year-number">{{ item.year }}</span>
+                        <span class="year-location">{{ item.location }}</span>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        {# Main Content - col-10 on desktop #}
+        <div class="col-12 col-lg-10 gallery-main-col">
+
+            {# Symposium Title #}
+            <div class="symposium-header">
+                <h1 class="page-top-header">{{ symposium_title }}</h1>
+            </div>
+
+            {# Symposium Description - Two Columns #}
+            <div class="symposium-description">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <p>{{ symposium_paragraph_1 }}</p>
+                    </div>
+                    <div class="col-lg-6">
+                        <p>{{ symposium_paragraph_2 }}</p>
+                    </div>
+                </div>
+            </div>
+
+            {# Image Grid #}
+            {% if images %}
+            <div class="gallery-grid" id="galleryGrid">
+                {% for img in images %}
+                <div class="gallery-item" data-index="{{ forloop.counter0 }}">
+                    <a href="#" class="gallery-link" data-full-url="{% image img.image width-1200 as full_img %}{{ full_img.url }}" data-caption="{{ img.caption }}">
+                        {% image img.image fill-250x167 class="gallery-thumb" loading="lazy" %}
+                        {% if img.caption %}
+                        <div class="gallery-caption">{{ img.caption }}</div>
+                        {% endif %}
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            <p class="text-muted mt-3">
+                <i class="bi bi-images me-2"></i>{{ images|length }} image{{ images|length|pluralize }} from {{ active_year }}
+            </p>
+            {% else %}
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle me-2"></i>No images available for this year yet.
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+
+{# Lightbox Modal #}
+<div class="gallery-lightbox" id="galleryLightbox">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">
+        <i class="bi bi-x-lg"></i>
+    </button>
+
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous">
+        <i class="bi bi-chevron-left"></i>
+    </button>
+
+    <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next">
+        <i class="bi bi-chevron-right"></i>
+    </button>
+
+    <div class="lightbox-content">
+        <img src="" alt="" id="lightboxImage" class="lightbox-image">
+        <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+
+    <div class="lightbox-counter" id="lightboxCounter"></div>
+</div>
+
+{% endblock content %}
+
+{% block extra_js %}
+<script src="{% static 'js/gallery.js' %}"></script>
+{% endblock %}

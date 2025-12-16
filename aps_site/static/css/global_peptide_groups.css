@@ -1,0 +1,314 @@
+/* =============================================================================
+   GLOBAL PEPTIDE GROUPS STYLES
+   ============================================================================= */
+
+/* =============================================================================
+   HOMEPAGE FEATURE SECTION
+   ============================================================================= */
+
+.gpg-homepage-blurb {
+    padding: 0;
+}
+
+.gpg-homepage-blurb h3 a {
+    color: var(--aps-blue, #1a5276);
+}
+
+.gpg-homepage-blurb h3 a:hover {
+    text-decoration: underline !important;
+}
+
+.gpg-homepage-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    max-height: 300px;
+}
+
+.gpg-homepage-img.gpg-img-bottom {
+    object-position: bottom;
+}
+
+/* =============================================================================
+   INDEX PAGE STYLES
+   ============================================================================= */
+
+/* Index Page - Current Featured Group */
+.current-group-feature {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 2rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--aps-blue, #1a5276);
+}
+
+.featured-group-title {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.featured-group-title a {
+    color: var(--aps-blue, #1a5276);
+    text-decoration: none;
+}
+
+.featured-group-title a:hover {
+    text-decoration: underline;
+}
+
+.featured-group-blurb {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.featured-group-meta {
+    color: #6c757d;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+}
+
+/* Archive Section */
+.archive-section-header {
+    font-size: 1.5rem;
+    color: var(--aps-blue, #1a5276);
+    border-bottom: 2px solid var(--aps-orange, #e67e22);
+    padding-bottom: 0.5rem;
+}
+
+/* Card Styles */
+.gpg-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid #dee2e6;
+}
+
+.gpg-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.gpg-card .card-title a {
+    color: var(--aps-text, #333);
+}
+
+.gpg-card .card-title a:hover {
+    color: var(--aps-blue, #1a5276);
+}
+
+/* Card images - show top, crop bottom */
+.gpg-card-img {
+    height: 200px;
+    object-fit: cover;
+    object-position: top;
+}
+
+.card-img-placeholder {
+    height: 180px;
+    background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 3rem;
+}
+
+/* =============================================================================
+   DETAIL PAGE - TABS
+   ============================================================================= */
+
+.gpg-tabs-container {
+    margin-top: 2rem;
+}
+
+/* Tab Navigation */
+.gpg-tabs {
+    border-bottom: 2px solid var(--aps-blue, #1a5276);
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+}
+
+.gpg-tabs .nav-link {
+    color: #495057;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+    margin-right: 4px;
+    padding: 0.75rem 1.25rem;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+}
+
+.gpg-tabs .nav-link:hover {
+    color: var(--aps-blue, #1a5276);
+    background: #e9ecef;
+}
+
+.gpg-tabs .nav-link.active {
+    color: #fff;
+    background: var(--aps-blue, #1a5276);
+    border-color: var(--aps-blue, #1a5276);
+}
+
+/* Tab Content */
+.gpg-tab-content {
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    padding: 2rem;
+    min-height: 400px;
+}
+
+.tab-inner-content {
+    line-height: 1.7;
+}
+
+/* Styles for imported WordPress content */
+.tab-inner-content .row {
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+.tab-inner-content .col-md-7,
+.tab-inner-content .col-md-5 {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.tab-inner-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.tab-inner-content h2,
+.tab-inner-content h3,
+.tab-inner-content h4 {
+    color: var(--aps-blue, #1a5276);
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.tab-inner-content h2:first-child,
+.tab-inner-content h3:first-child,
+.tab-inner-content h4:first-child {
+    margin-top: 0;
+}
+
+.tab-inner-content p {
+    margin-bottom: 1rem;
+}
+
+.tab-inner-content ul,
+.tab-inner-content ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.tab-inner-content blockquote {
+    border-left: 4px solid var(--aps-orange, #e67e22);
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    color: #555;
+}
+
+/* References styling */
+.tab-inner-content .references,
+.tab-inner-content .citations {
+    font-size: 0.9rem;
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 4px;
+}
+
+/* Featured Banner */
+.featured-banner {
+    max-height: 400px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.featured-banner img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Group Meta Info */
+.group-meta {
+    margin-bottom: 1.5rem;
+}
+
+/* =============================================================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================================================= */
+
+@media (max-width: 991.98px) {
+    .gpg-tabs {
+        justify-content: flex-start;
+        padding-bottom: 8px;
+    }
+
+    .gpg-tabs .nav-link {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .gpg-tab-content {
+        padding: 1.5rem;
+    }
+
+    .current-group-feature {
+        padding: 1.5rem;
+    }
+
+    .featured-group-title {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .gpg-tabs .nav-link {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.85rem;
+    }
+
+    .gpg-tab-content {
+        padding: 1rem;
+    }
+
+    .tab-inner-content .row {
+        flex-direction: column;
+    }
+
+    .tab-inner-content .col-md-7,
+    .tab-inner-content .col-md-5 {
+        width: 100%;
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Scrollbar styling for tabs overflow */
+.gpg-tabs::-webkit-scrollbar {
+    height: 4px;
+}
+
+.gpg-tabs::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.gpg-tabs::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 2px;
+}
+
+.gpg-tabs::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}

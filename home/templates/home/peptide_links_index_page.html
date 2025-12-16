@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block body_class %}template-peptide-links{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/peptide_links.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    {# Page Header #}
+    <div class="peptide-links-header mb-4">
+        <h1 class="page-top-header">{{ page.title }}</h1>
+        {% if page.intro %}
+        <div class="row intro-columns">
+            <div class="col-lg-6">
+                <p>{{ intro_paragraph_1 }}</p>
+            </div>
+            <div class="col-lg-6">
+                <p>{{ intro_paragraph_2 }}</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="row">
+        {# Sidebar Filters #}
+        <div class="col-12 col-lg-3 mb-4">
+            <div class="filter-sidebar">
+                {# Search #}
+                <div class="filter-section">
+                    <h6 class="filter-title">Search</h6>
+                    <form method="get" class="search-form">
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-control" placeholder="Name, institution..."
+                                   value="{{ current_search }}">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                        {# Preserve other filters #}
+                        {% if current_country %}<input type="hidden" name="country" value="{{ current_country }}">{% endif %}
+                        {% if current_state %}<input type="hidden" name="state" value="{{ current_state }}">{% endif %}
+                        {% if current_area %}<input type="hidden" name="area" value="{{ current_area }}">{% endif %}
+                        {% if current_letter %}<input type="hidden" name="letter" value="{{ current_letter }}">{% endif %}
+                    </form>
+                </div>
+
+                {# Alphabetical Filter #}
+                <div class="filter-section">
+                    <h6 class="filter-title">Browse by Name</h6>
+                    <div class="alphabet-filter">
+                        <a href="?{% if current_country %}country={{ current_country }}&{% endif %}{% if current_state %}state={{ current_state }}&{% endif %}{% if current_area %}area={{ current_area }}&{% endif %}{% if current_search %}q={{ current_search }}{% endif %}"
+                           class="letter-btn {% if not current_letter %}active{% endif %}">All</a>
+                        {% for letter in alphabet %}
+                        <a href="?letter={{ letter }}{% if current_country %}&country={{ current_country }}{% endif %}{% if current_state %}&state={{ current_state }}{% endif %}{% if current_area %}&area={{ current_area }}{% endif %}{% if current_search %}&q={{ current_search }}{% endif %}"
+                           class="letter-btn {% if current_letter == letter %}active{% endif %}">{{ letter }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                {# Country Filter #}
+                <div class="filter-section">
+                    <h6 class="filter-title">Country</h6>
+                    <select class="form-select filter-select" id="countryFilter">
+                        <option value="">All Countries</option>
+                        {% for country in countries %}
+                        <option value="{{ country }}" {% if current_country == country %}selected{% endif %}>{{ country }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                {# State Filter (for USA) #}
+                <div class="filter-section" id="stateFilterSection" {% if current_country != 'USA' %}style="display: none;"{% endif %}>
+                    <h6 class="filter-title">State</h6>
+                    <select class="form-select filter-select" id="stateFilter">
+                        <option value="">All States</option>
+                        {% for state in states %}
+                        <option value="{{ state }}" {% if current_state == state %}selected{% endif %}>{{ state }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                {# Research Area Filter #}
+                <div class="filter-section">
+                    <h6 class="filter-title">Research Area</h6>
+                    <select class="form-select filter-select" id="areaFilter">
+                        <option value="">All Areas</option>
+                        {% for area in research_areas %}
+                        <option value="{{ area.slug }}" {% if current_area == area.slug %}selected{% endif %}>{{ area.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                {# Clear Filters #}
+                {% if current_country or current_state or current_area or current_letter or current_search %}
+                <div class="filter-section">
+                    <a href="{{ page.url }}" class="btn btn-outline-secondary btn-sm w-100">
+                        <i class="bi bi-x-circle me-1"></i>Clear All Filters
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        {# Results #}
+        <div class="col-12 col-lg-9">
+            {# Results Header #}
+            <div class="results-header mb-3">
+                <span class="results-count">
+                    <strong>{{ total_count }}</strong> researcher{{ total_count|pluralize }}
+                    {% if current_letter %}starting with "{{ current_letter }}"{% endif %}
+                    {% if current_country %}in {{ current_country }}{% endif %}
+                    {% if current_state %}, {{ current_state }}{% endif %}
+                    {% if current_area %}in {{ current_area|title }}{% endif %}
+                    {% if current_search %}matching "{{ current_search }}"{% endif %}
+                </span>
+            </div>
+
+            {# Researcher Cards - Compact Grid #}
+            {% if researchers %}
+            <div class="researcher-grid">
+                {% for researcher in researchers %}
+                <div class="researcher-card">
+                    <h5 class="researcher-name">{{ researcher.full_name }}</h5>
+                    <div class="researcher-institution">{{ researcher.institution }}</div>
+                    <div class="researcher-actions">
+                        {% if researcher.website_url %}
+                        <a href="{{ researcher.website_url }}" target="_blank" rel="noopener"
+                           class="action-btn" title="Website">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        {% endif %}
+                        {% if researcher.orcid_id %}
+                        <a href="{{ researcher.orcid_url }}" target="_blank" rel="noopener"
+                           class="action-btn action-orcid" title="ORCID">
+                            <i class="bi bi-person-badge"></i>
+                        </a>
+                        {% endif %}
+                        {% if researcher.pubmed_url %}
+                        <a href="{{ researcher.pubmed_url }}" target="_blank" rel="noopener"
+                           class="action-btn action-pubmed" title="PubMed">
+                            <i class="bi bi-journal-text"></i>
+                        </a>
+                        {% endif %}
+                        {% if researcher.google_scholar_url %}
+                        <a href="{{ researcher.google_scholar_url }}" target="_blank" rel="noopener"
+                           class="action-btn action-scholar" title="Google Scholar">
+                            <i class="bi bi-mortarboard"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle me-2"></i>
+                No researchers found matching your criteria. Try adjusting your filters.
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<script>
+(function() {
+    'use strict';
+
+    // Filter selects
+    const countryFilter = document.getElementById('countryFilter');
+    const stateFilter = document.getElementById('stateFilter');
+    const stateSection = document.getElementById('stateFilterSection');
+    const areaFilter = document.getElementById('areaFilter');
+
+    function buildUrl() {
+        const params = new URLSearchParams(window.location.search);
+
+        // Update from selects
+        if (countryFilter.value) {
+            params.set('country', countryFilter.value);
+        } else {
+            params.delete('country');
+        }
+
+        if (stateFilter.value) {
+            params.set('state', stateFilter.value);
+        } else {
+            params.delete('state');
+        }
+
+        if (areaFilter.value) {
+            params.set('area', areaFilter.value);
+        } else {
+            params.delete('area');
+        }
+
+        return window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+    }
+
+    // Country change - show/hide state filter
+    countryFilter.addEventListener('change', function() {
+        if (this.value === 'USA') {
+            stateSection.style.display = 'block';
+        } else {
+            stateSection.style.display = 'none';
+            stateFilter.value = '';
+        }
+        window.location.href = buildUrl();
+    });
+
+    // State change
+    stateFilter.addEventListener('change', function() {
+        window.location.href = buildUrl();
+    });
+
+    // Area change
+    areaFilter.addEventListener('change', function() {
+        window.location.href = buildUrl();
+    });
+})();
+</script>
+{% endblock %}

@@ -1,0 +1,441 @@
+/* =============================================================================
+   AWARDS PAGE STYLES - 2+6+4 Layout
+   ============================================================================= */
+
+/* Sidebar Column - 2 cols */
+.awards-sidebar-col {
+    padding: 0;
+}
+
+.awards-sidebar {
+    padding: 1rem;
+    position: sticky;
+    top: 70px;
+}
+
+/* Sidebar Navigation */
+.awards-nav-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.awards-nav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.75rem 0.5rem;
+    background: white;
+    border: 2px solid #dee2e6;
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--aps-blue);
+    transition: all 0.2s ease;
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.awards-nav-btn:hover {
+    background: #e9ecef;
+    border-color: var(--aps-blue);
+    color: var(--aps-blue);
+    text-decoration: none;
+}
+
+.awards-nav-btn.active {
+    background: var(--aps-blue);
+    border-color: var(--aps-blue);
+    color: white;
+}
+
+/* Main Content Column - 6 cols */
+.awards-main-col {
+    padding: 0 1.5rem;
+    border-left: 1px solid #e9ecef;
+    border-right: 1px solid #e9ecef;
+}
+
+/* Award Header */
+.awards-header {
+    margin-bottom: 1.5rem;
+}
+
+.awards-header h1 {
+    margin-bottom: 1rem;
+}
+
+/* Award Description */
+.award-description {
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+    color: #555;
+}
+
+/* Additional Content (e.g., Merrifield essay link) */
+.award-additional-content {
+    padding: 1rem;
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+}
+
+.award-additional-content a {
+    color: var(--aps-blue);
+    font-weight: 600;
+}
+
+/* Recipients Section */
+.recipients-section {
+    margin-bottom: 2rem;
+}
+
+.recipients-section-header {
+    font-weight: 600;
+    font-size: 1.2em;
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+    border-left: 4px solid var(--aps-orange);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    color: var(--aps-text);
+}
+
+/* Decade Headers */
+.decade-header {
+    color: var(--aps-blue);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 1.5rem 0 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 2px solid var(--aps-blue);
+}
+
+/* Recipient Entry */
+.recipient-entry {
+    display: flex;
+    align-items: flex-start;
+    padding: 0.75rem 0;
+    gap: 1rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.recipient-entry:last-child {
+    border-bottom: none;
+}
+
+.recipient-photo {
+    flex-shrink: 0;
+    width: 60px;
+    height: 75px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #f0f0f0;
+}
+
+.recipient-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+}
+
+.recipient-photo-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+    color: #adb5bd;
+    font-size: 1.5rem;
+}
+
+.recipient-info {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.recipient-year-name {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+}
+
+.recipient-year {
+    color: var(--aps-blue);
+    font-weight: 700;
+    margin-right: 0.5rem;
+}
+
+.recipient-name {
+    color: #333;
+    font-weight: 600;
+}
+
+.recipient-institution {
+    color: #666;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+/* Sponsor Column - 4 cols */
+.awards-sponsor-col {
+    padding: 0 1rem;
+}
+
+.sponsor-section {
+    position: sticky;
+    top: 70px;
+}
+
+/* Award Image Card */
+.award-image-card {
+    margin-bottom: 1.5rem;
+}
+
+.award-image {
+    margin-bottom: 0.75rem;
+}
+
+.award-image img {
+    width: 100%;
+    border-radius: 6px;
+}
+
+.award-image-caption {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: #555;
+    font-style: italic;
+}
+
+.sponsor-header {
+    font-weight: 600;
+    font-size: 1.1em;
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+    border-left: 4px solid var(--aps-green);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    color: var(--aps-text);
+}
+
+.sponsor-card {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.25rem;
+}
+
+.sponsor-logo {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.sponsor-logo img {
+    max-width: 100%;
+    max-height: 100px;
+}
+
+.sponsor-name {
+    font-weight: 600;
+    color: var(--aps-blue);
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+}
+
+.sponsor-description {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+.sponsor-link {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: var(--aps-link);
+}
+
+/* Award Stats */
+.award-stats {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 1.5rem;
+}
+
+.award-stats h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--aps-text);
+    margin-bottom: 0.75rem;
+}
+
+.award-stats p {
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    color: #666;
+}
+
+.award-stats strong {
+    color: #333;
+}
+
+/* =============================================================================
+   MOBILE STYLES
+   ============================================================================= */
+
+@media (max-width: 991.98px) {
+    /* On mobile/tablet, sidebar becomes horizontal scroll */
+    .awards-sidebar-col {
+        border-bottom: 1px solid #dee2e6;
+        order: 1;
+    }
+
+    .awards-sidebar {
+        padding: 0.75rem 1rem;
+        position: static;
+    }
+
+    .awards-nav-sidebar {
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 0.5rem;
+        padding-bottom: 0.25rem;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .awards-nav-btn {
+        padding: 0.5rem 0.75rem;
+        white-space: nowrap;
+        min-width: auto;
+        font-size: 0.8rem;
+    }
+
+    .awards-main-col {
+        order: 2;
+        padding: 1rem;
+        border-left: none;
+        border-right: none;
+    }
+
+    .awards-sponsor-col {
+        order: 3;
+        padding: 1rem;
+        border-top: 1px solid #e9ecef;
+    }
+
+    .sponsor-section {
+        position: static;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .recipient-entry {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+
+    .recipient-photo {
+        margin: 0 auto;
+    }
+}
+
+/* =============================================================================
+   RECIPIENT DETAIL PAGE
+   ============================================================================= */
+
+.recipient-breadcrumb {
+    margin-bottom: 1rem;
+}
+
+.recipient-breadcrumb a {
+    color: var(--aps-link);
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.recipient-breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.recipient-detail-meta {
+    margin-bottom: 1.5rem;
+}
+
+.recipient-detail-year {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--aps-blue);
+    margin-bottom: 0.25rem;
+}
+
+.recipient-detail-institution {
+    display: block;
+    font-size: 1rem;
+    color: #666;
+    font-style: italic;
+}
+
+.recipient-biography {
+    line-height: 1.8;
+    color: #333;
+    font-size: 1rem;
+}
+
+.recipient-biography p {
+    margin-bottom: 1rem;
+}
+
+.recipient-detail-photo {
+    margin-bottom: 1.5rem;
+}
+
+.recipient-detail-photo img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.recipient-photo-placeholder-large {
+    width: 100%;
+    aspect-ratio: 3/4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+    border-radius: 8px;
+    color: #adb5bd;
+    font-size: 4rem;
+}
+
+/* Make recipient name clickable on list page */
+.recipient-name-link {
+    color: #333;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.recipient-name-link:hover {
+    color: var(--aps-blue);
+    text-decoration: underline;
+}
+
+/* Make recipient photo clickable */
+.recipient-photo-link {
+    text-decoration: none;
+    display: block;
+}
+
+.recipient-photo-link:hover .recipient-photo {
+    opacity: 0.85;
+    transition: opacity 0.2s ease;
+}
+
+.recipient-photo-link:hover .recipient-photo-placeholder {
+    background: linear-gradient(135deg, #dee2e6 0%, #ced4da 100%);
+}

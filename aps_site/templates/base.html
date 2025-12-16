@@ -1,0 +1,161 @@
+{% load static wagtailcore_tags wagtailuserbar %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>
+        {% block title %}
+        {% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}
+        {% endblock %}
+        {% block title_suffix %}
+        {% wagtail_site as current_site %}
+        {% if current_site and current_site.site_name %} - {{ current_site.site_name }}{% endif %}
+        {% endblock %}
+    </title>
+    {% if page.search_description %}
+    <meta name="description" content="{{ page.search_description }}" />
+    {% endif %}
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    {% if request.in_preview_panel %}
+    <base target="_blank">
+    {% endif %}
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/aps_site.css' %}">
+
+    {% block extra_css %}
+    {% endblock %}
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+    {% wagtailuserbar %}
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="https://americanpeptidesociety.org/wp-content/uploads/2019/08/aps_logo_main.png"
+                     alt="American Peptide Society">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav ms-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="/">Home</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% if '/about/' in request.path or '/research/' in request.path or '/symposia-images/' in request.path or '/peptide-links/' in request.path %}active{% endif %}" href="#" id="navExplore" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Explore
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navExplore">
+                            <li><a class="dropdown-item" href="{% url 'about' %}">About Us</a></li>
+                            <li><a class="dropdown-item" href="#">Lab of the Month</a></li>
+                            <li><a class="dropdown-item" href="{% url 'research_archive' %}">News &amp; Research Archive</a></li>
+                            <li><a class="dropdown-item" href="#">Industry Partners</a></li>
+                            <li><a class="dropdown-item" href="#">Lessons From APS</a></li>
+                            <li><a class="dropdown-item" href="/symposia-images/">Symposia Images</a></li>
+                            <li><a class="dropdown-item" href="/peptide-links/">PeptideLinks Directory</a></li>
+                            <li><a class="dropdown-item" href="#">Proceedings Archive</a></li>
+                            <li><a class="dropdown-item" href="#">Our Journal</a></li>
+                            <li><a class="dropdown-item" href="#">International Peptide Liaison</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navPeople" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            People
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navPeople">
+                            <li><a class="dropdown-item" href="#">Officers &amp; Councilors</a></li>
+                            <li><a class="dropdown-item" href="#">Past Presidents</a></li>
+                            <li><a class="dropdown-item" href="#">APS Committees</a></li>
+                            <li><a class="dropdown-item" href="#">Student Activities Committee</a></li>
+                            <li><a class="dropdown-item" href="#">In Memoriam</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navAwards" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Awards
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navAwards">
+                            <li><a class="dropdown-item" href="#">Merrifield Award</a></li>
+                            <li><a class="dropdown-item" href="#">Vincent du Vigneaud Award</a></li>
+                            <li><a class="dropdown-item" href="#">Murray Goodman Award</a></li>
+                            <li><a class="dropdown-item" href="#">Roy Makineni Lectureship</a></li>
+                            <li><a class="dropdown-item" href="#">APS Early Career Lectureship</a></li>
+                            <li><a class="dropdown-item" href="#">The ACS Ralph F. Hirschmann Award</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navMembership" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Membership
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navMembership">
+                            <li><a class="dropdown-item" href="#">Membership Information</a></li>
+                            <li><a class="dropdown-item" href="#">Membership Application</a></li>
+                            <li><a class="dropdown-item" href="#">Your Account</a></li>
+                            <li><a class="dropdown-item" href="#">Login</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer mt-5 py-4" style="background-color: var(--aps-footer);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 text-white mb-3">
+                    <h5>American Peptide Society</h5>
+                    <p class="small" style="color: rgba(255,255,255,0.8);">
+                        Advancing peptide science through research, education, and collaboration.
+                    </p>
+                </div>
+                <div class="col-md-4 text-white mb-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled small" style="color: rgba(255,255,255,0.8);">
+                        <li><a href="#" class="text-white-50">About Us</a></li>
+                        <li><a href="#" class="text-white-50">Membership</a></li>
+                        <li><a href="#" class="text-white-50">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 text-white mb-3">
+                    <h5>Connect</h5>
+                    <p class="small" style="color: rgba(255,255,255,0.8);">
+                        <i class="bi bi-envelope me-2"></i> info@americanpeptidesociety.org
+                    </p>
+                </div>
+            </div>
+            <hr style="border-color: rgba(255,255,255,0.2);">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="small mb-0" style="color: rgba(255,255,255,0.6);">
+                        &copy; {% now "Y" %} American Peptide Society. All rights reserved.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{% static 'js/aps_site.js' %}"></script>
+
+    {% block extra_js %}
+    {% endblock %}
+</body>
+</html>

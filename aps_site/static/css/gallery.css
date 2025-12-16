@@ -1,0 +1,405 @@
+/* =============================================================================
+   SYMPOSIUM GALLERY STYLES - Sidebar Layout
+   ============================================================================= */
+
+/* Full-width Banner */
+.symposium-banner-full {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.symposium-banner-full img {
+    display: block;
+    width: 100%;
+}
+
+/* Sidebar Column */
+.gallery-sidebar-col {
+    padding: 0;
+}
+
+.gallery-sidebar {
+    padding: 1rem;
+    position: sticky;
+    top: 70px; /* Below navbar */
+}
+
+.sidebar-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--aps-blue);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--aps-blue);
+}
+
+/* Sidebar Year Navigation */
+.gallery-year-nav-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.gallery-year-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.75rem 0.5rem;
+    background: white;
+    border: 2px solid #dee2e6;
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--aps-blue);
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.gallery-year-btn:hover {
+    background: #e9ecef;
+    border-color: var(--aps-blue);
+    color: var(--aps-blue);
+    text-decoration: none;
+}
+
+.gallery-year-btn.active {
+    background: var(--aps-blue);
+    border-color: var(--aps-blue);
+    color: white;
+}
+
+.gallery-year-btn .year-number {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.gallery-year-btn .year-location {
+    font-size: 0.7rem;
+    opacity: 0.8;
+    margin-top: 0.25rem;
+}
+
+/* Main Content Column */
+.gallery-main-col {
+    padding: 0;
+}
+
+/* Symposium Header */
+.symposium-header {
+    padding: 1.5rem 1.5rem 0;
+}
+
+/* Symposium Description - Two Column */
+.symposium-description {
+    padding: 0 1.5rem 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.symposium-description .col-lg-6 {
+    line-height: 1.7;
+}
+
+/* Image Grid - CSS Grid */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    padding: 0 1rem;
+}
+
+@media (min-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+@media (min-width: 992px) {
+    .gallery-grid {
+        grid-template-columns: repeat(7, 1fr);
+        gap: 0.75rem;
+        padding: 0 1.5rem;
+    }
+}
+
+/* Individual Gallery Item */
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+    background: #f0f0f0;
+    aspect-ratio: 3 / 2;
+}
+
+.gallery-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.gallery-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.gallery-item:hover .gallery-thumb {
+    transform: scale(1.05);
+}
+
+/* Caption overlay on hover */
+.gallery-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem 0.75rem 0.75rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+    color: white;
+    font-size: 0.75rem;
+    line-height: 1.3;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.gallery-item:hover .gallery-caption {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Image count text */
+.gallery-main-col > .text-muted {
+    padding: 0 1.5rem;
+}
+
+/* =============================================================================
+   LIGHTBOX
+   ============================================================================= */
+
+.gallery-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-lightbox.active {
+    display: flex;
+    opacity: 1;
+}
+
+.lightbox-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lightbox-image {
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.gallery-lightbox.active .lightbox-image.loaded {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.lightbox-caption {
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    max-width: 800px;
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+/* Close Button */
+.lightbox-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.lightbox-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+/* Navigation Buttons */
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.lightbox-nav:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.lightbox-prev {
+    left: 1.5rem;
+}
+
+.lightbox-next {
+    right: 1.5rem;
+}
+
+.lightbox-nav:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+/* Counter */
+.lightbox-counter {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+}
+
+/* =============================================================================
+   MOBILE STYLES
+   ============================================================================= */
+
+@media (max-width: 991.98px) {
+    /* On mobile, sidebar becomes horizontal scroll */
+    .gallery-sidebar-col {
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .gallery-sidebar {
+        padding: 0.75rem 1rem;
+        position: static;
+    }
+
+    .gallery-year-nav-sidebar {
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 0.5rem;
+        padding-bottom: 0.25rem;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .gallery-year-btn {
+        flex-direction: row;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        white-space: nowrap;
+        min-width: auto;
+    }
+
+    .gallery-year-btn .year-number {
+        font-size: 1rem;
+    }
+
+    .gallery-year-btn .year-location {
+        font-size: 0.75rem;
+        margin-top: 0;
+    }
+
+    .symposium-header {
+        padding: 1rem 1rem 0;
+    }
+
+    .symposium-description {
+        padding: 0 1rem 1rem;
+    }
+
+    .gallery-grid {
+        padding: 0 0.5rem;
+    }
+
+    .gallery-main-col > .text-muted {
+        padding: 0 0.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+
+    .lightbox-nav {
+        width: 45px;
+        height: 45px;
+        font-size: 1.25rem;
+    }
+
+    .lightbox-prev {
+        left: 0.5rem;
+    }
+
+    .lightbox-next {
+        right: 0.5rem;
+    }
+
+    .lightbox-close {
+        top: 0.5rem;
+        right: 0.5rem;
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* Touch-friendly on mobile */
+@media (hover: none) {
+    .gallery-caption {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .gallery-item:hover .gallery-thumb {
+        transform: none;
+    }
+}

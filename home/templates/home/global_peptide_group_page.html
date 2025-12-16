@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block body_class %}template-global-peptide-group{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/global_peptide_groups.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    {# Page Header #}
+    <div class="mb-4">
+        <h1 class="page-top-header">{{ page.title }}</h1>
+        {% if page.pi_name or page.institution %}
+        <p class="group-meta lead">
+            {% if page.pi_name %}{{ page.pi_name }}{% endif %}
+            {% if page.institution %}<br><span class="text-muted">{{ page.institution }}</span>{% endif %}
+        </p>
+        {% endif %}
+    </div>
+
+    {# Tabbed Content #}
+    {% if page.tabs %}
+    <div class="gpg-tabs-container">
+        {# Tab Navigation #}
+        <ul class="nav nav-tabs gpg-tabs" id="groupTabs" role="tablist">
+            {% for block in page.tabs %}
+            <li class="nav-item" role="presentation">
+                <button class="nav-link{% if forloop.first %} active{% endif %}"
+                        id="tab-{{ forloop.counter }}"
+                        data-bs-toggle="tab"
+                        data-bs-target="#tab-content-{{ forloop.counter }}"
+                        type="button"
+                        role="tab"
+                        aria-controls="tab-content-{{ forloop.counter }}"
+                        aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
+                    {{ block.value.title }}
+                </button>
+            </li>
+            {% endfor %}
+        </ul>
+
+        {# Tab Content #}
+        <div class="tab-content gpg-tab-content" id="groupTabsContent">
+            {% for block in page.tabs %}
+            <div class="tab-pane fade{% if forloop.first %} show active{% endif %}"
+                 id="tab-content-{{ forloop.counter }}"
+                 role="tabpanel"
+                 aria-labelledby="tab-{{ forloop.counter }}">
+                <div class="tab-inner-content">
+                    {{ block.value.content|safe }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+        Content coming soon.
+    </div>
+    {% endif %}
+
+</div>
+{% endblock content %}

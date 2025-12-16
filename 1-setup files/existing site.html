@@ -1,0 +1,110 @@
+The current American Peptide Society wordpress site has the following main navigation bar, placed at the very top of each page. The navbar is sticky, decreases in heigth and becomes slightly transparent upon scrolling.
+
+HOME
+	About Us
+	Constitution & Bylaws
+
+EXPLORE
+	Lab of the Month
+	News & Research Archive
+	Industry Partners
+	Lessons From APS
+	Symposium Images
+	Proceedings Archive
+	Our Journal
+	International Peptide Liaison
+
+PEOPLE
+	Officers & Councilors
+	Past Presidents
+	APS Committees
+	Student Activities Committee
+	In Memoriam
+
+AWARDS
+	Merrifield Award
+	Vincent du Vigneaud Award
+	Murray Goodman Award
+	Roy Makineni Lectureship
+	APS Early Career Lectureship
+	The ACS Ralph F. Hirschmann Award
+
+MEMBERSHIP
+	Membership Information
+	Membership Application
+	Your Account
+	Login
+
+==============
+
+The site's homepage consists of, from top to bottom:
+
+A. NAVBAR
+
+B. RESPONSIVE SLIDE SHOW
+This slider, which begins right below the navbar, is able to hold up to ten slides. The slides are 1700px by 400px, which I feel is tall enough to allow for most imagery, while not dominating the page. Perhaps we can discuss this. We will need an interface in admin for the slideshow, allowing the deletion of outdated and insertion of new images. Images are linked to events or people, and transition using a fade-in effect of 1 second, which occurs every 6 seconds.
+
+C. NEWS & RESEARCH ITEM CAROUSEL
+This dynamic and resposive carousel collects data from the News & Research "custom post" category, or "snippet," and is one of the mainstays of the site. The current configuration of this item works extremely well on the wordpress site, as it responds beautifully to all screen sizes without breaking the content. 
+
+🎯 Claude's Wagtail Recommendation for above items B & C:
+===================================================
+
+  Instead of recreating LayerSlider's complexity, build something better:
+
+  Wagtail StreamField Hero Block
+
+  class HeroSlideBlock(blocks.StructBlock):
+      image = ImageChooserBlock(required=True)
+      heading = blocks.CharBlock(required=False, max_length=200)
+      description = blocks.TextBlock(required=False, max_length=400)
+      cta_text = blocks.CharBlock(required=False, max_length=50)
+      cta_link = blocks.URLBlock(required=False)
+      overlay_opacity = blocks.IntegerBlock(default=30, min_value=0,
+  max_value=80)
+
+      class Meta:
+          icon = 'image'
+          template = 'blocks/hero_slide.html'
+
+  Frontend: Bootstrap 5 Carousel
+
+  - Already included in Bootstrap 5 (no extra JS!)
+  - Lightweight, accessible, mobile-friendly
+  - Auto-play with pause on hover
+  - Touch/swipe support built-in
+
+  Benefits vs. LayerSlider:
+
+  ✅ Lighter: ~150KB smaller page weight✅ Faster: No heavy animation
+  library✅ Simpler: Editors can manage easily✅ Modern: Uses CSS
+  transforms, not jQuery✅ Flexible: Easy to customize per your needs
+
+  ---
+  What This Means for Your Requirements Doc
+
+  When you describe your homepage needs, you can say:
+  - "Hero slider with 4-6 rotating lab feature images"
+  - "Simple, elegant transitions (fade or slide)"
+  - "Optional text overlays for context"
+  - "Easy for content editors to update"
+
+  ========================================
+
+  D. GLOBAL PEPTIDE GROUPS
+  This periodical item will collect information from the "Global Labs" snippet from where content will also be pulled and templated for each item's individual page, and also an archive page where all entries appear for posterity.
+
+  E. STUDENT SPOTLIGHT
+  This is another periodical item, which will pull content from its own snippet where content will templated for each item's individual page, this news item, and an archive page where all entries appear for posterity.
+
+   F. OPTIONAL NEWS ITEM
+   This should be another snippet where items will be added but not archived.
+
+   G. WHAT CURRENT MEMBERS SAY
+   This is a not so dynamic snippet that could very well be replaced by a new item like D or E, once I conceptualize it. The space could also hold another F item.
+
+   H - K.
+   Sidebar items can be anything newsworthy, in this case a symposium referred to in "B". I need to be able to have 4 or 5 of these items and be able to sort their locations.
+
+   L.
+   Our want this item to appear, but it does not need to be a snippet, rather a footer template.

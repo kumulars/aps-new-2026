@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+
+{% block title %}{{ chapter.title }} - Knowledge Base{% endblock %}
+
+{% block body_class %}template-knowledge-base-chapter{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/knowledge_base.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    <div class="row">
+
+        {# Sidebar Navigation - 2 cols #}
+        <div class="col-12 col-lg-2 kb-sidebar-col">
+            <div class="kb-sidebar">
+                <div class="kb-nav-accordion">
+                    {% for ch in all_chapters %}
+                    <div class="kb-chapter-nav-item">
+                        <a href="{{ ch.get_absolute_url }}"
+                           class="kb-chapter-btn {% if ch.slug == chapter.slug %}active{% endif %}">
+                            <span>
+                                <span class="chapter-num">{{ ch.chapter_number }}</span>
+                                {{ ch.title|truncatewords:4 }}
+                            </span>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        {# Main Content - 10 cols #}
+        <div class="col-12 col-lg-10 kb-main-col" style="border-right: none;">
+
+            {# Breadcrumb #}
+            <nav class="kb-breadcrumb">
+                <a href="/knowledge-base/">Knowledge Base</a>
+                <span class="separator">&raquo;</span>
+                <span>Chapter {{ chapter.chapter_number }}</span>
+            </nav>
+
+            {# Chapter Header #}
+            <h1 class="page-top-header">
+                <span class="text-muted">Chapter {{ chapter.chapter_number }}:</span>
+                {{ chapter.title }}
+            </h1>
+
+            {% if chapter.description %}
+            <div class="kb-chapter-description mb-4">
+                {{ chapter.description|linebreaks }}
+            </div>
+            {% endif %}
+
+            {# Section Grid #}
+            <div class="kb-section-grid">
+                {% for section in sections %}
+                <div class="kb-section-card">
+                    <h3>
+                        <a href="{{ section.get_absolute_url }}">
+                            {{ chapter.chapter_number }}.{{ section.section_order }}: {{ section.title }}
+                        </a>
+                    </h3>
+
+                    {% if section.description %}
+                    <p class="text-muted small mb-2">{{ section.description|truncatewords:20 }}</p>
+                    {% endif %}
+
+                    <ul class="kb-section-articles">
+                        {% for article in section.articles.all|slice:":5" %}
+                        <li>
+                            <a href="{{ article.get_absolute_url }}">
+                                {{ article.title }}
+                            </a>
+                            <span class="difficulty-badge {{ article.difficulty }} ms-1">
+                                {{ article.get_difficulty_display }}
+                            </span>
+                        </li>
+                        {% endfor %}
+                        {% if section.article_count > 5 %}
+                        <li class="text-muted">
+                            <a href="{{ section.get_absolute_url }}">
+                                + {{ section.article_count|add:"-5" }} more articles...
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+                {% empty %}
+                <div class="col-12">
+                    <p class="text-muted">No sections in this chapter yet.</p>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% endblock content %}

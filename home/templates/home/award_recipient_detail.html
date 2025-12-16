@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block title %}{{ recipient.full_name }} - {{ recipient.award_type.name }}{% endblock %}
+
+{% block body_class %}template-award-recipient-detail{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/awards.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    <div class="row">
+
+        {# Sidebar Navigation - 2 cols #}
+        <div class="col-12 col-lg-2 awards-sidebar-col">
+            <div class="awards-sidebar">
+                <div class="awards-nav-sidebar">
+                    {% for award in award_types %}
+                    <a href="/awards/?award={{ award.slug }}"
+                       class="awards-nav-btn {% if award.slug == current_award.slug %}active{% endif %}">
+                        {{ award.short_name|default:award.name }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        {# Main Content - 6 cols #}
+        <div class="col-12 col-lg-6 awards-main-col">
+
+            {# Breadcrumb back to award list #}
+            <nav class="recipient-breadcrumb">
+                <a href="/awards/?award={{ current_award.slug }}">
+                    <i class="bi bi-arrow-left me-1"></i>{{ current_award.name }}
+                </a>
+            </nav>
+
+            {# Recipient Name and Year #}
+            <h1 class="page-top-header">{{ recipient.full_name }}</h1>
+
+            <div class="recipient-detail-meta">
+                <span class="recipient-detail-year">{{ recipient.year }} {{ current_award.short_name|default:current_award.name }} Recipient</span>
+                {% if recipient.institution %}
+                <span class="recipient-detail-institution">{{ recipient.institution }}</span>
+                {% endif %}
+            </div>
+
+            {# Biography #}
+            {% if recipient.biography %}
+            <div class="recipient-biography">
+                {{ recipient.biography|linebreaks }}
+            </div>
+            {% else %}
+            <div class="recipient-biography">
+                <p class="text-muted">Biography information is being updated.</p>
+            </div>
+            {% endif %}
+
+        </div>
+
+        {# Photo Column - 4 cols #}
+        <div class="col-12 col-lg-4 awards-sponsor-col">
+            <div class="sponsor-section">
+                {% if recipient.photo %}
+                <div class="recipient-detail-photo">
+                    {% image recipient.photo original class="img-fluid" %}
+                </div>
+                {% else %}
+                <div class="recipient-photo-placeholder-large">
+                    <i class="bi bi-person"></i>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock content %}

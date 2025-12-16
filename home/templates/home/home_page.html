@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/global_peptide_groups.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="bg-light rounded p-5 text-center" style="min-height: 200px;">
+            </div>
+        </div>
+    </div>
+
+    <hr class="blue">
+
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="page-top-header">Recent Peptide Publications</h1>
+        </div>
+    </div>
+
+    <!-- Research Cards - Flexbox Grid -->
+    <div class="research-grid mb-4">
+        {% for item in research_items %}
+        <a href="{% url 'research_item_detail' slug=item.slug %}" class="research-card-link">
+            <div class="card research-card">
+                {% if item.main_image %}
+                {% image item.main_image fill-400x275 as card_img %}
+                <img src="{{ card_img.url }}" class="card-img-top" alt="{{ item.short_title }}">
+                {% else %}
+                <div class="bg-secondary card-img-placeholder"></div>
+                {% endif %}
+                <div class="card-body p-2">
+                    <h3 class="card-title small mb-1">{{ item.short_title }}</h3>
+                    <p class="card-text small text-muted mb-0">{{ item.lab_name }}</p>
+                    <p class="card-text small text-muted mb-0">{{ item.publish_date|date:"M j, Y" }}</p>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+    <hr class="blue">
+
+    <div class="row">
+
+        <!-- Feature Blocks Column -->
+        <div class="col-md-8">
+
+            <div class="mb-4">
+                <h2 class="page-top-header">Global Peptide Groups</h2>
+                <p class="small" style="margin-top:-10px; margin-bottom:20px; font-style:italic;">
+                    Featuring Internationally Notable Peptide Science Research Groups.
+                </p>
+                {% if current_gpg %}
+                <div class="row align-items-stretch">
+                    <div class="col-md-5 mb-3 mb-md-0">
+                        <div class="gpg-homepage-blurb h-100">
+                            <h3 class="h5 mb-2">
+                                <a href="{% pageurl current_gpg %}" class="text-decoration-none">{{ current_gpg.lab_name }}</a>
+                            </h3>
+                            {% if current_gpg.pi_name or current_gpg.institution %}
+                            <p class="small text-muted mb-2">
+                                {% if current_gpg.pi_name %}{{ current_gpg.pi_name }}{% endif %}
+                                {% if current_gpg.institution %} · {{ current_gpg.institution }}{% endif %}
+                            </p>
+                            {% endif %}
+                            <p class="mb-2">{{ current_gpg.blurb|truncatewords:50 }}</p>
+                            <a href="{% pageurl current_gpg %}" class="btn btn-sm btn-outline-primary">Read More</a>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        {% if current_gpg.featured_image %}
+                        <a href="{% pageurl current_gpg %}">
+                            {% image current_gpg.featured_image width-600 as gpg_img %}
+                            <img src="{{ gpg_img.url }}" class="img-fluid rounded gpg-homepage-img{% if current_gpg.slug == 'the-sun-group' %} gpg-img-bottom{% endif %}" alt="{{ current_gpg.lab_name }}">
+                        </a>
+                        {% else %}
+                        <div class="bg-secondary rounded h-100" style="min-height: 180px;"></div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% else %}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="bg-light rounded p-4 text-center">
+                            <p class="text-muted mb-0">No featured group selected.</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <hr class="blue">
+
+            <div class="mb-4">
+                <h2 class="page-top-header">Student Spotlight</h2>
+                <p class="small" style="margin-top:-10px; margin-bottom:20px; font-style:italic;">
+                    Highlighting outstanding graduate students shaping the future of peptide science.
+                </p>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="bg-light rounded p-4" style="min-height: 180px;">
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="bg-secondary rounded" style="height: 180px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="blue">
+
+            <div class="mb-4">
+                <h2 class="page-top-header">Peptide Postdocs</h2>
+                <p class="small" style="margin-top:-10px; margin-bottom:20px; font-style:italic;">
+                    Recognizing postdoctoral researchers advancing peptide science.
+                </p>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="bg-light rounded p-4" style="min-height: 180px;">
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="bg-secondary rounded" style="height: 180px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="blue">
+
+            <div class="mb-4">
+                <h2 class="page-top-header">Featured</h2>
+                <p class="small" style="margin-top:-10px; margin-bottom:20px; font-style:italic;">
+                    Special announcements and highlighted content.
+                </p>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="bg-light rounded p-4" style="min-height: 180px;">
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="bg-secondary rounded" style="height: 180px;"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="col-md-4">
+
+            <div class="mb-4">
+                <h2 class="page-top-header" style="font-size: 1.5em;">Section H</h2>
+                <div class="bg-light rounded p-3" style="min-height: 150px;">
+                </div>
+            </div>
+
+            <hr class="blue">
+
+            <div class="mb-4">
+                <h2 class="page-top-header" style="font-size: 1.5em;">Section I</h2>
+                <div class="bg-light rounded p-3" style="min-height: 150px;">
+                </div>
+            </div>
+
+            <hr class="blue">
+
+            <div class="mb-4">
+                <h2 class="page-top-header" style="font-size: 1.5em;">Section J</h2>
+                <div class="bg-light rounded p-3" style="min-height: 150px;">
+                </div>
+            </div>
+
+            <hr class="blue">
+
+            <div class="mb-4">
+                <h2 class="page-top-header" style="font-size: 1.5em;">Section K</h2>
+                <div class="bg-light rounded p-3" style="min-height: 150px;">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock content %}
