@@ -231,10 +231,17 @@
 .committee-name {
     font-weight: 600;
     font-size: 1.1em;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
     padding-left: 0.5rem;
     border-left: 3px solid var(--aps-orange);
     color: var(--aps-text);
+}
+
+.committee-description {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1rem;
+    line-height: 1.5;
 }
 
 .committee-members-grid {
@@ -281,10 +288,10 @@
 }
 
 .member-photo-wrapper {
-    width: 60px;
-    height: 60px;
+    width: 100%;
+    aspect-ratio: 973/1200;
     margin: 0 auto 0.5rem;
-    border-radius: 50%;
+    border-radius: 6px;
     overflow: hidden;
     background: #f0f0f0;
 }
@@ -293,6 +300,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center top;
 }
 
 .member-name {

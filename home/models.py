@@ -6,7 +6,7 @@ from django.urls import reverse
 from wagtail.models import Page
 # Note: We use TextField (not RichTextField) for body content
 # because we need to paste raw HTML with inline styles, classes, etc.
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel, HelpPanel
 from wagtail.snippets.models import register_snippet
 from wagtail.fields import StreamField
 from wagtail.blocks import StructBlock, CharBlock, TextBlock
@@ -34,6 +34,14 @@ class HomePage(Page):
             is_current=True
         ).first()
         context['current_gpg'] = current_gpg
+
+        # Get 4 most recent news items for sidebar
+        context['news_items'] = NewsItem.objects.all()[:4]
+
+        # Get featured postdoc for homepage (most recent featured)
+        context['featured_postdoc'] = PostdocProfile.objects.filter(
+            is_featured=True
+        ).first()
 
         return context
 
@@ -260,6 +268,17 @@ class ResearchItem(models.Model):
         MultiFieldPanel([
             FieldPanel('blurb'),
             FieldPanel('body'),
+            HelpPanel(
+                content='''
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; border: 1px solid #dee2e6; margin: 10px 0;">
+                    <strong>Inline Image Template</strong> (copy and paste into body, then update URL, alt, and caption):
+                    <pre style="background: #fff; padding: 10px; margin-top: 10px; font-size: 12px; overflow-x: auto; border: 1px solid #ccc;">&lt;div style="margin: 29px"&gt;
+&lt;img src="/media/original_images/FILENAME.jpg" alt="DESCRIPTION" style="margin-bottom: 19px;" class="img-fluid"&gt;
+&lt;p class="small"&gt;CAPTION TEXT&lt;/p&gt;
+&lt;/div&gt;</pre>
+                </div>
+                '''
+            ),
         ], heading="Article Content"),
 
         MultiFieldPanel([
@@ -1171,6 +1190,17 @@ class AwardRecipient(models.Model):
         FieldPanel('last_name'),
         FieldPanel('institution'),
         FieldPanel('biography'),
+        HelpPanel(
+            content='''
+            <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; border: 1px solid #dee2e6; margin: 10px 0;">
+                <strong>Inline Image Template</strong> (copy and paste into biography, then update URL, alt, and caption):
+                <pre style="background: #fff; padding: 10px; margin-top: 10px; font-size: 12px; overflow-x: auto; border: 1px solid #ccc;">&lt;div style="margin: 29px"&gt;
+&lt;img src="/media/original_images/FILENAME.jpg" alt="DESCRIPTION" style="margin-bottom: 19px;" class="img-fluid"&gt;
+&lt;p class="small"&gt;CAPTION TEXT&lt;/p&gt;
+&lt;/div&gt;</pre>
+            </div>
+            '''
+        ),
         FieldPanel('photo'),
     ]
 
@@ -1465,3 +1495,262 @@ class InMemoriam(models.Model):
 
     def get_absolute_url(self):
         return reverse('in_memoriam_detail', kwargs={'slug': self.slug})
+
+
+# =============================================================================
+# NEWS ITEM (Sidebar News Section)
+# =============================================================================
+
+@register_snippet
+class NewsItem(models.Model):
+    """
+    News items for the homepage sidebar.
+
+    Displays 4 most recent items, ordered by date.
+    Each item can link to either an internal page OR an external URL.
+    Images are displayed fluid/responsive (no cropping).
+    """
+
+    title = models.CharField(
+        max_length=200,
+        help_text="News item title/headline"
+    )
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="Image displayed below the title (fluid/responsive, no cropping)"
+    )
+    body = models.TextField(
+        blank=True,
+        help_text="Text content displayed below the image (HTML allowed)"
+    )
+    publish_date = models.DateField(
+        default=timezone.now,
+        help_text="Used for ordering (newest first)"
+    )
+
+    # Link options - use one or the other
+    internal_page = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="Link to an internal page (leave blank if using external URL)"
+    )
+    external_url = models.URLField(
+        blank=True,
+        help_text="External URL (leave blank if using internal page)"
+    )
+    link_text = models.CharField(
+        max_length=50,
+        default="Read More",
+        help_text="Button text for the link"
+    )
+
+    panels = [
+        FieldPanel('title'),
+        FieldPanel('image'),
+        FieldPanel('body'),
+        FieldPanel('publish_date'),
+        MultiFieldPanel([
+            FieldPanel('internal_page'),
+            FieldPanel('external_url'),
+            FieldPanel('link_text'),
+        ], heading="Link (choose internal page OR external URL)"),
+    ]
+
+    class Meta:
+        ordering = ['-publish_date']
+        verbose_name = "News Item"
+        verbose_name_plural = "News Items"
+
+    def __str__(self):
+        return self.title
+
+    @property
+    def link_url(self):
+        """Return the appropriate URL (internal page takes precedence)."""
+        if self.internal_page:
+            return self.internal_page.url
+        return self.external_url or '#'
+
+    @property
+    def is_external(self):
+        """Return True if this links to an external URL."""
+        return not self.internal_page and bool(self.external_url)
+
+
+# =============================================================================
+# POSTDOC PROFILE
+# =============================================================================
+
+@register_snippet
+class PostdocProfile(models.Model):
+    """
+    Postdoctoral researcher profiles for the Peptide Postdocs section.
+
+    Interview responses are collected separately, then synthesized into
+    a narrative body field with inline images.
+    """
+
+    # === Core Identification ===
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    slug = models.SlugField(unique=True, max_length=200, blank=True)
+    position_title = models.CharField(
+        max_length=200,
+        help_text="e.g., Feodor Lynen Research Fellow"
+    )
+    lab_name = models.CharField(
+        max_length=200,
+        help_text="e.g., Suga Lab"
+    )
+    institution = models.CharField(max_length=200)
+    country = models.CharField(max_length=100)
+
+    # === Images ===
+    headshot = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="Portrait photo"
+    )
+    headshot_credit = models.CharField(
+        max_length=200,
+        blank=True,
+        help_text="Photo credit (optional)"
+    )
+    lab_photo = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="Lab or research photo (optional)"
+    )
+    lab_photo_caption = models.TextField(
+        blank=True,
+        help_text="Caption for lab photo"
+    )
+    sidebar_image_3 = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="Third sidebar image (optional)"
+    )
+    sidebar_image_3_caption = models.TextField(
+        blank=True,
+        help_text="Caption for third image"
+    )
+    sidebar_image_4 = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="Fourth sidebar image (optional)"
+    )
+    sidebar_image_4_caption = models.TextField(
+        blank=True,
+        help_text="Caption for fourth image"
+    )
+
+    # === Homepage Display ===
+    homepage_blurb = models.TextField(
+        help_text="~80 words for homepage card display"
+    )
+    publish_date = models.DateField(
+        default=timezone.now,
+        help_text="Used for ordering (newest first)"
+    )
+    is_featured = models.BooleanField(
+        default=True,
+        help_text="Show on homepage"
+    )
+
+    # === Body Content ===
+    body = models.TextField(
+        help_text="Full synthesized profile - paste raw HTML with inline images"
+    )
+
+    # === External Links (optional) ===
+    personal_website = models.URLField(blank=True)
+    linkedin_url = models.URLField(blank=True)
+    google_scholar_url = models.URLField(blank=True)
+
+    panels = [
+        MultiFieldPanel([
+            FieldPanel('first_name'),
+            FieldPanel('last_name'),
+            FieldPanel('slug'),
+            FieldPanel('position_title'),
+            FieldPanel('lab_name'),
+            FieldPanel('institution'),
+            FieldPanel('country'),
+        ], heading="Core Identification"),
+
+        MultiFieldPanel([
+            FieldPanel('headshot'),
+            FieldPanel('headshot_credit'),
+            FieldPanel('lab_photo'),
+            FieldPanel('lab_photo_caption'),
+            FieldPanel('sidebar_image_3'),
+            FieldPanel('sidebar_image_3_caption'),
+            FieldPanel('sidebar_image_4'),
+            FieldPanel('sidebar_image_4_caption'),
+        ], heading="Sidebar Images (4 max)"),
+
+        MultiFieldPanel([
+            FieldPanel('homepage_blurb'),
+            FieldPanel('publish_date'),
+            FieldPanel('is_featured'),
+        ], heading="Homepage Display"),
+
+        FieldPanel('body'),
+        HelpPanel(
+            content='''
+            <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; border: 1px solid #dee2e6; margin: 10px 0;">
+                <strong>Inline Image Template</strong> (copy and paste into body, then update URL, alt, and caption):
+                <pre style="background: #fff; padding: 10px; margin-top: 10px; font-size: 12px; overflow-x: auto; border: 1px solid #ccc;">&lt;div style="margin: 29px"&gt;
+&lt;img src="/media/original_images/FILENAME.jpg" alt="DESCRIPTION" style="margin-bottom: 19px;" class="img-fluid"&gt;
+&lt;p class="small"&gt;CAPTION TEXT&lt;/p&gt;
+&lt;/div&gt;</pre>
+            </div>
+            '''
+        ),
+
+        MultiFieldPanel([
+            FieldPanel('personal_website'),
+            FieldPanel('linkedin_url'),
+            FieldPanel('google_scholar_url'),
+        ], heading="External Links (optional)"),
+    ]
+
+    class Meta:
+        ordering = ['-publish_date']
+        verbose_name = "Postdoc Profile"
+        verbose_name_plural = "Postdoc Profiles"
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
+
+    @property
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base_slug = slugify(f"{self.first_name}-{self.last_name}")
+            self.slug = base_slug
+        super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('postdoc_detail', kwargs={'slug': self.slug})

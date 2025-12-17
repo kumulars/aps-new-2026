@@ -57,13 +57,13 @@
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {% if '/about/' in request.path or '/news/' in request.path or '/symposia-images/' in request.path or '/peptide-links/' in request.path or '/global-peptide-groups/' in request.path %}active{% endif %}" href="#" id="navExplore" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle {% if '/about/' in request.path or '/research/' in request.path or '/symposia-images/' in request.path or '/peptide-links/' in request.path or '/global-peptide-groups/' in request.path %}active{% endif %}" href="#" id="navExplore" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Explore
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navExplore">
                             <li><a class="dropdown-item" href="{% url 'about' %}">About Us</a></li>
                             <li><a class="dropdown-item" href="/global-peptide-groups/">Global Peptide Groups</a></li>
-                            <li><a class="dropdown-item" href="{% url 'research_archive' %}">News &amp; Research Archive</a></li>
+                            <li><a class="dropdown-item" href="{% url 'research_archive' %}">Peptide Publications Archive</a></li>
                             <li><a class="dropdown-item" href="/symposia-images/">Symposia Images</a></li>
                             <li><a class="dropdown-item" href="/peptide-links/">PeptideLinks Directory</a></li>
                         </ul>

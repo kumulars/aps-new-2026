@@ -14,9 +14,9 @@ urlpatterns = [
     path("admin/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),
     path("search/", search_views.search, name="search"),
-    # Research items
-    path("news/", home_views.research_archive, name="research_archive"),
-    path("news/<slug:slug>/", home_views.research_item_detail, name="research_item_detail"),
+    # Research items (Peptide Publications)
+    path("research/", home_views.research_archive, name="research_archive"),
+    path("research/<slug:slug>/", home_views.research_item_detail, name="research_item_detail"),
     # Award recipients
     path("awards/recipient/<slug:slug>/", home_views.award_recipient_detail, name="award_recipient_detail"),
     # Static pages
@@ -26,6 +26,9 @@ urlpatterns = [
     # In Memoriam
     path("people/in-memoriam/", home_views.in_memoriam_index, name="in_memoriam_index"),
     path("people/in-memoriam/<slug:slug>/", home_views.in_memoriam_detail, name="in_memoriam_detail"),
+    # Postdoc Profiles
+    path("postdocs/", home_views.postdoc_index, name="postdoc_index"),
+    path("postdocs/<slug:slug>/", home_views.postdoc_detail, name="postdoc_detail"),
 ]
 
 

@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% load static wagtailimages_tags %}
+
+{% block title %}{{ postdoc.full_name }} - Peptide Postdocs{% endblock %}
+
+{% block body_class %}template-postdoc-detail{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    {# Page Top - Full Width Header #}
+    <div class="row">
+        <div class="col-12">
+            <header class="mb-4">
+                <h1 class="page-top-header">
+                    {{ postdoc.full_name }}
+                </h1>
+                <h2 style="font-size: 1.4em; font-weight: 600; padding-left: 8px; border-left: 4px solid var(--aps-blue); margin-top: 0; margin-bottom: 10px; color: var(--aps-text);">
+                    {{ postdoc.position_title }}
+                </h2>
+                <p class="text-muted mb-0">
+                    {{ postdoc.lab_name }}, {{ postdoc.institution }}, {{ postdoc.country }}
+                </p>
+            </header>
+        </div>
+    </div>
+
+    {# Content Columns #}
+    <div class="row">
+        {# Main Content Column #}
+        <div class="col-lg-7">
+            {# Profile Body - raw HTML #}
+            <article class="postdoc-profile-body mb-4">
+                {{ postdoc.body|safe }}
+            </article>
+
+            <div class="mb-5">
+                <a href="{% url 'postdoc_index' %}" class="btn btn-sm btn-outline-primary">
+                    <i class="bi bi-arrow-left me-1"></i> All Postdoc Profiles
+                </a>
+            </div>
+        </div>
+
+        {# Sidebar #}
+        <div class="col-lg-5">
+
+            {# Headshot #}
+            {% if postdoc.headshot %}
+            <figure class="figure mb-4 w-100">
+                {% image postdoc.headshot width-800 as headshot_img %}
+                <img src="{{ headshot_img.url }}" alt="{{ postdoc.full_name }}" class="figure-img img-fluid w-100 rounded">
+                {% if postdoc.headshot_credit %}
+                <figcaption class="figure-caption">Photo: {{ postdoc.headshot_credit }}</figcaption>
+                {% endif %}
+            </figure>
+            {% endif %}
+
+            {# Lab Photo #}
+            {% if postdoc.lab_photo %}
+            <figure class="figure mb-4 w-100">
+                {% image postdoc.lab_photo width-800 as lab_img %}
+                <img src="{{ lab_img.url }}" alt="{{ postdoc.lab_name }}" class="figure-img img-fluid w-100 rounded">
+                {% if postdoc.lab_photo_caption %}
+                <figcaption class="figure-caption">{{ postdoc.lab_photo_caption }}</figcaption>
+                {% endif %}
+            </figure>
+            {% endif %}
+
+            {# Sidebar Image 3 #}
+            {% if postdoc.sidebar_image_3 %}
+            <figure class="figure mb-4 w-100">
+                {% image postdoc.sidebar_image_3 width-800 as img3 %}
+                <img src="{{ img3.url }}" alt="" class="figure-img img-fluid w-100 rounded">
+                {% if postdoc.sidebar_image_3_caption %}
+                <figcaption class="figure-caption">{{ postdoc.sidebar_image_3_caption }}</figcaption>
+                {% endif %}
+            </figure>
+            {% endif %}
+
+            {# Sidebar Image 4 #}
+            {% if postdoc.sidebar_image_4 %}
+            <figure class="figure mb-4 w-100">
+                {% image postdoc.sidebar_image_4 width-800 as img4 %}
+                <img src="{{ img4.url }}" alt="" class="figure-img img-fluid w-100 rounded">
+                {% if postdoc.sidebar_image_4_caption %}
+                <figcaption class="figure-caption">{{ postdoc.sidebar_image_4_caption }}</figcaption>
+                {% endif %}
+            </figure>
+            {% endif %}
+
+            {# External Links #}
+            {% if postdoc.personal_website or postdoc.linkedin_url or postdoc.google_scholar_url %}
+            <hr class="blue">
+            <section class="mb-4">
+                <h3 style="font-weight: 600; font-size: 1.3em; padding-left: 8px; border-left: 4px solid var(--aps-orange); margin-bottom: 12px;">
+                    Connect
+                </h3>
+                <div class="d-flex flex-wrap gap-2">
+                    {% if postdoc.personal_website %}
+                    <a href="{{ postdoc.personal_website }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-globe me-1"></i> Website
+                    </a>
+                    {% endif %}
+                    {% if postdoc.linkedin_url %}
+                    <a href="{{ postdoc.linkedin_url }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-linkedin me-1"></i> LinkedIn
+                    </a>
+                    {% endif %}
+                    {% if postdoc.google_scholar_url %}
+                    <a href="{{ postdoc.google_scholar_url }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-mortarboard me-1"></i> Google Scholar
+                    </a>
+                    {% endif %}
+                </div>
+            </section>
+            {% endif %}
+
+            {# Published Date #}
+            <div class="mt-4">
+                <p class="small text-muted">
+                    Profile published {{ postdoc.publish_date|date:"F j, Y" }}
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

@@ -1069,3 +1069,43 @@ hr.blue {
         margin-bottom: 1.5rem;
     }
 }
+
+/* ============================================
+   NEWS ITEMS (Homepage Sidebar)
+   ============================================ */
+
+.news-item {
+    /* Container for each news item */
+}
+
+.news-item-title {
+    font-weight: 600;
+    font-size: 1.1em;
+    margin-bottom: var(--space-sm);
+    padding-left: var(--space-xs);
+    border-left: 4px solid var(--aps-green);
+    line-height: 1.2em;
+    letter-spacing: 0.01em;
+    color: var(--aps-text);
+}
+
+.news-item-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: var(--space-md);
+    display: block;
+    border-radius: 6px;
+}
+
+.news-item-body {
+    font-size: 0.95em;
+    line-height: 1.4em;
+    color: var(--aps-text);
+    margin-bottom: var(--space-sm);
+}
+
+.news-item-body p {
+    margin-bottom: 0.5em;
+    font-size: inherit;
+    line-height: inherit;
+}

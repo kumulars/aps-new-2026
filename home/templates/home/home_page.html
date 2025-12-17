@@ -122,15 +122,41 @@
                 <p class="small" style="margin-top:-10px; margin-bottom:20px; font-style:italic;">
                     Recognizing postdoctoral researchers advancing peptide science.
                 </p>
-                <div class="row">
-                    <div class="col-md-5">
-                        <div class="bg-light rounded p-4" style="min-height: 180px;">
+                {% if featured_postdoc %}
+                <div class="row align-items-stretch">
+                    <div class="col-md-5 mb-3 mb-md-0">
+                        <div class="postdoc-homepage-blurb h-100">
+                            <h3 class="h5 mb-2">
+                                <a href="{% url 'postdoc_detail' slug=featured_postdoc.slug %}" class="text-decoration-none">{{ featured_postdoc.full_name }}</a>
+                            </h3>
+                            <p class="small text-muted mb-2">
+                                {{ featured_postdoc.position_title }}<br>
+                                {{ featured_postdoc.lab_name }}, {{ featured_postdoc.institution }}
+                            </p>
+                            <p class="mb-2">{{ featured_postdoc.homepage_blurb|truncatewords:50 }}</p>
+                            <a href="{% url 'postdoc_detail' slug=featured_postdoc.slug %}" class="btn btn-sm btn-outline-primary">Read More</a>
                         </div>
                     </div>
                     <div class="col-md-7">
-                        <div class="bg-secondary rounded" style="height: 180px;"></div>
+                        {% if featured_postdoc.headshot %}
+                        <a href="{% url 'postdoc_detail' slug=featured_postdoc.slug %}">
+                            {% image featured_postdoc.headshot fill-600x400 as postdoc_img %}
+                            <img src="{{ postdoc_img.url }}" class="img-fluid rounded" alt="{{ featured_postdoc.full_name }}">
+                        </a>
+                        {% else %}
+                        <div class="bg-secondary rounded h-100" style="min-height: 180px;"></div>
+                        {% endif %}
                     </div>
                 </div>
+                {% else %}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="bg-light rounded p-4 text-center">
+                            <p class="text-muted mb-0">No featured postdoc selected.</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
             </div>
 
             <hr class="blue">
@@ -153,38 +179,34 @@
 
         </div>
 
-        <!-- Sidebar Column -->
+        <!-- Sidebar Column - News Section -->
         <div class="col-md-4">
 
-            <div class="mb-4">
-                <h2 class="page-top-header" style="font-size: 1.5em;">Section H</h2>
-                <div class="bg-light rounded p-3" style="min-height: 150px;">
-                </div>
+            {% for news in news_items %}
+            <div class="news-item mb-4">
+                <h3 style="font-weight: 600; font-size: 1.3em; padding-left: 8px; border-left: 4px solid var(--aps-green); margin-bottom: 12px;">{{ news.title }}</h3>
+                {% if news.image %}
+                {% image news.image original as news_img %}
+                <img src="{{ news_img.url }}" class="news-item-image" alt="{{ news.title }}">
+                {% endif %}
+                {% if news.body %}
+                <div class="news-item-body">{{ news.body|safe }}</div>
+                {% endif %}
+                <p class="small text-muted mb-2">{{ news.publish_date|date:"M j, Y" }}</p>
+                {% if news.link_url and news.link_url != '#' %}
+                <a href="{{ news.link_url }}" class="btn btn-sm btn-outline-primary"{% if news.is_external %} target="_blank" rel="noopener"{% endif %}>
+                    {{ news.link_text }}{% if news.is_external %} <i class="bi bi-box-arrow-up-right"></i>{% endif %}
+                </a>
+                {% endif %}
             </div>
-
+            {% if not forloop.last %}
             <hr class="blue">
-
-            <div class="mb-4">
-                <h2 class="page-top-header" style="font-size: 1.5em;">Section I</h2>
-                <div class="bg-light rounded p-3" style="min-height: 150px;">
-                </div>
+            {% endif %}
+            {% empty %}
+            <div class="bg-light rounded p-3 text-center">
+                <p class="text-muted mb-0 small">No news items yet.</p>
             </div>
-
-            <hr class="blue">
-
-            <div class="mb-4">
-                <h2 class="page-top-header" style="font-size: 1.5em;">Section J</h2>
-                <div class="bg-light rounded p-3" style="min-height: 150px;">
-                </div>
-            </div>
-
-            <hr class="blue">
-
-            <div class="mb-4">
-                <h2 class="page-top-header" style="font-size: 1.5em;">Section K</h2>
-                <div class="bg-light rounded p-3" style="min-height: 150px;">
-                </div>
-            </div>
+            {% endfor %}
 
         </div>
 

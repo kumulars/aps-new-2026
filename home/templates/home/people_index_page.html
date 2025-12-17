@@ -195,12 +195,15 @@
                     {% for item in committees %}
                     <div class="committee-block">
                         <h3 class="committee-name">{{ item.committee.name }}</h3>
+                        {% if item.committee.description %}
+                        <p class="committee-description">{{ item.committee.description }}</p>
+                        {% endif %}
                         <div class="committee-members-grid">
                             {% for membership in item.members %}
                             <div class="member-card {% if membership.membership_role == 'chair' or membership.membership_role == 'co_chair' %}is-chair{% endif %}">
                                 <div class="member-photo-wrapper">
                                     {% if membership.person.photo %}
-                                        {% image membership.person.photo fill-120x120 class="member-photo" %}
+                                        {% image membership.person.photo fill-120x148 class="member-photo" %}
                                     {% else %}
                                         <div class="person-photo-placeholder" style="font-size: 1.5rem;">
                                             <i class="bi bi-person"></i>

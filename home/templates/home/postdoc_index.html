@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static wagtailimages_tags %}
+
+{% block title %}Peptide Postdocs{% endblock %}
+
+{% block body_class %}template-postdoc-index{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    <h1 class="page-top-header">Peptide Postdocs</h1>
+    <p class="mb-4" style="margin-top: -15px; font-style: italic;">
+        Recognizing postdoctoral researchers advancing peptide science.
+    </p>
+
+    <div class="row">
+        {% for postdoc in postdocs %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100">
+                {% if postdoc.headshot %}
+                <a href="{% url 'postdoc_detail' slug=postdoc.slug %}">
+                    {% image postdoc.headshot fill-400x300 as card_img %}
+                    <img src="{{ card_img.url }}" class="card-img-top" alt="{{ postdoc.full_name }}">
+                </a>
+                {% else %}
+                <a href="{% url 'postdoc_detail' slug=postdoc.slug %}">
+                    <div class="bg-secondary" style="height: 200px;"></div>
+                </a>
+                {% endif %}
+                <div class="card-body">
+                    <h2 class="card-title h5">
+                        <a href="{% url 'postdoc_detail' slug=postdoc.slug %}" class="text-decoration-none text-dark">
+                            {{ postdoc.full_name }}
+                        </a>
+                    </h2>
+                    <p class="card-text small text-muted mb-2">
+                        {{ postdoc.position_title }}<br>
+                        {{ postdoc.lab_name }}, {{ postdoc.institution }}
+                    </p>
+                    <p class="card-text small">{{ postdoc.homepage_blurb|truncatewords:30 }}</p>
+                </div>
+                <div class="card-footer bg-transparent">
+                    <a href="{% url 'postdoc_detail' slug=postdoc.slug %}" class="btn btn-sm btn-outline-primary">Read Profile</a>
+                    <small class="text-muted float-end mt-1">{{ postdoc.publish_date|date:"M Y" }}</small>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="text-muted">No postdoc profiles published yet.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock content %}

@@ -31,13 +31,6 @@
         {# Main Content - 6 cols #}
         <div class="col-12 col-lg-6 awards-main-col">
 
-            {# Breadcrumb back to award list #}
-            <nav class="recipient-breadcrumb">
-                <a href="/awards/?award={{ current_award.slug }}">
-                    <i class="bi bi-arrow-left me-1"></i>{{ current_award.name }}
-                </a>
-            </nav>
-
             {# Recipient Name and Year #}
             <h1 class="page-top-header">{{ recipient.full_name }}</h1>
 
@@ -51,7 +44,7 @@
             {# Biography #}
             {% if recipient.biography %}
             <div class="recipient-biography">
-                {{ recipient.biography|linebreaks }}
+                {{ recipient.biography|safe }}
             </div>
             {% else %}
             <div class="recipient-biography">
