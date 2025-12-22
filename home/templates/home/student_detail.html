@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load static wagtailimages_tags %}
+
+{% block title %}{{ student.full_name }} - Student Spotlight{% endblock %}
+
+{% block body_class %}template-student-detail{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    {# Page Top - Full Width Header #}
+    <div class="row">
+        <div class="col-12">
+            <header class="mb-4">
+                <h1 class="page-top-header">
+                    {{ student.title }}
+                </h1>
+                <h2 style="font-size: 1.4em; font-weight: 600; padding-left: 8px; border-left: 4px solid var(--aps-blue); margin-top: 0; margin-bottom: 10px; color: var(--aps-text);">
+                    {{ student.full_name }}
+                </h2>
+                <p class="text-muted mb-0">
+                    {{ student.program_info }}<br>
+                    {{ student.lab_name }}, {{ student.institution }}
+                </p>
+            </header>
+        </div>
+    </div>
+
+    {# Content Columns #}
+    <div class="row">
+        {# Main Content Column #}
+        <div class="col-lg-7">
+            {# Profile Body - raw HTML #}
+            <article class="student-profile-body mb-4">
+                {{ student.body|safe }}
+            </article>
+
+            <div class="mb-5">
+                <a href="{% url 'student_index' %}" class="btn btn-sm btn-outline-primary">
+                    <i class="bi bi-arrow-left me-1"></i> All Student Spotlights
+                </a>
+            </div>
+        </div>
+
+        {# Sidebar #}
+        <div class="col-lg-5">
+
+            {# Headshot #}
+            {% if student.headshot %}
+            <figure class="figure mb-4 w-100">
+                {% image student.headshot width-800 as headshot_img %}
+                <img src="{{ headshot_img.url }}" alt="{{ student.full_name }}" class="figure-img img-fluid w-100 rounded">
+                {% if student.headshot_credit %}
+                <figcaption class="figure-caption">Photo: {{ student.headshot_credit }}</figcaption>
+                {% endif %}
+            </figure>
+            {% endif %}
+
+            {# Second Sidebar Image #}
+            {% if student.sidebar_image_2 %}
+            <figure class="figure mb-4 w-100">
+                {% image student.sidebar_image_2 width-800 as img2 %}
+                <img src="{{ img2.url }}" alt="" class="figure-img img-fluid w-100 rounded">
+                {% if student.sidebar_image_2_caption %}
+                <figcaption class="figure-caption">{{ student.sidebar_image_2_caption }}</figcaption>
+                {% endif %}
+            </figure>
+            {% endif %}
+
+            {# External Links #}
+            {% if student.personal_website or student.linkedin_url or student.google_scholar_url %}
+            <hr class="blue">
+            <section class="mb-4">
+                <h3 style="font-weight: 600; font-size: 1.3em; padding-left: 8px; border-left: 4px solid var(--aps-orange); margin-bottom: 12px;">
+                    Connect
+                </h3>
+                <div class="d-flex flex-wrap gap-2">
+                    {% if student.personal_website %}
+                    <a href="{{ student.personal_website }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-globe me-1"></i> Website
+                    </a>
+                    {% endif %}
+                    {% if student.linkedin_url %}
+                    <a href="{{ student.linkedin_url }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-linkedin me-1"></i> LinkedIn
+                    </a>
+                    {% endif %}
+                    {% if student.google_scholar_url %}
+                    <a href="{{ student.google_scholar_url }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-mortarboard me-1"></i> Google Scholar
+                    </a>
+                    {% endif %}
+                </div>
+            </section>
+            {% endif %}
+
+            {# Published Date #}
+            <div class="mt-4">
+                <p class="small text-muted">
+                    Profile published {{ student.publish_date|date:"F j, Y" }}
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

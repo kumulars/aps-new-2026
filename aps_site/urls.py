@@ -29,6 +29,9 @@ urlpatterns = [
     # Postdoc Profiles
     path("postdocs/", home_views.postdoc_index, name="postdoc_index"),
     path("postdocs/<slug:slug>/", home_views.postdoc_detail, name="postdoc_detail"),
+    # Student Spotlights
+    path("students/", home_views.student_index, name="student_index"),
+    path("students/<slug:slug>/", home_views.student_detail, name="student_detail"),
 ]
 
 

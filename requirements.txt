@@ -1,3 +1,10 @@
+# Security and environment
+python-dotenv==1.0.1
+
+# S3/Spaces storage
+django-storages==1.14.4
+boto3==1.35.81
+
 anyascii==0.3.3
 asgiref==3.10.0
 beautifulsoup4==4.14.2

@@ -86,17 +86,8 @@ WSGI_APPLICATION = "aps_site.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "aps_wagtail_2026",
-        "USER": "",
-        "PASSWORD": "",
-        "HOST": "localhost",
-        "PORT": "5432",
-    }
-}
+# NOTE: Database configuration is defined in dev.py and production.py
+# to allow environment-specific settings and environment variable loading.
 
 
 # Password validation

@@ -12,15 +12,6 @@
 
     <div class="row mb-4">
         <div class="col-12">
-            <div class="bg-light rounded p-5 text-center" style="min-height: 200px;">
-            </div>
-        </div>
-    </div>
-
-    <hr class="blue">
-
-    <div class="row mb-4">
-        <div class="col-12">
             <h1 class="page-top-header">Recent Peptide Publications</h1>
         </div>
     </div>
@@ -71,7 +62,7 @@
                                 {% if current_gpg.institution %} · {{ current_gpg.institution }}{% endif %}
                             </p>
                             {% endif %}
-                            <p class="mb-2">{{ current_gpg.blurb|truncatewords:50 }}</p>
+                            <p class="mb-2">{{ current_gpg.blurb|safe|truncatewords_html:50 }}</p>
                             <a href="{% pageurl current_gpg %}" class="btn btn-sm btn-outline-primary">Read More</a>
                         </div>
                     </div>
@@ -104,15 +95,41 @@
                 <p class="small" style="margin-top:-10px; margin-bottom:20px; font-style:italic;">
                     Highlighting outstanding graduate students shaping the future of peptide science.
                 </p>
-                <div class="row">
-                    <div class="col-md-5">
-                        <div class="bg-light rounded p-4" style="min-height: 180px;">
+                {% if featured_student %}
+                <div class="row align-items-stretch">
+                    <div class="col-md-5 mb-3 mb-md-0">
+                        <div class="student-homepage-blurb h-100">
+                            <h3 class="h5 mb-2">
+                                <a href="{% url 'student_detail' slug=featured_student.slug %}" class="text-decoration-none">{{ featured_student.full_name }}</a>
+                            </h3>
+                            <p class="small text-muted mb-2">
+                                {{ featured_student.program_info }}<br>
+                                {{ featured_student.lab_name }}, {{ featured_student.institution }}
+                            </p>
+                            <p class="mb-2">{{ featured_student.homepage_blurb|safe|truncatewords_html:55 }}</p>
+                            <a href="{% url 'student_detail' slug=featured_student.slug %}" class="btn btn-sm btn-outline-primary">Read More</a>
                         </div>
                     </div>
                     <div class="col-md-7">
-                        <div class="bg-secondary rounded" style="height: 180px;"></div>
+                        {% if featured_student.headshot %}
+                        <a href="{% url 'student_detail' slug=featured_student.slug %}">
+                            {% image featured_student.headshot fill-600x400 as student_img %}
+                            <img src="{{ student_img.url }}" class="img-fluid rounded" alt="{{ featured_student.full_name }}">
+                        </a>
+                        {% else %}
+                        <div class="bg-secondary rounded h-100" style="min-height: 180px;"></div>
+                        {% endif %}
                     </div>
                 </div>
+                {% else %}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="bg-light rounded p-4 text-center">
+                            <p class="text-muted mb-0">No featured student selected.</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
             </div>
 
             <hr class="blue">
@@ -133,7 +150,7 @@
                                 {{ featured_postdoc.position_title }}<br>
                                 {{ featured_postdoc.lab_name }}, {{ featured_postdoc.institution }}
                             </p>
-                            <p class="mb-2">{{ featured_postdoc.homepage_blurb|truncatewords:50 }}</p>
+                            <p class="mb-2">{{ featured_postdoc.homepage_blurb|safe|truncatewords_html:50 }}</p>
                             <a href="{% url 'postdoc_detail' slug=featured_postdoc.slug %}" class="btn btn-sm btn-outline-primary">Read More</a>
                         </div>
                     </div>

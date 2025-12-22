@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 
-from .models import ResearchItem, ResearchItemCategory, AwardRecipient, AwardType, InMemoriam, PostdocProfile
+from .models import ResearchItem, ResearchItemCategory, AwardRecipient, AwardType, InMemoriam, PostdocProfile, StudentProfile
 
 
 def research_item_detail(request, slug):
@@ -93,3 +93,15 @@ def postdoc_detail(request, slug):
     """Display a single postdoc profile."""
     postdoc = get_object_or_404(PostdocProfile, slug=slug)
     return render(request, 'home/postdoc_detail.html', {'postdoc': postdoc})
+
+
+def student_index(request):
+    """Display all student spotlight profiles."""
+    students = StudentProfile.objects.all().order_by('-publish_date')
+    return render(request, 'home/student_index.html', {'students': students})
+
+
+def student_detail(request, slug):
+    """Display a single student spotlight profile."""
+    student = get_object_or_404(StudentProfile, slug=slug)
+    return render(request, 'home/student_detail.html', {'student': student})

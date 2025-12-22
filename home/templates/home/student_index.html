@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static wagtailimages_tags %}
+
+{% block title %}Student Spotlight{% endblock %}
+
+{% block body_class %}template-student-index{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    <h1 class="page-top-header">Student Spotlight</h1>
+    <p class="mb-4" style="margin-top: -15px; font-style: italic;">
+        Highlighting outstanding graduate students shaping the future of peptide science.
+    </p>
+
+    <div class="row">
+        {% for student in students %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100">
+                {% if student.headshot %}
+                <a href="{% url 'student_detail' slug=student.slug %}">
+                    {% image student.headshot fill-400x300 as card_img %}
+                    <img src="{{ card_img.url }}" class="card-img-top" alt="{{ student.full_name }}">
+                </a>
+                {% else %}
+                <a href="{% url 'student_detail' slug=student.slug %}">
+                    <div class="bg-secondary" style="height: 200px;"></div>
+                </a>
+                {% endif %}
+                <div class="card-body">
+                    <h2 class="card-title h5">
+                        <a href="{% url 'student_detail' slug=student.slug %}" class="text-decoration-none text-dark">
+                            {{ student.full_name }}
+                        </a>
+                    </h2>
+                    <p class="card-text small text-muted mb-2">
+                        {{ student.program_info }}<br>
+                        {{ student.lab_name }}, {{ student.institution }}
+                    </p>
+                    <p class="card-text small">{{ student.homepage_blurb|safe|truncatewords_html:30 }}</p>
+                </div>
+                <div class="card-footer bg-transparent">
+                    <a href="{% url 'student_detail' slug=student.slug %}" class="btn btn-sm btn-outline-primary">Read Profile</a>
+                    <small class="text-muted float-end mt-1">{{ student.publish_date|date:"M Y" }}</small>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="text-muted">No student spotlight profiles published yet.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock content %}

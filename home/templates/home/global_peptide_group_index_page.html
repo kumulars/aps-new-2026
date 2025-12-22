@@ -50,7 +50,7 @@
                     </p>
                     {% endif %}
                     {% if group.blurb %}
-                    <p class="card-text small">{{ group.blurb|truncatewords:20 }}</p>
+                    <p class="card-text small">{{ group.blurb|safe|truncatewords_html:20 }}</p>
                     {% endif %}
                 </div>
                 <div class="card-footer bg-transparent">

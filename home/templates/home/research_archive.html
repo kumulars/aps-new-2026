@@ -59,7 +59,7 @@
                     </h2>
                     <p class="card-text small text-muted">{{ item.lab_name }}</p>
                     {% if item.blurb %}
-                    <p class="card-text small">{{ item.blurb|truncatewords:25 }}</p>
+                    <p class="card-text small">{{ item.blurb|safe|truncatewords_html:25 }}</p>
                     {% endif %}
                 </div>
                 <div class="card-footer bg-transparent">

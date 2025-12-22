@@ -43,6 +43,11 @@ class HomePage(Page):
             is_featured=True
         ).first()
 
+        # Get featured student for homepage (most recent featured)
+        context['featured_student'] = StudentProfile.objects.filter(
+            is_featured=True
+        ).first()
+
         return context
 
 
@@ -1754,3 +1759,149 @@ class PostdocProfile(models.Model):
 
     def get_absolute_url(self):
         return reverse('postdoc_detail', kwargs={'slug': self.slug})
+
+
+# =============================================================================
+# STUDENT PROFILE (Snippet)
+# =============================================================================
+
+@register_snippet
+class StudentProfile(models.Model):
+    """
+    Student Spotlight profile for graduate students.
+    Similar structure to PostdocProfile but tailored for students.
+    """
+    # === Core Identification ===
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    slug = models.SlugField(unique=True, max_length=200, blank=True)
+    title = models.CharField(
+        max_length=300,
+        help_text="Spotlight title, e.g., 'Blocking Metastasis'"
+    )
+    program_info = models.CharField(
+        max_length=200,
+        help_text="e.g., 'Fourth-year Ph.D. Candidate in Chemistry'"
+    )
+    lab_name = models.CharField(
+        max_length=200,
+        help_text="e.g., Kennedy Lab"
+    )
+    institution = models.CharField(max_length=200)
+    country = models.CharField(max_length=100, default="USA")
+
+    # === Images ===
+    headshot = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="Portrait photo"
+    )
+    headshot_credit = models.CharField(
+        max_length=200,
+        blank=True,
+        help_text="Photo credit (optional)"
+    )
+    sidebar_image_2 = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="Second sidebar image (optional)"
+    )
+    sidebar_image_2_caption = models.TextField(
+        blank=True,
+        help_text="Caption for second image"
+    )
+
+    # === Homepage Display ===
+    homepage_blurb = models.TextField(
+        help_text="~55 words for homepage card display"
+    )
+    publish_date = models.DateField(
+        default=timezone.now,
+        help_text="Used for ordering (newest first)"
+    )
+    is_featured = models.BooleanField(
+        default=False,
+        help_text="Show on homepage (only one should be featured at a time)"
+    )
+
+    # === Body Content ===
+    body = models.TextField(
+        help_text="Full profile - paste raw HTML with inline images"
+    )
+
+    # === External Links (optional) ===
+    personal_website = models.URLField(blank=True)
+    linkedin_url = models.URLField(blank=True)
+    google_scholar_url = models.URLField(blank=True)
+
+    panels = [
+        MultiFieldPanel([
+            FieldPanel('first_name'),
+            FieldPanel('last_name'),
+            FieldPanel('slug'),
+            FieldPanel('title'),
+            FieldPanel('program_info'),
+            FieldPanel('lab_name'),
+            FieldPanel('institution'),
+            FieldPanel('country'),
+        ], heading="Core Identification"),
+
+        MultiFieldPanel([
+            FieldPanel('headshot'),
+            FieldPanel('headshot_credit'),
+            FieldPanel('sidebar_image_2'),
+            FieldPanel('sidebar_image_2_caption'),
+        ], heading="Sidebar Images"),
+
+        MultiFieldPanel([
+            FieldPanel('homepage_blurb'),
+            FieldPanel('publish_date'),
+            FieldPanel('is_featured'),
+        ], heading="Homepage Display"),
+
+        FieldPanel('body'),
+        HelpPanel(
+            content='''
+            <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; border: 1px solid #dee2e6; margin: 10px 0;">
+                <strong>Inline Image Template</strong> (copy and paste into body, then update):
+                <pre style="background: #fff; padding: 10px; margin-top: 10px; font-size: 12px; overflow-x: auto; border: 1px solid #ccc;">&lt;div style="margin: 29px"&gt;
+&lt;img src="/media/original_images/FILENAME.jpg" alt="DESCRIPTION" style="margin-bottom: 19px;" class="img-fluid"&gt;
+&lt;p class="small"&gt;CAPTION&lt;/p&gt;
+&lt;/div&gt;</pre>
+            </div>
+            '''
+        ),
+
+        MultiFieldPanel([
+            FieldPanel('personal_website'),
+            FieldPanel('linkedin_url'),
+            FieldPanel('google_scholar_url'),
+        ], heading="External Links (optional)"),
+    ]
+
+    class Meta:
+        ordering = ['-publish_date']
+        verbose_name = "Student Spotlight"
+        verbose_name_plural = "Student Spotlights"
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
+
+    @property
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base_slug = slugify(f"{self.first_name}-{self.last_name}")
+            self.slug = base_slug
+        super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('student_detail', kwargs={'slug': self.slug})

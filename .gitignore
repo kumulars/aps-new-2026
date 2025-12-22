@@ -41,6 +41,9 @@ Thumbs.db
 .env.local
 .env.*.local
 
+# Local settings override (for dev secrets)
+aps_site/settings/local.py
+
 # Build outputs
 dist/
 build/

@@ -37,7 +37,7 @@
                         {{ postdoc.position_title }}<br>
                         {{ postdoc.lab_name }}, {{ postdoc.institution }}
                     </p>
-                    <p class="card-text small">{{ postdoc.homepage_blurb|truncatewords:30 }}</p>
+                    <p class="card-text small">{{ postdoc.homepage_blurb|safe|truncatewords_html:30 }}</p>
                 </div>
                 <div class="card-footer bg-transparent">
                     <a href="{% url 'postdoc_detail' slug=postdoc.slug %}" class="btn btn-sm btn-outline-primary">Read Profile</a>

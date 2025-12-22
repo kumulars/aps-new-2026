@@ -8,9 +8,11 @@
 {% block content %}
 <div class="container py-4">
 
-    {# Page Top - Full Width Header #}
+    {# Content Columns #}
     <div class="row">
-        <div class="col-12">
+        {# Main Content Column #}
+        <div class="col-lg-7">
+            {# Header and Publication Info #}
             <header class="mb-4">
                 <h1 class="page-top-header">
                     {{ item.short_title }}
@@ -18,17 +20,31 @@
                 <h2 style="font-size: 1.4em; font-weight: 600; padding-left: 8px; border-left: 4px solid var(--aps-blue); margin-top: 0; margin-bottom: 10px; color: var(--aps-text);">
                     Reflecting work in the {{ item.lab_name }}
                 </h2>
-                <p class="small text-muted">
+                <p class="small text-muted mb-3">
                     Published here {{ item.publish_date|date:"F j, Y" }}
                 </p>
             </header>
-        </div>
-    </div>
 
-    {# Content Columns #}
-    <div class="row">
-        {# Main Content Column #}
-        <div class="col-lg-7">
+            {# Original Publication #}
+            <section class="mb-4">
+                <p class="mb-2"><strong>{{ item.publication_title|safe }}</strong></p>
+                {% if item.publication_authors %}
+                <p class="small text-muted mb-2">{{ item.publication_authors }}</p>
+                {% endif %}
+                {% if item.publication_citation %}
+                <p class="small mb-2">{{ item.publication_citation|safe }}</p>
+                {% endif %}
+                {% if item.publication_url %}
+                <p>
+                    <a href="{{ item.publication_url }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-box-arrow-up-right me-1"></i> View Original Publication
+                    </a>
+                </p>
+                {% endif %}
+            </section>
+
+            <hr class="blue">
+
             {# Article Body - raw HTML #}
             <article class="research-article-body mb-4">
                 {{ item.body|safe }}
@@ -54,29 +70,6 @@
                 {% endif %}
             </figure>
             {% endif %}
-
-            <hr class="blue">
-
-            {# Publication Information #}
-            <section class="mb-4">
-                <h3 style="font-weight: 600; font-size: 1.3em; padding-left: 8px; border-left: 4px solid var(--aps-orange); margin-bottom: 12px;">
-                    Original Publication
-                </h3>
-                <p class="mb-2"><strong>{{ item.publication_title }}</strong></p>
-                {% if item.publication_authors %}
-                <p class="small text-muted mb-2">{{ item.publication_authors }}</p>
-                {% endif %}
-                {% if item.publication_citation %}
-                <p class="small mb-2">{{ item.publication_citation|safe }}</p>
-                {% endif %}
-                {% if item.publication_url %}
-                <p>
-                    <a href="{{ item.publication_url }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary">
-                        <i class="bi bi-box-arrow-up-right me-1"></i> View Publication
-                    </a>
-                </p>
-                {% endif %}
-            </section>
 
             {# Author Spotlights #}
             {% if item.author_1_info or item.author_2_info or item.author_3_info %}
@@ -122,13 +115,6 @@
                 </div>
                 {% endif %}
             </section>
-            {% endif %}
-
-            {# Category Badge #}
-            {% if item.category %}
-            <div class="mb-4">
-                <span class="badge bg-secondary">{{ item.category.name }}</span>
-            </div>
             {% endif %}
 
         </div>
