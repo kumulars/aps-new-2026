@@ -10,14 +10,6 @@
     padding: 0;
 }
 
-.gpg-homepage-blurb h3 a {
-    color: var(--aps-blue, #1a5276);
-}
-
-.gpg-homepage-blurb h3 a:hover {
-    text-decoration: underline !important;
-}
-
 .gpg-homepage-img {
     width: 100%;
     height: 100%;

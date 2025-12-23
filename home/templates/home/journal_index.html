@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block title %}Peptide Science - APS Journal{% endblock %}
+
+{% block body_class %}template-journal{% endblock %}
+
+{% block extra_css %}
+<style>
+    .issue-cover {
+        border: 1px solid #ddd;
+        box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+        border-radius: 6px;
+        transition: transform 0.2s, box-shadow 0.2s;
+        max-width: 180px;
+    }
+    .issue-cover:hover {
+        transform: translateY(-3px);
+        box-shadow: 4px 4px 12px rgba(0,0,0,0.15);
+    }
+    .issue-placeholder {
+        width: 180px;
+        height: 240px;
+        background: linear-gradient(135deg, #1a5276 0%, #2980b9 100%);
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        color: white;
+        text-align: center;
+        padding: 15px;
+    }
+    .issue-placeholder .vol-text {
+        font-size: 0.9rem;
+        opacity: 0.9;
+    }
+    .issue-placeholder .issue-text {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin: 5px 0;
+    }
+    .issue-placeholder .date-text {
+        font-size: 0.8rem;
+        opacity: 0.8;
+    }
+    .issue-info {
+        margin-top: 0.5rem;
+        font-size: 0.85rem;
+    }
+    .issue-volume {
+        font-weight: bold;
+        color: var(--aps-blue);
+    }
+    .year-section {
+        margin-bottom: 2rem;
+    }
+    .year-header {
+        color: var(--aps-blue);
+        font-size: 1.3rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--aps-blue);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    <h1 class="page-top-header">Peptide Science</h1>
+
+    <div class="row mb-4">
+        <div class="col-lg-8" style="font-size: 1.1rem;">
+            <p><strong>Peptide Science</strong> is the official journal of the American Peptide Society. It is an interdisciplinary, peer-reviewed journal covering the entire field of peptide research, publishing significant original research papers and up-to-date reviews covering all aspects of peptide synthesis, materials, structure, and bioactivity.</p>
+            <p class="mb-0">
+                <a href="https://onlinelibrary.wiley.com/journal/24758817" target="_blank" class="btn btn-outline-primary btn-sm me-2">
+                    <i class="bi bi-journal-richtext me-1"></i> Wiley Online Library
+                </a>
+                <a href="https://onlinelibrary.wiley.com/page/journal/24758817/homepage/forauthors.html" target="_blank" class="btn btn-outline-secondary btn-sm">
+                    <i class="bi bi-pencil-square me-1"></i> Author Guidelines
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <hr class="blue">
+
+    <h2 class="secondary-header">Recent Issues</h2>
+
+    {% regroup recent_issues by year as issues_by_year %}
+    {% for year_group in issues_by_year %}
+    <div class="year-section">
+        <div class="year-header">{{ year_group.grouper }}</div>
+        <div class="row">
+            {% for issue in year_group.list %}
+            <div class="col-6 col-md-4 col-lg-2 mb-4 text-center">
+                <a href="{{ issue.wiley_url }}" target="_blank" class="text-decoration-none">
+                    {% if issue.cover_image %}
+                        {% image issue.cover_image fill-180x240 class="issue-cover" %}
+                    {% else %}
+                        <div class="issue-placeholder issue-cover">
+                            <span class="vol-text">Volume {{ issue.volume }}</span>
+                            <span class="issue-text">Issue {{ issue.issue }}</span>
+                            <span class="date-text">{{ issue.display_date }}</span>
+                        </div>
+                    {% endif %}
+                    <div class="issue-info">
+                        <div class="issue-volume">Vol. {{ issue.volume }}, No. {{ issue.issue }}</div>
+                        <div class="text-muted small">{{ issue.display_date }}</div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-muted">No journal issues have been added yet.</p>
+    {% endfor %}
+
+</div>
+{% endblock content %}

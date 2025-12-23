@@ -53,3 +53,22 @@ build/
 .coverage
 htmlcov/
 .pytest_cache/
+
+# Large media files (stored in DigitalOcean Spaces)
+media/proceedings/
+media/documents/
+media/site_banner/
+
+# Source material (not for production)
+APS - Proceedings 2017-25/
+Award_Material/
+
+# Database exports
+db_export*.json
+
+# Large binary files
+*.psd
+*.indd
+
+# Screenshots
+Screenshot.png

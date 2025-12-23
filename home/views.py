@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 
-from .models import ResearchItem, ResearchItemCategory, AwardRecipient, AwardType, InMemoriam, PostdocProfile, StudentProfile
+from .models import ResearchItem, ResearchItemCategory, AwardRecipient, AwardType, InMemoriam, PostdocProfile, StudentProfile, Proceeding, JournalIssue
 
 
 def research_item_detail(request, slug):
@@ -105,3 +105,27 @@ def student_detail(request, slug):
     """Display a single student spotlight profile."""
     student = get_object_or_404(StudentProfile, slug=slug)
     return render(request, 'home/student_detail.html', {'student': student})
+
+
+def international_peptide_liaison(request):
+    """Display the International Peptide Liaison page."""
+    return render(request, 'home/international_peptide_liaison.html')
+
+
+def proceedings_index(request):
+    """Display the Symposium Proceedings archive page."""
+    proceedings = Proceeding.objects.all().order_by('-year')
+    return render(request, 'home/proceedings_index.html', {'proceedings': proceedings})
+
+
+def journal_index(request):
+    """Display the APS Journal (Peptide Science) main page with all issues."""
+    # Get all issues ordered by year (descending) then month (descending)
+    recent_issues = JournalIssue.objects.all().order_by('-year', '-month')
+    return render(request, 'home/journal_index.html', {'recent_issues': recent_issues})
+
+
+def journal_issues(request):
+    """Display all journal issues."""
+    issues = JournalIssue.objects.all()
+    return render(request, 'home/journal_issues.html', {'issues': issues})

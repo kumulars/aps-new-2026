@@ -5,45 +5,36 @@
 
 {% block body_class %}template-in-memoriam-index{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/people.css' %}">
+{% endblock %}
+
 {% block content %}
 <div class="container py-4">
 
     <h1 class="page-top-header">In Memoriam</h1>
 
-    <p class="lead text-muted mb-4">Honoring the memory of colleagues who have contributed to the peptide science community.</p>
+    <p class="mb-4" style="margin-top: -15px; font-style: italic;">Honoring colleagues who have contributed to the peptide science community.</p>
 
-    <div class="row">
+    <div class="people-grid">
         {% for person in people %}
-        <div class="col-sm-6 col-lg-3 mb-4">
-            <div class="memoriam-card">
-                <div class="memoriam-card-inner">
+        <a href="{% url 'in_memoriam_detail' person.slug %}" class="text-decoration-none">
+            <div class="person-card">
+                <div class="person-photo-wrapper">
                     {% if person.photo %}
-                    <a href="{% url 'in_memoriam_detail' person.slug %}" class="memoriam-photo-link">
-                        {% image person.photo fill-243x300 as photo %}
-                        <img src="{{ photo.url }}" alt="{{ person.full_name }}" class="memoriam-photo">
-                    </a>
+                        {% image person.photo fill-140x170 class="person-photo" %}
                     {% else %}
-                    <a href="{% url 'in_memoriam_detail' person.slug %}" class="memoriam-photo-link">
-                        <div class="memoriam-photo-placeholder">
+                        <div class="person-photo-placeholder">
                             <i class="bi bi-person"></i>
                         </div>
-                    </a>
                     {% endif %}
-
-                    <div class="memoriam-info">
-                        <h3 class="memoriam-name">
-                            <a href="{% url 'in_memoriam_detail' person.slug %}">{{ person.full_name }}</a>
-                        </h3>
-                        <div class="memoriam-blurb">
-                            {{ person.blurb|safe|truncatewords_html:30 }}
-                        </div>
-                        <a href="{% url 'in_memoriam_detail' person.slug %}" class="memoriam-read-more">
-                            Read tribute <i class="bi bi-arrow-right"></i>
-                        </a>
-                    </div>
+                </div>
+                <div class="person-info">
+                    <div class="person-name">{{ person.full_name }}</div>
+                    <div class="person-role" style="font-weight: normal; font-size: 0.8rem;">Read tribute →</div>
                 </div>
             </div>
-        </div>
+        </a>
         {% empty %}
         <div class="col-12">
             <p class="text-muted">No entries yet.</p>

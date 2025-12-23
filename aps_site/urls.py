@@ -32,6 +32,13 @@ urlpatterns = [
     # Student Spotlights
     path("students/", home_views.student_index, name="student_index"),
     path("students/<slug:slug>/", home_views.student_detail, name="student_detail"),
+    # International Peptide Liaison
+    path("international-peptide-liaison/", home_views.international_peptide_liaison, name="international_peptide_liaison"),
+    # Symposium Proceedings
+    path("proceedings/", home_views.proceedings_index, name="proceedings_index"),
+    # APS Journal (Peptide Science)
+    path("journal/", home_views.journal_index, name="journal_index"),
+    path("journal/recent-issues/", home_views.journal_issues, name="journal_issues"),
 ]
 
 

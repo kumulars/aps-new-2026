@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block title %}Symposium Proceedings{% endblock %}
+
+{% block body_class %}template-proceedings{% endblock %}
+
+{% block extra_css %}
+<style>
+    .proceeding-item {
+        margin-bottom: 2.5rem;
+    }
+    .proceeding-cover {
+        max-width: 239px;
+        border: 1px solid #ddd;
+        box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+        border-radius: 6px;
+    }
+    .proceeding-year {
+        color: var(--aps-blue);
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 0.25rem;
+    }
+    .proceeding-title {
+        font-size: 1.1rem;
+        margin-bottom: 0.25rem;
+    }
+    .proceeding-venue {
+        font-size: 0.95rem;
+        color: #555;
+        margin-bottom: 0.5rem;
+    }
+    .proceeding-chairs {
+        font-size: 0.9rem;
+    }
+    .proceeding-chairs strong {
+        color: #333;
+    }
+    .proceeding-chair-name {
+        font-weight: 500;
+    }
+    .proceeding-chair-affiliation {
+        color: #666;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    <h1 class="page-top-header">American Peptide Symposia Proceedings</h1>
+
+    <div class="row">
+        {% for proc in proceedings %}
+        <div class="col-md-6 proceeding-item">
+            <div class="row">
+                <div class="col-auto">
+                    {% if proc.cover_image %}
+                        {% if proc.pdf_url %}
+                        <a href="{{ proc.pdf_url }}" target="_blank" title="Download {{ proc.year }} Proceedings">
+                            {% image proc.cover_image fill-239x319 class="proceeding-cover" %}
+                        </a>
+                        {% else %}
+                            {% image proc.cover_image fill-239x319 class="proceeding-cover" %}
+                        {% endif %}
+                    {% else %}
+                        <div class="proceeding-cover" style="width: 239px; height: 319px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; border-radius: 6px;">
+                            <span class="text-muted">{{ proc.year }}</span>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="col">
+                    <div class="proceeding-year">{{ proc.year }}</div>
+                    <div class="proceeding-title">{{ proc.title }}</div>
+                    <div class="proceeding-venue">
+                        {{ proc.venue_name }}<br>
+                        {{ proc.location }}
+                    </div>
+                    {% if proc.chairs %}
+                    <div class="proceeding-chairs">
+                        <strong>Chairs</strong><br>
+                        {% for block in proc.chairs %}
+                            <span class="proceeding-chair-name">{{ block.value.name }}</span>,<br>
+                            <span class="proceeding-chair-affiliation">{{ block.value.affiliation }}</span>
+                            {% if not forloop.last %}<br><br>{% endif %}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="text-muted">No proceedings have been added yet.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock content %}

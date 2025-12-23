@@ -155,7 +155,7 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-/* Researcher Name */
+/* Researcher Name - Static (no links) */
 .researcher-name {
     font-size: 1.05rem;
     font-weight: 600;
@@ -164,68 +164,83 @@
     line-height: 1.3;
 }
 
+/* Researcher Name - Dropdown Button */
+.researcher-name-btn {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--aps-blue);
+    background: none;
+    border: 1px solid var(--aps-blue);
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+    margin-bottom: 0.25rem;
+    line-height: 1.3;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.researcher-name-btn:hover,
+.researcher-name-btn:focus {
+    color: white;
+    background-color: var(--aps-blue);
+    text-decoration: none;
+}
+
+/* Hide default dropdown caret, use subtle indicator */
+.researcher-name-btn::after {
+    display: inline-block;
+    margin-left: 0.35rem;
+    font-size: 0.7rem;
+    opacity: 0.5;
+    vertical-align: middle;
+}
+
+.researcher-name-btn:hover::after {
+    opacity: 0.8;
+}
+
+/* Dropdown Menu Styling */
+.researcher-dropdown {
+    font-size: 0.9rem;
+    min-width: 160px;
+    padding: 0.5rem 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border: 1px solid #e9ecef;
+}
+
+.researcher-dropdown .dropdown-item {
+    padding: 0.5rem 1rem;
+    color: #333;
+}
+
+.researcher-dropdown .dropdown-item:hover {
+    background-color: #f8f9fa;
+    color: var(--aps-blue);
+}
+
+.researcher-dropdown .dropdown-item i {
+    width: 1.25rem;
+    text-align: center;
+}
+
+/* Icon colors in dropdown */
+.text-orcid { color: #a6ce39; }
+.text-pubmed { color: #20598e; }
+.text-scholar { color: #4285f4; }
+
 /* Institution */
 .researcher-institution {
     font-size: 0.8rem;
     color: #555;
     line-height: 1.4;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
     flex-grow: 1;
     /* Limit to 2 lines */
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-}
-
-/* Action Buttons - Icon Only, Muted Until Hover */
-.researcher-actions {
-    display: flex;
-    gap: 0.375rem;
-    flex-wrap: wrap;
-    margin-top: auto;
-}
-
-.action-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    font-size: 0.9rem;
-    text-decoration: none;
-    color: white;
-    background: var(--aps-blue);
-    border-radius: 4px;
-    transition: all 0.2s ease;
-    opacity: 0.7;
-}
-
-/* Colored variants at 60% opacity by default */
-.action-btn.action-orcid {
-    background: #a6ce39;
-}
-
-.action-btn.action-pubmed {
-    background: #20598e;
-}
-
-.action-btn.action-scholar {
-    background: #4285f4;
-}
-
-/* Full opacity on card hover */
-.researcher-card:hover .action-btn {
-    opacity: 1;
-}
-
-/* Individual button hover - full opacity and lift effect */
-.action-btn:hover {
-    text-decoration: none;
-    opacity: 1;
-    color: rgba(255, 255, 255, 1);
-    transform: translateY(-1px);
-    filter: brightness(0.9);
 }
 
 /* =============================================================================
@@ -250,28 +265,15 @@
     }
 
     .researcher-card {
-        flex-direction: row;
-        align-items: center;
-        gap: 0.75rem;
+        padding: 0.75rem;
     }
 
-    .researcher-name {
-        font-size: 0.9rem;
+    .researcher-name,
+    .researcher-name-btn {
+        font-size: 0.95rem;
     }
 
     .researcher-institution {
-        margin-bottom: 0;
         -webkit-line-clamp: 1;
-    }
-
-    .researcher-actions {
-        margin-top: 0;
-        flex-shrink: 0;
-    }
-
-    .action-btn {
-        width: 28px;
-        height: 28px;
-        font-size: 0.85rem;
     }
 }

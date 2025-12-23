@@ -18,6 +18,11 @@
     {% endif %}
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/media/original_images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/media/original_images/favicon-16x16.png">
+    <link rel="shortcut icon" href="/media/original_images/favicon.png">
+
     {% if request.in_preview_panel %}
     <base target="_blank">
     {% endif %}
@@ -41,7 +46,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="/">
-                <img src="https://americanpeptidesociety.org/wp-content/uploads/2019/08/aps_logo_main.png"
+                <img src="/media/original_images/aps_logo_official.png"
                      alt="American Peptide Society">
             </a>
 
@@ -52,22 +57,28 @@
             <div class="collapse navbar-collapse" id="mainNavbar">
                 <ul class="navbar-nav ms-auto">
 
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="/">Home</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% if request.path == '/' or '/international-peptide-liaison/' in request.path %}active{% endif %}" href="#" id="navHome" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Home
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navHome">
+                            <li><a class="dropdown-item" href="{% url 'international_peptide_liaison' %}">International Peptide Liaison</a></li>
+                        </ul>
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {% if '/about/' in request.path or '/research/' in request.path or '/symposia-images/' in request.path or '/peptide-links/' in request.path or '/global-peptide-groups/' in request.path or '/students/' in request.path or '/postdocs/' in request.path %}active{% endif %}" href="#" id="navExplore" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle {% if '/about/' in request.path or '/research/' in request.path or '/symposia-images/' in request.path or '/proceedings/' in request.path or '/journal/' in request.path or '/global-peptide-groups/' in request.path or '/students/' in request.path or '/postdocs/' in request.path %}active{% endif %}" href="#" id="navExplore" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Explore
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navExplore">
                             <li><a class="dropdown-item" href="{% url 'about' %}">About Us</a></li>
+                            <li><a class="dropdown-item" href="{% url 'research_archive' %}">Peptide Publications</a></li>
                             <li><a class="dropdown-item" href="/global-peptide-groups/">Global Peptide Groups</a></li>
-                            <li><a class="dropdown-item" href="{% url 'research_archive' %}">Peptide Publications Archive</a></li>
-                            <li><a class="dropdown-item" href="{% url 'student_index' %}">Student Spotlight</a></li>
+                            <li><a class="dropdown-item" href="{% url 'student_index' %}">Student Spotlights</a></li>
                             <li><a class="dropdown-item" href="{% url 'postdoc_index' %}">Peptide Postdocs</a></li>
                             <li><a class="dropdown-item" href="/symposia-images/">Symposia Images</a></li>
-                            <li><a class="dropdown-item" href="/peptide-links/">PeptideLinks Directory</a></li>
+                            <li><a class="dropdown-item" href="{% url 'proceedings_index' %}">Symposium Proceedings</a></li>
+                            <li><a class="dropdown-item" href="{% url 'journal_index' %}">Our Journal</a></li>
                         </ul>
                     </li>
 
@@ -96,6 +107,10 @@
                             <li><a class="dropdown-item" href="/awards/?award=early-career">APS Early Career Lectureship</a></li>
                             <li><a class="dropdown-item" href="/awards/?award=hirschmann">ACS Ralph F. Hirschmann Award</a></li>
                         </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {% if '/peptide-links/' in request.path %}active{% endif %}" href="/peptide-links/">PeptideLinks</a>
                     </li>
 
                     <li class="nav-item dropdown">

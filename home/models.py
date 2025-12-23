@@ -1905,3 +1905,158 @@ class StudentProfile(models.Model):
 
     def get_absolute_url(self):
         return reverse('student_detail', kwargs={'slug': self.slug})
+
+
+# =============================================================================
+# SYMPOSIUM PROCEEDINGS
+# =============================================================================
+
+class ChairBlock(StructBlock):
+    """A single symposium chair with name and affiliation."""
+    name = CharBlock(max_length=200, help_text="Chair's full name")
+    affiliation = CharBlock(max_length=300, help_text="Institution or company")
+
+    class Meta:
+        icon = 'user'
+        label = 'Chair'
+
+
+@register_snippet
+class Proceeding(models.Model):
+    """
+    Symposium Proceedings - historical record of APS symposia with
+    downloadable proceedings PDFs and symposium information.
+    """
+    year = models.IntegerField(
+        unique=True,
+        help_text="Symposium year (e.g., 2025)"
+    )
+    title = models.CharField(
+        max_length=300,
+        help_text="Symposium theme (e.g., 'Peptides Rising')"
+    )
+    venue_name = models.CharField(
+        max_length=300,
+        help_text="Venue name (e.g., 'Sheraton San Diego Hotel')"
+    )
+    location = models.CharField(
+        max_length=200,
+        help_text="City, State/Country (e.g., 'San Diego, CA')"
+    )
+
+    # Cover image (hosted on Spaces)
+    cover_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="Symposium program cover image"
+    )
+
+    # PDF URL (hosted on Spaces)
+    pdf_url = models.URLField(
+        blank=True,
+        help_text="URL to proceedings PDF on DigitalOcean Spaces"
+    )
+
+    # Chairs using StreamField
+    chairs = StreamField(
+        [('chair', ChairBlock())],
+        blank=True,
+        use_json_field=True,
+        help_text="Symposium co-chairs"
+    )
+
+    # Display order (higher = more recent, shown first)
+    display_order = models.IntegerField(
+        default=0,
+        help_text="Order for display (higher numbers first)"
+    )
+
+    panels = [
+        FieldPanel('year'),
+        FieldPanel('title'),
+        FieldPanel('venue_name'),
+        FieldPanel('location'),
+        FieldPanel('cover_image'),
+        FieldPanel('pdf_url'),
+        FieldPanel('chairs'),
+        FieldPanel('display_order'),
+    ]
+
+    class Meta:
+        ordering = ['-year']
+        verbose_name = "Proceeding"
+        verbose_name_plural = "Proceedings"
+
+    def __str__(self):
+        return f"{self.year} - {self.title}"
+
+
+# =============================================================================
+# JOURNAL ISSUE (Peptide Science)
+# =============================================================================
+
+@register_snippet
+class JournalIssue(models.Model):
+    """
+    Journal issue for Peptide Science - the official journal of the APS.
+    Each issue has a cover image, volume, issue number, and date.
+    """
+    MONTH_CHOICES = [
+        (1, 'January'),
+        (2, 'February'),
+        (3, 'March'),
+        (4, 'April'),
+        (5, 'May'),
+        (6, 'June'),
+        (7, 'July'),
+        (8, 'August'),
+        (9, 'September'),
+        (10, 'October'),
+        (11, 'November'),
+        (12, 'December'),
+    ]
+
+    volume = models.IntegerField(help_text="Volume number (e.g., 117)")
+    issue = models.IntegerField(help_text="Issue number (e.g., 1)")
+    month = models.IntegerField(choices=MONTH_CHOICES)
+    year = models.IntegerField()
+
+    cover_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="Journal issue cover image"
+    )
+
+    # Link to Wiley
+    wiley_url = models.URLField(
+        blank=True,
+        help_text="URL to this issue on Wiley Online Library"
+    )
+
+    panels = [
+        FieldPanel('volume'),
+        FieldPanel('issue'),
+        FieldPanel('month'),
+        FieldPanel('year'),
+        FieldPanel('cover_image'),
+        FieldPanel('wiley_url'),
+    ]
+
+    class Meta:
+        ordering = ['-year', '-month']
+        verbose_name = "Journal Issue"
+        verbose_name_plural = "Journal Issues"
+        unique_together = ['volume', 'issue']
+
+    def __str__(self):
+        return f"Vol. {self.volume}, Issue {self.issue} ({self.get_month_display()} {self.year})"
+
+    @property
+    def display_date(self):
+        return f"{self.get_month_display()} {self.year}"

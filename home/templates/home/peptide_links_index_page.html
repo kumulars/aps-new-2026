@@ -10,6 +10,11 @@
 {% endblock %}
 
 {% block content %}
+{# Full-width Banner #}
+<div class="page-banner-full">
+    <img src="/media/site_banner/peptide_links_banner.png" alt="Peptide Links" class="img-fluid w-100">
+</div>
+
 <div class="container py-4">
     {# Page Header #}
     <div class="peptide-links-header mb-4">
@@ -125,34 +130,49 @@
             <div class="researcher-grid">
                 {% for researcher in researchers %}
                 <div class="researcher-card">
-                    <h5 class="researcher-name">{{ researcher.full_name }}</h5>
-                    <div class="researcher-institution">{{ researcher.institution }}</div>
-                    <div class="researcher-actions">
-                        {% if researcher.website_url %}
-                        <a href="{{ researcher.website_url }}" target="_blank" rel="noopener"
-                           class="action-btn" title="Website">
-                            <i class="bi bi-globe"></i>
-                        </a>
-                        {% endif %}
-                        {% if researcher.orcid_id %}
-                        <a href="{{ researcher.orcid_url }}" target="_blank" rel="noopener"
-                           class="action-btn action-orcid" title="ORCID">
-                            <i class="bi bi-person-badge"></i>
-                        </a>
-                        {% endif %}
-                        {% if researcher.pubmed_url %}
-                        <a href="{{ researcher.pubmed_url }}" target="_blank" rel="noopener"
-                           class="action-btn action-pubmed" title="PubMed">
-                            <i class="bi bi-journal-text"></i>
-                        </a>
-                        {% endif %}
-                        {% if researcher.google_scholar_url %}
-                        <a href="{{ researcher.google_scholar_url }}" target="_blank" rel="noopener"
-                           class="action-btn action-scholar" title="Google Scholar">
-                            <i class="bi bi-mortarboard"></i>
-                        </a>
-                        {% endif %}
+                    {% if researcher.website_url or researcher.orcid_id or researcher.pubmed_url or researcher.google_scholar_url %}
+                    {# Name with dropdown if links exist #}
+                    <div class="dropdown">
+                        <button class="researcher-name-btn dropdown-toggle" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ researcher.full_name }}
+                        </button>
+                        <ul class="dropdown-menu researcher-dropdown">
+                            {% if researcher.website_url %}
+                            <li>
+                                <a class="dropdown-item" href="{{ researcher.website_url }}" target="_blank" rel="noopener">
+                                    <i class="bi bi-globe me-2"></i>Website
+                                </a>
+                            </li>
+                            {% endif %}
+                            {% if researcher.orcid_id %}
+                            <li>
+                                <a class="dropdown-item" href="{{ researcher.orcid_url }}" target="_blank" rel="noopener">
+                                    <i class="bi bi-person-badge me-2 text-orcid"></i>ORCID
+                                </a>
+                            </li>
+                            {% endif %}
+                            {% if researcher.pubmed_url %}
+                            <li>
+                                <a class="dropdown-item" href="{{ researcher.pubmed_url }}" target="_blank" rel="noopener">
+                                    <i class="bi bi-journal-text me-2 text-pubmed"></i>PubMed
+                                </a>
+                            </li>
+                            {% endif %}
+                            {% if researcher.google_scholar_url %}
+                            <li>
+                                <a class="dropdown-item" href="{{ researcher.google_scholar_url }}" target="_blank" rel="noopener">
+                                    <i class="bi bi-mortarboard me-2 text-scholar"></i>Google Scholar
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
                     </div>
+                    {% else %}
+                    {# Plain name if no links #}
+                    <h5 class="researcher-name">{{ researcher.full_name }}</h5>
+                    {% endif %}
+                    <div class="researcher-institution">{{ researcher.institution }}</div>
                 </div>
                 {% endfor %}
             </div>

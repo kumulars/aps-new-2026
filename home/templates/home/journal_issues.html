@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block title %}Recent Journal Issues - Peptide Science{% endblock %}
+
+{% block body_class %}template-journal-issues{% endblock %}
+
+{% block extra_css %}
+<style>
+    .issue-card {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    .issue-cover {
+        border: 1px solid #ddd;
+        box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+        border-radius: 6px;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .issue-cover:hover {
+        transform: translateY(-3px);
+        box-shadow: 4px 4px 12px rgba(0,0,0,0.15);
+    }
+    .issue-info {
+        margin-top: 0.75rem;
+    }
+    .issue-volume {
+        font-weight: bold;
+        color: var(--aps-blue);
+    }
+    .issue-date {
+        font-size: 0.9rem;
+        color: #666;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    <h1 class="page-top-header">Recent Journal Issues</h1>
+
+    <p class="mb-4">
+        <a href="{% url 'journal_index' %}"><i class="bi bi-arrow-left me-1"></i> Back to Peptide Science</a>
+    </p>
+
+    <div class="row">
+        {% for issue in issues %}
+        <div class="col-6 col-md-4 col-lg-3 col-xl-2 issue-card">
+            {% if issue.wiley_url %}
+            <a href="{{ issue.wiley_url }}" target="_blank" class="text-decoration-none">
+            {% endif %}
+                {% if issue.cover_image %}
+                    {% image issue.cover_image fill-180x240 class="issue-cover" %}
+                {% else %}
+                    <div class="issue-cover" style="width: 180px; height: 240px; background: #f0f0f0; display: inline-flex; align-items: center; justify-content: center;">
+                        <span class="text-muted">Vol. {{ issue.volume }}<br>Issue {{ issue.issue }}</span>
+                    </div>
+                {% endif %}
+                <div class="issue-info">
+                    <div class="issue-volume">Vol. {{ issue.volume }}, Issue {{ issue.issue }}</div>
+                    <div class="issue-date">{{ issue.display_date }}</div>
+                </div>
+            {% if issue.wiley_url %}
+            </a>
+            {% endif %}
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="text-muted">No journal issues have been added yet.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock content %}
