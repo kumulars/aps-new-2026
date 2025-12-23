@@ -13,7 +13,7 @@
 {# Full-width Banner #}
 {% if symposium_banner %}
 <div class="symposium-banner-full">
-    <img src="/media/{{ symposium_banner }}" alt="APS {{ active_year }} - {{ symposium_location }}" class="img-fluid w-100">
+    <img src="{{ MEDIA_URL }}{{ symposium_banner }}" alt="APS {{ active_year }} - {{ symposium_location }}" class="img-fluid w-100">
 </div>
 {% endif %}
 
