@@ -41,7 +41,37 @@ EnvironmentFile=/var/www/aps2026/.env
 ```
 After editing, run: `sudo systemctl daemon-reload`
 
-### Standard Deployment (Code + Database)
+### One-Time Setup: s3cmd for Media Sync (on Mac)
+
+Media files (images, documents) are stored in DigitalOcean Spaces on production.
+You need `s3cmd` configured to sync local media to Spaces.
+
+```bash
+# Install s3cmd
+brew install s3cmd
+
+# Configure for DigitalOcean Spaces
+s3cmd --configure
+```
+
+When prompted, enter:
+- Access Key: (your SPACES_ACCESS_KEY from .env)
+- Secret Key: (your SPACES_SECRET_KEY from .env)
+- Default Region: nyc3
+- S3 Endpoint: nyc3.digitaloceanspaces.com
+- DNS-style bucket+hostname: %(bucket)s.nyc3.digitaloceanspaces.com
+- Use HTTPS: Yes
+
+Test the connection:
+```bash
+s3cmd ls s3://aps2026-production/
+```
+
+---
+
+### Full Deployment (Code + Database + Media)
+
+**IMPORTANT**: This is the complete deployment procedure. All three components must be deployed together when you've added new images or media files locally.
 
 #### Step 1: Push Code to GitHub (from Mac)
 ```bash
@@ -58,16 +88,30 @@ python manage.py dumpdata --natural-foreign --natural-primary \
   --exclude=contenttypes --exclude=auth.permission \
   --exclude=wagtailcore.groupcollectionpermission \
   --exclude=wagtailcore.grouppagepermission \
+  --exclude=wagtailcore.pagelogentry \
   --exclude=sessions --indent=2 > db_export_full.json
 ```
 
-#### Step 3: Transfer Database to Server (from Mac)
+#### Step 3: Sync Media to DigitalOcean Spaces (from Mac)
+```bash
+cd /Users/larssahl/Documents/wagtail/aps-new-2026
+
+# Sync all media files to Spaces (--acl-public makes them accessible)
+s3cmd sync --acl-public ./media/ s3://aps2026-production/media/
+
+# Verify upload
+s3cmd ls s3://aps2026-production/media/images/ | head -10
+```
+
+**Note**: This syncs all files. Only new/changed files are uploaded (s3cmd checks).
+
+#### Step 4: Transfer Database to Server (from Mac)
 ```bash
 scp /Users/larssahl/Documents/wagtail/aps-new-2026/db_export_full.json \
   root@159.203.115.118:/var/www/aps2026/
 ```
 
-#### Step 4: Deploy on Server (SSH to server)
+#### Step 5: Deploy on Server (SSH to server)
 ```bash
 ssh root@159.203.115.118
 cd /var/www/aps2026
@@ -93,7 +137,12 @@ python manage.py collectstatic --no-input
 sudo systemctl restart gunicorn
 ```
 
-### Code-Only Deployment (No Database Changes)
+---
+
+### Code-Only Deployment (No Database or Media Changes)
+
+Use when you've only changed templates, CSS, Python code, etc.
+
 ```bash
 ssh root@159.203.115.118
 cd /var/www/aps2026
@@ -103,6 +152,17 @@ pip install -r requirements.txt
 python manage.py migrate
 python manage.py collectstatic --no-input
 sudo systemctl restart gunicorn
+```
+
+---
+
+### Media-Only Sync (No Code or Database Changes)
+
+Use when you've added images locally and want to push just the media:
+
+```bash
+cd /Users/larssahl/Documents/wagtail/aps-new-2026
+s3cmd sync --acl-public ./media/ s3://aps2026-production/media/
 ```
 
 ### Troubleshooting

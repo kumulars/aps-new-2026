@@ -58,7 +58,7 @@
                 <div class="col-auto">
                     {% if proc.cover_image %}
                         {% if proc.pdf_url %}
-                        <a href="{{ proc.pdf_url }}" target="_blank" title="Download {{ proc.year }} Proceedings">
+                        <a href="{{ MEDIA_URL }}{{ proc.pdf_url }}" target="_blank" title="Download {{ proc.year }} Proceedings">
                             {% image proc.cover_image fill-239x319 class="proceeding-cover" %}
                         </a>
                         {% else %}

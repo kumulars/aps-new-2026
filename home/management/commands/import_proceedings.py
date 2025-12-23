@@ -245,9 +245,10 @@ class Command(BaseCommand):
                 except Exception as e:
                     self.stderr.write(f"  Error importing image for {year}: {e}")
 
-            # Set PDF URL (local path for now)
+            # Set PDF URL (relative to MEDIA_URL - works for both dev and production)
             if year in available_pdfs and not proceeding.pdf_url:
-                proceeding.pdf_url = f"/{available_pdfs[year]}"
+                # Store just the path relative to media folder
+                proceeding.pdf_url = f"proceedings/{os.path.basename(available_pdfs[year])}"
 
             # Set chairs using StreamField format
             if chairs and not proceeding.chairs:
