@@ -193,6 +193,43 @@ cd /Users/larssahl/Documents/wagtail/aps-new-2026
 s3cmd sync --acl-public ./media/ s3://aps2026-production/media/
 ```
 
+### Understanding Wagtail Renditions (CRITICAL)
+
+**Why images may be missing on production even after syncing:**
+
+Wagtail doesn't serve original images directly. When a template uses `{% image obj.image width-800 %}`, Wagtail creates a **rendition** (a resized copy) on-demand.
+
+**How it works:**
+1. You upload `photo.jpg` via Wagtail admin → stored in `media/original_images/photo.jpg`
+2. You view the page locally → Wagtail creates `media/images/photo.width-800.jpg`
+3. The template serves the rendition, not the original
+
+**The problem:**
+- `s3cmd sync` only uploads files that exist locally
+- If you sync media BEFORE viewing pages locally, renditions don't exist yet
+- Production tries to serve renditions that were never uploaded → broken images
+
+**The solution - ALWAYS sync after viewing pages locally:**
+```bash
+# After adding new images AND viewing the pages in your browser:
+cd /Users/larssahl/Documents/wagtail/aps-new-2026
+s3cmd sync --acl-public ./media/images/ s3://aps2026-production/media/images/
+```
+
+**Full deployment with renditions:**
+1. Add images via Wagtail admin
+2. View all affected pages in your local browser (this creates renditions)
+3. Run media sync: `s3cmd sync --acl-public ./media/ s3://aps2026-production/media/`
+4. Deploy database
+
+**Quick check - do renditions exist locally?**
+```bash
+# Look for width-800 files (used in detail page templates)
+ls -la media/images/ | grep "width-800"
+```
+
+**Note**: The `s3cmd` command runs from your Mac and talks directly to DigitalOcean Spaces via API - it does NOT require SSH access to the production server.
+
 ---
 
 ### End-of-Session Local Backup
