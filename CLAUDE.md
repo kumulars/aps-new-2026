@@ -8,6 +8,34 @@
 
 ---
 
+## Claude Code SOP (Standard Operating Procedures)
+
+### Git Push Responsibility
+**IMPORTANT**: Claude MUST always push code changes to GitHub before telling the user to deploy to production. The workflow is:
+
+1. Claude makes code changes locally
+2. Claude commits with a descriptive message
+3. Claude pushes to `origin main`
+4. Claude tells user to pull and restart on server
+
+**Never** tell the user "the code is ready" without having pushed first. The user should only need to run server-side commands (`git pull`, `systemctl restart`), not local git commands.
+
+### Deployment Handoff
+After pushing, provide the user with the exact server commands:
+```bash
+ssh root@159.203.115.118
+cd /var/www/aps2026
+git pull origin main
+sudo systemctl restart gunicorn
+```
+
+### Media Files
+- Never commit media files to git (they belong in DigitalOcean Spaces)
+- If media files get staged, unstage them with `git reset HEAD media/`
+- Media sync is a separate step using `s3cmd`
+
+---
+
 ## Production Deployment Procedure
 
 ### Server Details
