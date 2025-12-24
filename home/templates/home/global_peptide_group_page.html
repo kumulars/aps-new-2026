@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags gallery_tags %}
 
 {% block title %}{{ page.title }}{% endblock %}
 
@@ -52,7 +52,7 @@
                  role="tabpanel"
                  aria-labelledby="tab-{{ forloop.counter }}">
                 <div class="tab-inner-content">
-                    {{ block.value.content|safe }}
+                    {{ block.value.content|fix_media_urls }}
                 </div>
             </div>
             {% endfor %}

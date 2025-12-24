@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags gallery_tags %}
 
 {% block title %}{% if current_award %}{{ current_award.name }} - {% endif %}Awards{% endblock %}
 
@@ -46,7 +46,7 @@
                 {# Additional Content (e.g., Merrifield essay) #}
                 {% if current_award.additional_content %}
                 <div class="award-additional-content">
-                    {{ current_award.additional_content|safe }}
+                    {{ current_award.additional_content|fix_media_urls }}
                 </div>
                 {% endif %}
 

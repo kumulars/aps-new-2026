@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags gallery_tags %}
 
 {% block title %}{{ recipient.full_name }} - {{ recipient.award_type.name }}{% endblock %}
 
@@ -44,7 +44,7 @@
             {# Biography #}
             {% if recipient.biography %}
             <div class="recipient-biography">
-                {{ recipient.biography|safe }}
+                {{ recipient.biography|fix_media_urls }}
             </div>
             {% else %}
             <div class="recipient-biography">

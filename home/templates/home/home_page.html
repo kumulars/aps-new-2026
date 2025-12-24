@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags gallery_tags %}
 
 {% block body_class %}template-homepage{% endblock %}
 
@@ -207,7 +207,7 @@
                 <img src="{{ news_img.url }}" class="news-item-image" alt="{{ news.title }}">
                 {% endif %}
                 {% if news.body %}
-                <div class="news-item-body">{{ news.body|safe }}</div>
+                <div class="news-item-body">{{ news.body|fix_media_urls }}</div>
                 {% endif %}
                 <p class="small text-muted mb-2">{{ news.publish_date|date:"M j, Y" }}</p>
                 {% if news.link_url and news.link_url != '#' %}

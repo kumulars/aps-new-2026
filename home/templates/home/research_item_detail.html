@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static wagtailimages_tags %}
+{% load static wagtailimages_tags gallery_tags %}
 
 {% block title %}{{ item.short_title }} - Research{% endblock %}
 
@@ -47,7 +47,7 @@
 
             {# Article Body - raw HTML #}
             <article class="research-article-body mb-4">
-                {{ item.body|safe }}
+                {{ item.body|fix_media_urls }}
             </article>
 
             <div class="mb-5">

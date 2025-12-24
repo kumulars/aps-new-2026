@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static wagtailimages_tags %}
+{% load static wagtailimages_tags gallery_tags %}
 
 {% block title %}{{ student.full_name }} - Student Spotlight{% endblock %}
 
@@ -32,7 +32,7 @@
         <div class="col-lg-7">
             {# Profile Body - raw HTML #}
             <article class="student-profile-body mb-4">
-                {{ student.body|safe }}
+                {{ student.body|fix_media_urls }}
             </article>
 
             <div class="mb-5">

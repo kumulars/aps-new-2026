@@ -19,9 +19,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Favicons -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/media/original_images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/media/original_images/favicon-16x16.png">
-    <link rel="shortcut icon" href="/media/original_images/favicon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ MEDIA_URL }}original_images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ MEDIA_URL }}original_images/favicon-16x16.png">
+    <link rel="shortcut icon" href="{{ MEDIA_URL }}original_images/favicon.png">
 
     {% if request.in_preview_panel %}
     <base target="_blank">
@@ -46,7 +46,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="/">
-                <img src="/media/original_images/aps_logo_official.png"
+                <img src="{{ MEDIA_URL }}original_images/aps_logo_official.png"
                      alt="American Peptide Society">
             </a>
 

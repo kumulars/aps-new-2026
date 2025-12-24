@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static wagtailimages_tags %}
+{% load static wagtailimages_tags gallery_tags %}
 
 {% block title %}{{ postdoc.full_name }} - Peptide Postdocs{% endblock %}
 
@@ -31,7 +31,7 @@
         <div class="col-lg-7">
             {# Profile Body - raw HTML #}
             <article class="postdoc-profile-body mb-4">
-                {{ postdoc.body|safe }}
+                {{ postdoc.body|fix_media_urls }}
             </article>
 
             <div class="mb-5">

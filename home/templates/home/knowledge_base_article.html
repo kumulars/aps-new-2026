@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static wagtailcore_tags %}
+{% load static wagtailcore_tags gallery_tags %}
 
 {% block title %}{{ article.title }} - Knowledge Base{% endblock %}
 
@@ -79,7 +79,7 @@
 
             {# Article Content #}
             <div class="kb-article-content">
-                {{ article.content|safe }}
+                {{ article.content|fix_media_urls }}
             </div>
 
             {# Citations #}

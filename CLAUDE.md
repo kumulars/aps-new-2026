@@ -165,6 +165,28 @@ cd /Users/larssahl/Documents/wagtail/aps-new-2026
 s3cmd sync --acl-public ./media/ s3://aps2026-production/media/
 ```
 
+---
+
+### End-of-Session Local Backup
+
+**IMPORTANT**: Run this before ending each work session to prevent data loss from PostgreSQL crashes.
+
+```bash
+mkdir -p ~/aps_backups
+python manage.py dumpdata --natural-foreign --natural-primary --exclude=contenttypes --exclude=auth.permission --exclude=wagtailcore.groupcollectionpermission --exclude=wagtailcore.grouppagepermission --exclude=wagtailcore.pagelogentry --exclude=sessions --indent=2 > ~/aps_backups/db_backup_$(date +%Y%m%d).json
+```
+
+This creates a dated backup at `/Users/larssahl/aps_backups/db_backup_YYYYMMDD.json`.
+
+To restore after a crash:
+```bash
+cd /Users/larssahl/Documents/wagtail/aps-new-2026
+python manage.py flush --no-input
+python manage.py loaddata ~/aps_backups/db_backup_YYYYMMDD.json
+```
+
+---
+
 ### Troubleshooting
 
 #### 502 Bad Gateway
@@ -185,6 +207,46 @@ Ensure `/etc/systemd/system/gunicorn.service` has:
 EnvironmentFile=/var/www/aps2026/.env
 ```
 Then: `sudo systemctl daemon-reload && sudo systemctl restart gunicorn`
+
+---
+
+## Development Best Practices
+
+### Template Media Paths
+**NEVER** hardcode `/media/` in templates. Always use:
+```html
+<img src="{{ MEDIA_URL }}path/to/file.jpg">
+```
+Not:
+```html
+<img src="/media/path/to/file.jpg">  <!-- WRONG - breaks on production -->
+```
+
+On production, `MEDIA_URL` points to DigitalOcean Spaces, not `/media/`.
+
+### Uploading to DigitalOcean Spaces
+**ALWAYS** use `--acl-public` when uploading files:
+```bash
+s3cmd put --acl-public file.pdf s3://aps2026-production/media/path/
+s3cmd sync --acl-public ./media/ s3://aps2026-production/media/
+```
+Without `--acl-public`, files return AccessDenied errors.
+
+### Before Deploying - Quick Checks
+```bash
+# Check for hardcoded /media/ paths in templates
+grep -r '"/media/' home/templates/ --include="*.html"
+
+# Should return nothing. If it finds matches, fix them to use {{ MEDIA_URL }}
+```
+
+### Post-Deployment Checklist
+After deploying, verify on production:
+- [ ] Homepage loads with images
+- [ ] Proceedings page shows covers and PDFs download
+- [ ] Journal page shows issue covers
+- [ ] About page shows images and Constitution PDF downloads
+- [ ] Peptide Links banner displays
 
 ---
 
@@ -879,10 +941,24 @@ for img in SymposiumImage.objects.all()[:10]:
 ---
 
 ## Notes
-- Inline image HTML format for bios:
+
+### Inline Images in Rich Text Content
+When entering inline images in Wagtail admin (bios, articles, etc.), you can use the `/media/` path:
+
 ```html
 <div style="margin: 29px">
 <img src="/media/original_images/FILENAME.jpg" alt="DESCRIPTION" style="margin-bottom: 19px;" class="img-fluid">
 <p class="small">CAPTION TEXT</p>
 </div>
 ```
+
+**Important**: The `fix_media_urls` template filter automatically transforms `/media/` paths to the correct DigitalOcean Spaces URL on production. This filter is applied to all rich text content fields in detail templates:
+- Global Peptide Group pages
+- Award recipient biographies
+- In Memoriam profiles
+- Research item articles
+- Student/Postdoc profiles
+- Knowledge Base articles
+- News items
+
+The filter is defined in `home/templatetags/gallery_tags.py` and works by replacing `src="/media/` and `href="/media/` with the value of `MEDIA_URL` from settings.
