@@ -5,14 +5,37 @@
 
 {% block body_class %}template-research-archive{% endblock %}
 
+{% block extra_css %}
+<style>
+    .category-filter .nav-link {
+        border: 1px solid var(--aps-blue);
+        border-radius: 6px;
+        color: var(--aps-blue);
+        background-color: transparent;
+        margin: 0 4px 8px 0;
+        padding: 6px 16px;
+        font-size: 0.9rem;
+    }
+    .category-filter .nav-link:hover {
+        background-color: rgba(0, 84, 147, 0.1);
+        color: var(--aps-blue);
+    }
+    .category-filter .nav-link.active {
+        background-color: var(--aps-blue);
+        border-color: var(--aps-blue);
+        color: #fff;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="container py-4">
 
     <h1 class="page-top-header">Peptide Publications Archive</h1>
 
     {# Category Filter Tabs #}
-    <div class="mb-4">
-        <ul class="nav nav-pills">
+    <div class="mb-4 category-filter">
+        <ul class="nav flex-wrap">
             <li class="nav-item">
                 <a class="nav-link{% if not active_category %} active{% endif %}" href="{% url 'research_archive' %}">
                     All

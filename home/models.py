@@ -554,19 +554,14 @@ class PeptideLinksIndexPage(Page):
         # Get filter parameters
         country = request.GET.get('country', '')
         state = request.GET.get('state', '')
-        area = request.GET.get('area', '')
         search = request.GET.get('q', '')
-        letter = request.GET.get('letter', '')
 
         # Apply filters
         if country:
             researchers = researchers.filter(country=country)
         if state:
             researchers = researchers.filter(state_province=state)
-        if area:
-            researchers = researchers.filter(research_areas__slug=area)
-        if letter:
-            researchers = researchers.filter(last_name__istartswith=letter)
+        # Note: research area filter removed per Prof. Nowack feedback (82% unassigned)
         if search:
             from django.db.models import Q
             researchers = researchers.filter(
@@ -582,18 +577,19 @@ class PeptideLinksIndexPage(Page):
         # Get filter options (from all active researchers)
         all_researchers = Researcher.objects.filter(is_active=True)
         context['countries'] = all_researchers.values_list('country', flat=True).distinct().order_by('country')
-        context['states'] = all_researchers.exclude(state_province='').values_list('state_province', flat=True).distinct().order_by('state_province')
-        context['research_areas'] = ResearchArea.objects.all()
-
-        # Alphabet for letter filter
-        context['alphabet'] = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+        # Get US states that have researchers (for quick-browse buttons)
+        context['states'] = list(
+            all_researchers.filter(country='USA')
+            .exclude(state_province='')
+            .values_list('state_province', flat=True)
+            .distinct()
+            .order_by('state_province')
+        )
 
         # Current filters for template
         context['current_country'] = country
         context['current_state'] = state
-        context['current_area'] = area
         context['current_search'] = search
-        context['current_letter'] = letter
 
         # Results
         context['researchers'] = researchers

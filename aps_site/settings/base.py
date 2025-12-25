@@ -26,6 +26,7 @@ BASE_DIR = PROJECT_DIR.parent
 INSTALLED_APPS = [
     "home",
     "search",
+    "membership",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
@@ -46,8 +47,35 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",  # Required by allauth
     "django_extensions",
+    # Allauth
+    "allauth",
+    "allauth.account",
 ]
+
+# Django sites framework (required by allauth)
+SITE_ID = 1
+
+# Allauth authentication backends
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+# Allauth configuration (v65+ syntax)
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_PRESERVE_USERNAME_CASING = False
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_LOGIN_METHODS = {'email'}  # Login via email only
+ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*']  # Email + password, no username
+
+# Redirect URLs
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -58,6 +86,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 

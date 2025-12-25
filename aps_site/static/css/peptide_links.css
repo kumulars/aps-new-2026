@@ -60,21 +60,21 @@
     padding: 0.375rem 0.75rem;
 }
 
-/* Alphabet Filter */
-.alphabet-filter {
+/* State Filter (Browse by State) */
+.state-filter {
     display: flex;
     flex-wrap: wrap;
     gap: 0.25rem;
 }
 
-.letter-btn {
+.state-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 28px;
     height: 28px;
-    font-size: 0.75rem;
-    font-weight: 500;
+    font-size: 0.65rem;
+    font-weight: 700;
     text-decoration: none;
     color: #495057;
     background: white;
@@ -83,13 +83,13 @@
     transition: all 0.15s ease;
 }
 
-.letter-btn:hover {
+.state-btn:hover {
     background: #e9ecef;
     color: var(--aps-blue);
     text-decoration: none;
 }
 
-.letter-btn.active {
+.state-btn.active {
     background: var(--aps-blue);
     border-color: var(--aps-blue);
     color: white;
@@ -253,8 +253,8 @@
         margin-bottom: 1.5rem;
     }
 
-    .alphabet-filter {
-        max-height: 80px;
+    .state-filter {
+        max-height: 100px;
         overflow-y: auto;
     }
 }

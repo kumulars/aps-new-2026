@@ -13,6 +13,8 @@ urlpatterns = [
     path("django-admin/", admin.site.urls),
     path("admin/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),
+    path("accounts/", include("allauth.urls")),  # Allauth authentication
+    path("membership/", include("membership.urls")),  # Membership
     path("search/", search_views.search, name="search"),
     # Research items (Peptide Publications)
     path("research/", home_views.research_archive, name="research_archive"),

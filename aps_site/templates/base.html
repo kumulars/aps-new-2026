@@ -35,6 +35,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/global_peptide_groups.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/people.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/peptide_links.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/membership.css' %}">
 
     {% block extra_css %}
     {% endblock %}
@@ -114,14 +115,20 @@
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navMembership" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle {% if '/membership/' in request.path or '/accounts/' in request.path %}active{% endif %}" href="#" id="navMembership" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Membership
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navMembership">
-                            <li><a class="dropdown-item" href="#">Membership Information</a></li>
-                            <li><a class="dropdown-item" href="#">Membership Application</a></li>
-                            <li><a class="dropdown-item" href="#">Your Account</a></li>
-                            <li><a class="dropdown-item" href="#">Login</a></li>
+                            <li><a class="dropdown-item" href="{% url 'membership:info' %}">About Membership</a></li>
+                            {% if user.is_authenticated %}
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'membership:profile' %}"><i class="bi bi-person-circle me-2"></i>My Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'account_logout' %}"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                            {% else %}
+                            <li><a class="dropdown-item" href="{% url 'membership:apply' %}"><i class="bi bi-person-plus me-2"></i>Apply for Membership</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'account_login' %}"><i class="bi bi-box-arrow-in-right me-2"></i>Member Login</a></li>
+                            {% endif %}
                         </ul>
                     </li>
 
@@ -146,9 +153,9 @@
                 <div class="col-md-4 text-white mb-3">
                     <h5>Quick Links</h5>
                     <ul class="list-unstyled small" style="color: rgba(255,255,255,0.8);">
-                        <li><a href="#" class="text-white-50">About Us</a></li>
-                        <li><a href="#" class="text-white-50">Membership</a></li>
-                        <li><a href="#" class="text-white-50">Contact</a></li>
+                        <li><a href="{% url 'about' %}" class="text-white-50">About Us</a></li>
+                        <li><a href="{% url 'membership:info' %}" class="text-white-50">Membership</a></li>
+                        <li><a href="mailto:info@americanpeptidesociety.org" class="text-white-50">Contact</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 text-white mb-3">
