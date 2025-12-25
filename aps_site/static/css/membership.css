@@ -1,0 +1,167 @@
+/**
+ * APS Membership Styles
+ * Styling for member profiles, login forms, and membership pages
+ */
+
+/* ============================================
+   Profile Cards
+   ============================================ */
+
+.template-membership-profile .card,
+.template-membership-profile-edit .card {
+    border: 1px solid var(--aps-border-gray);
+    border-radius: 8px;
+}
+
+.template-membership-profile .card-header,
+.template-membership-profile-edit .card-header {
+    background-color: var(--aps-light-gray);
+    border-bottom: 1px solid var(--aps-border-gray);
+    font-weight: 600;
+}
+
+.template-membership-profile dl dt {
+    color: var(--aps-text);
+    font-weight: 500;
+}
+
+.template-membership-profile dl dd {
+    color: #333;
+}
+
+/* ============================================
+   Login & Account Forms
+   ============================================ */
+
+.template-account-login .card,
+.template-account-password-reset .card,
+.template-account-logout .card {
+    border: 1px solid var(--aps-border-gray);
+    border-radius: 12px;
+}
+
+.template-account-login .card-body,
+.template-account-password-reset .card-body {
+    padding: 2rem;
+}
+
+.template-account-login .btn-primary,
+.template-account-password-reset .btn-primary {
+    background-color: var(--aps-blue);
+    border-color: var(--aps-blue);
+}
+
+.template-account-login .btn-primary:hover,
+.template-account-password-reset .btn-primary:hover {
+    background-color: #2d4280;
+    border-color: #2d4280;
+}
+
+/* ============================================
+   Membership Info Page
+   ============================================ */
+
+.template-membership-info .card {
+    border: 1px solid var(--aps-border-gray);
+    transition: box-shadow 0.2s ease;
+}
+
+.template-membership-info .card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.template-membership-info .card-title {
+    color: var(--aps-blue);
+    font-weight: 600;
+}
+
+.template-membership-info .lead {
+    color: var(--aps-text);
+    font-size: 1.15rem;
+}
+
+/* ============================================
+   Form Styling
+   ============================================ */
+
+.template-membership-profile-edit .form-label {
+    font-weight: 500;
+    color: var(--aps-text);
+    margin-bottom: 0.25rem;
+}
+
+.template-membership-profile-edit .form-control,
+.template-membership-profile-edit .form-select {
+    border: 1px solid var(--aps-border-gray);
+    border-radius: 6px;
+    padding: 0.5rem 0.75rem;
+}
+
+.template-membership-profile-edit .form-control:focus,
+.template-membership-profile-edit .form-select:focus {
+    border-color: var(--aps-blue);
+    box-shadow: 0 0 0 0.2rem rgba(58, 83, 164, 0.15);
+}
+
+/* ============================================
+   Status Badges
+   ============================================ */
+
+.badge.bg-success {
+    background-color: var(--aps-green) !important;
+}
+
+/* ============================================
+   Application Form
+   ============================================ */
+
+.template-membership-apply .card {
+    border: 1px solid var(--aps-border-gray);
+    border-radius: 8px;
+}
+
+.template-membership-apply .card-header {
+    background-color: var(--aps-light-gray);
+    border-bottom: 1px solid var(--aps-border-gray);
+    font-weight: 600;
+}
+
+.template-membership-apply .verification-options .form-check {
+    margin-bottom: 0.5rem;
+}
+
+.template-membership-apply .verification-section {
+    padding-left: 1.5rem;
+    border-left: 3px solid var(--aps-border-gray);
+    margin-left: 0.5rem;
+}
+
+.template-membership-apply-success .card {
+    border: 1px solid var(--aps-border-gray);
+    border-radius: 12px;
+}
+
+/* ============================================
+   Responsive Adjustments
+   ============================================ */
+
+@media (max-width: 768px) {
+    .template-membership-profile .d-flex {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .template-membership-profile .d-flex .btn {
+        width: 100%;
+    }
+
+    .template-account-login .card-body,
+    .template-account-password-reset .card-body {
+        padding: 1.5rem;
+    }
+
+    .template-membership-apply .verification-section {
+        padding-left: 1rem;
+        margin-left: 0;
+    }
+}

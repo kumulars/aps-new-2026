@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% load static wagtailimages_tags %}
+
+{% block title %}My Profile - American Peptide Society{% endblock %}
+
+{% block body_class %}template-membership-profile{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/membership.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1>My Profile</h1>
+                <a href="{% url 'membership:profile_edit' %}" class="btn btn-outline-primary">
+                    <i class="bi bi-pencil me-2"></i>Edit Profile
+                </a>
+            </div>
+
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Personal Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% if profile.profile_image %}
+                        <div class="col-md-3 text-center mb-3 mb-md-0">
+                            {% image profile.profile_image fill-150x150 class="rounded-circle" %}
+                        </div>
+                        <div class="col-md-9">
+                        {% else %}
+                        <div class="col-12">
+                        {% endif %}
+                            <dl class="row mb-0">
+                                <dt class="col-sm-4">Name</dt>
+                                <dd class="col-sm-8">{{ profile.full_name|default:"Not provided" }}</dd>
+
+                                <dt class="col-sm-4">Email</dt>
+                                <dd class="col-sm-8">{{ user.email }}</dd>
+
+                                <dt class="col-sm-4">Phone</dt>
+                                <dd class="col-sm-8">{{ profile.phone|default:"Not provided" }}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Professional Information</h5>
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4">Affiliation</dt>
+                        <dd class="col-sm-8">{{ profile.professional_affiliation|default:"Not provided" }}</dd>
+
+                        <dt class="col-sm-4">Affiliation Type</dt>
+                        <dd class="col-sm-8">{{ profile.get_affiliation_type_display }}</dd>
+
+                        <dt class="col-sm-4">Membership Type</dt>
+                        <dd class="col-sm-8">{{ profile.get_membership_type_display }}</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Address</h5>
+                </div>
+                <div class="card-body">
+                    {% if profile.address_1 or profile.city or profile.country %}
+                    <address class="mb-0">
+                        {% if profile.address_1 %}{{ profile.address_1 }}<br>{% endif %}
+                        {% if profile.address_2 %}{{ profile.address_2 }}<br>{% endif %}
+                        {% if profile.city %}{{ profile.city }}{% endif %}{% if profile.state_province %}, {{ profile.state_province }}{% endif %}{% if profile.postal_code %} {{ profile.postal_code }}{% endif %}<br>
+                        {% if profile.country %}{{ profile.country }}{% endif %}
+                    </address>
+                    {% else %}
+                    <p class="text-muted mb-0">No address on file</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if profile.symposia_attended %}
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Symposia Attended</h5>
+                </div>
+                <div class="card-body">
+                    <p class="mb-0">
+                        {% for year in profile.symposia_attended.split %}
+                        <span class="badge bg-secondary me-1">{{ year }}</span>
+                        {% endfor %}
+                    </p>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Account</h5>
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4">Member Since</dt>
+                        <dd class="col-sm-8">{{ profile.created_at|date:"F Y" }}</dd>
+
+                        <dt class="col-sm-4">Status</dt>
+                        <dd class="col-sm-8">
+                            {% if profile.is_approved %}
+                            <span class="badge bg-success">Active Member</span>
+                            {% elif profile.is_pending %}
+                            <span class="badge bg-warning text-dark">Pending Review</span>
+                            {% else %}
+                            <span class="badge bg-secondary">{{ profile.get_status_display }}</span>
+                            {% endif %}
+                        </dd>
+                    </dl>
+
+                    <hr>
+
+                    <a href="{% url 'account_change_password' %}" class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-key me-2"></i>Change Password
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h5 class="card-title">Need Help?</h5>
+                    <p class="card-text">If you have questions about your membership or need to update information not available here, please contact us.</p>
+                    <a href="mailto:membership@americanpeptidesociety.org" class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-envelope me-2"></i>Contact Support
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

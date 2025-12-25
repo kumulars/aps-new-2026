@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Membership - American Peptide Society{% endblock %}
+
+{% block body_class %}template-membership-info{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/membership.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <h1 class="mb-4">APS Membership</h1>
+
+            <div class="lead mb-4">
+                <p>The American Peptide Society brings together scientists from academia, government, and industry who are interested in peptides and proteins.</p>
+            </div>
+
+            <h2 class="h4 mt-5 mb-3">Membership Benefits</h2>
+            <ul class="list-unstyled">
+                <li class="mb-3">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    Reduced registration fees for the American Peptide Symposium
+                </li>
+                <li class="mb-3">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    Access to <em>Peptide Science</em> journal at member rates
+                </li>
+                <li class="mb-3">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    Eligibility for APS awards and travel grants
+                </li>
+                <li class="mb-3">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    Networking opportunities with leading peptide scientists
+                </li>
+                <li class="mb-3">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    Regular updates on peptide research and events
+                </li>
+            </ul>
+
+            <h2 class="h4 mt-5 mb-3">Membership Categories</h2>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Professional</h5>
+                            <p class="card-text">For scientists actively working in peptide research in academia, industry, or government.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Student</h5>
+                            <p class="card-text">For graduate and undergraduate students engaged in peptide-related research.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Postdoc</h5>
+                            <p class="card-text">For postdoctoral researchers in peptide science.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Retired Professional</h5>
+                            <p class="card-text">For retired members who wish to maintain their connection to the society.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="h4 mt-5 mb-3">How to Join</h2>
+            <p>Membership in the American Peptide Society is open to scientists with a demonstrated interest in peptide research. New members must either:</p>
+            <ul>
+                <li>Have published in the field of peptide science, or</li>
+                <li>Be sponsored by a current APS member</li>
+            </ul>
+
+            {% if user.is_authenticated %}
+            <div class="mt-4">
+                <a href="{% url 'membership:profile' %}" class="btn btn-primary">
+                    <i class="bi bi-person-circle me-2"></i>View Your Profile
+                </a>
+            </div>
+            {% else %}
+            <div class="mt-4 d-flex gap-2 flex-wrap">
+                <a href="{% url 'membership:apply' %}" class="btn btn-primary">
+                    <i class="bi bi-person-plus me-2"></i>Apply for Membership
+                </a>
+                <a href="{% url 'account_login' %}" class="btn btn-outline-primary">
+                    <i class="bi bi-box-arrow-in-right me-2"></i>Member Login
+                </a>
+            </div>
+            {% endif %}
+
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h5 class="card-title">Contact Us</h5>
+                    <p class="card-text">For membership inquiries, please contact:</p>
+                    <p class="mb-0">
+                        <strong>American Peptide Society</strong><br>
+                        <a href="mailto:membership@americanpeptidesociety.org">membership@americanpeptidesociety.org</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

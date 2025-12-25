@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- generator="WordPress/6.8.3" created="2025-12-24 16:44" -->
+
+<channel>
+	<title>American Peptide Society</title>
+	<pubDate>Wed, 24 Dec 2025 16:44:10 +0000</pubDate>
+
+	<view>
+		<title>Formidable Style</title>
+		<link></link>
+		<post_author><![CDATA[kanehoopai]]></post_author>
+		<description></description>
+		<content><![CDATA[{"theme_css":"ui-lightness","theme_name":"UI Lightness","center_form":"","form_width":"100%","form_align":"left","direction":"ltr","fieldset":"0px","fieldset_color":"000000","fieldset_padding":"0 0 15px 0","fieldset_bg_color":"","title_size":"40px","title_color":"444444","title_margin_top":"10px","title_margin_bottom":"60px","form_desc_size":"14px","form_desc_color":"666666","form_desc_margin_top":"10px","form_desc_margin_bottom":"25px","form_desc_padding":"0","font":"","font_size":"15px","label_color":"3f4b5b","weight":"normal","position":"none","align":"left","width":"150px","required_color":"B94A48","required_weight":"bold","label_padding":"0 0 3px 0","description_font_size":"12px","description_color":"666666","description_weight":"normal","description_style":"normal","description_align":"left","description_margin":"0","field_font_size":"14px","field_height":"32px","line_height":"normal","field_width":"100%","auto_width":"","field_pad":"6px 10px","field_margin":"20px","field_weight":"normal","text_color":"555555","border_color":"BFC3C8","field_border_width":"1px","field_border_style":"solid","bg_color":"ffffff","remove_box_shadow":"","bg_color_active":"ffffff","border_color_active":"66afe9","remove_box_shadow_active":"","text_color_error":"444444","bg_color_error":"ffffff","border_color_error":"B94A48","border_width_error":"1px","border_style_error":"solid","bg_color_disabled":"ffffff","border_color_disabled":"E5E5E5","text_color_disabled":"A1A1A1","radio_align":"block","check_align":"block","check_font_size":"13px","check_label_color":"444444","check_weight":"normal","section_font_size":"18px","section_color":"444444","section_weight":"bold","section_pad":"15px 0 3px 0","section_mar_top":"15px","section_mar_bottom":"30px","section_bg_color":"","section_border_color":"e8e8e8","section_border_width":"2px","section_border_style":"solid","section_border_loc":"-top","collapse_icon":"6","collapse_pos":"after","repeat_icon":"1","repeat_icon_color":"ffffff","submit_style":"","submit_font_size":"15px","submit_width":"auto","submit_height":"auto","submit_bg_color":"579AF6","submit_border_color":"579AF6","submit_border_width":"1px","submit_text_color":"ffffff","submit_weight":"normal","submit_border_radius":"4px","submit_bg_img":"","submit_margin":"10px","submit_padding":"10px 20px","submit_shadow_color":"eeeeee","submit_hover_bg_color":"efefef","submit_hover_color":"444444","submit_hover_border_color":"cccccc","submit_active_bg_color":"efefef","submit_active_color":"444444","submit_active_border_color":"cccccc","border_radius":"4px","error_bg":"F2DEDE","error_border":"EBCCD1","error_text":"B94A48","error_font_size":"14px","success_bg_color":"DFF0D8","success_border_color":"D6E9C6","success_text_color":"468847","success_font_size":"14px","important_style":"","progress_bg_color":"eaeaea","progress_active_color":"ffffff","progress_active_bg_color":"579AF6","progress_color":"3f4b5b","progress_border_color":"E5E5E5","progress_border_size":"2px","progress_size":"24px","custom_css":""}]]></content>
+		<excerpt><![CDATA[]]></excerpt>
+		<post_id>16101</post_id>
+		<post_date>2023-11-30 17:18:18</post_date>
+		<post_date_gmt>2023-11-30 17:18:18</post_date_gmt>
+		<comment_status>closed</comment_status>
+		<ping_status>closed</ping_status>
+		<post_name>formidable-style</post_name>
+		<status>publish</status>
+		<post_parent>0</post_parent>
+		<menu_order>1</menu_order>
+		<post_type>frm_styles</post_type>
+		<post_password><![CDATA[]]></post_password>
+		<is_sticky>0</is_sticky>
+		<postmeta>
+			<meta_key>_wpv_contains_gutenberg_views</meta_key>
+			<meta_value><![CDATA[]]></meta_value>
+		</postmeta>
+	</view>
+	<form>
+		<id>6</id>
+		<form_key><![CDATA[membership-application-aps]]></form_key>
+		<name><![CDATA[Membership Application - APS]]></name>
+		<description><![CDATA[]]></description>
+		<created_at>2024-02-22 13:21:54</created_at>
+		<logged_in>0</logged_in>
+		<is_template>0</is_template>
+		<editable>0</editable>
+		<options><![CDATA[{"on_submit_migrated":"1","honeypot":"basic","antispam":"1","custom_style":"1","submit_conditions":{"show_hide":"show","any_all":"all","hide_field_cond":["=="]},"logged_in_role":[""],"single_entry_type":["user"],"cookie_expiration":"8000","unique_email_id":"","protect_files":"0","noindex_files":"0","editable_role":[""],"edit_draft_role":[""],"open_date":"2024-02-22 08:21","before_html":"<legend class=\\\"frm_screen_reader\\\">[form_name]<\/legend>\r\n[if form_name]<h3 class=\\\"frm_form_title\\\">[form_name]<\/h3>[\/if form_name]\r\n[if form_description]<div class=\\\"frm_description\\\">[form_description]<\/div>[\/if form_description]","submit_html":"<div class=\\\"frm_submit frm_flex\\\">\r\n<button class=\\\"frm_button_submit\\\" type=\\\"submit\\\"  [button_action]>[button_label]<\/button>\r\n[if back_button]<button type=\\\"submit\\\" name=\\\"frm_prev_page\\\" formnovalidate=\\\"formnovalidate\\\" class=\\\"frm_prev_page\\\" [back_hook]>[back_label]<\/button>[\/if back_button]\r\n[if save_draft]<a href=\\\"#\\\" tabindex=\\\"0\\\" class=\\\"frm_save_draft\\\" [draft_hook]>[draft_label]<\/a>[\/if save_draft]\r\n[if start_over]<a href=\\\"#\\\" tabindex=\\\"0\\\" class=\\\"frm_start_over\\\" [start_over_hook]>[start_over_label]<\/a>[\/if start_over]\r\n<\/div>","success_msg":"Your responses were successfully submitted. We will process your application as soon as possible.\r\nThank you!","show_form":false}]]></options>
+		<status><![CDATA[published]]></status>
+		<parent_form_id>0</parent_form_id>
+		<field>
+			<id>66</id>
+			<field_key><![CDATA[fcmdu]]></field_key>
+			<name><![CDATA[Contact Information]]></name>
+			<description><![CDATA[]]></description>
+			<type><![CDATA[divider]]></type>
+			<default_value><![CDATA[]]></default_value>
+			<field_order>2</field_order>
+			<form_id>6</form_id>
+			<required>0</required>
+			<options><![CDATA[]]></options>
+			<field_options><![CDATA[{"admin_only":[""],"unique_msg":"This value must be unique.","in_section":"0","label":"","blank":"","classes":"frm12 frm_first","custom_html":"<div id=\\\"frm_field_[id]_container\\\" class=\\\"frm_form_field frm_section_heading form-field[error_class]\\\">\r\n<h3 class=\\\"frm_pos_[label_position][collapse_class]\\\">[field_name]<\/h3>\r\n[if description]<div class=\\\"frm_description\\\">[description]<\/div>[\/if description]\r\n[collapse_this]\r\n<\/div>","repeat":"0"}]]></field_options>
+		</field>
+		<field>
+			<id>60</id>
+			<field_key><![CDATA[k09ax]]></field_key>
+			<name><![CDATA[Title]]></name>
+			<description><![CDATA[]]></description>
+			<type><![CDATA[text]]></type>
+			<default_value><![CDATA[]]></default_value>
+			<field_order>4</field_order>
+			<form_id>6</form_id>
+			<required>0</required>
+			<options><![CDATA[]]></options>
+			<field_options><![CDATA[{"admin_only":[""],"unique_msg":"This value must be unique.","in_section":"66","blank":"","invalid":"Text is invalid","classes":"frm4 frm_first","custom_html":"<div id=\\\"frm_field_[id]_container\\\" class=\\\"frm_form_field form-field [required_class][error_class]\\\">\r\n    <label for=\\\"field_[key]\\\" id=\\\"field_[key]_label\\\" class=\\\"frm_primary_label\\\">[field_name]\r\n        <span class=\\\"frm_required\\\" aria-hidden=\\\"true\\\">[required_label]<\/span>\r\n    <\/label>\r\n    [input]\r\n    [if description]<div class=\\\"frm_description\\\" id=\\\"frm_desc_field_[key]\\\">[description]<\/div>[\/if description]\r\n    [if error]<div class=\\\"frm_error\\\" role=\\\"alert\\\" id=\\\"frm_error_field_[key]\\\">[error]<\/div>[\/if error]\r\n<\/div>"}]]></field_options>
+		</field>
+		<field>
+			<id>47</id>
+			<field_key><![CDATA[svpd8]]></field_key>
+			<name><![CDATA[First Name]]></name>
+			<description><![CDATA[]]></description>
+			<type><![CDATA[text]]></type>
+			<default_value><![CDATA[]]></default_value>
+			<field_order>5</field_order>
+			<form_id>6</form_id>
+			<required>1</required>
+			<options><![CDATA[]]></options>
+			<field_options><![CDATA[{"admin_only":[""],"unique_msg":"This value must be unique.","in_section":"66","blank":"This field cannot be blank.","invalid":"Text is invalid","classes":"frm4","custom_html":"<div id=\\\"frm_field_[id]_container\\\" class=\\\"frm_form_field form-field [required_class][error_class]\\\">\r\n    <label for=\\\"field_[key]\\\" id=\\\"field_[key]_label\\\" class=\\\"frm_primary_label\\\">[field_name]\r\n        <span class=\\\"frm_required\\\" aria-hidden=\\\"true\\\">[required_label]<\/span>\r\n    <\/label>\r\n    [input]\r\n    [if description]<div class=\\\"frm_description\\\" id=\\\"frm_desc_field_[key]\\\">[description]<\/div>[\/if description]\r\n    [if error]<div class=\\\"frm_error\\\" role=\\\"alert\\\" id=\\\"frm_error_field_[key]\\\">[error]<\/div>[\/if error]\r\n<\/div>"}]]></field_options>
+		</field>
+		<field>
+			<id>49</id>
+			<field_key><![CDATA[b4voo]]></field_key>
+			<name><![CDATA[Last Name]]></name>
+			<description><![CDATA[]]></description>
+			<type><![CDATA[text]]></type>
+			<default_value><![CDATA[]]></default_value>
+			<field_order>6</field_order>
+			<form_id>6</form_id>
+			<required>1</required>
+			<options><![CDATA[]]></options>
+			<field_options><![CDATA[{"admin_only":[""],"unique_msg":"This value must be unique.","in_section":"66","blank":"This field cannot be blank.","invalid":"Text is invalid","classes":"frm4","custom_html":"<div id=\\\"frm_field_[id]_container\\\" class=\\\"frm_form_field form-field [required_class][error_class]\\\">\r\n    <label for=\\\"field_[key]\\\" id=\\\"field_[key]_label\\\" class=\\\"frm_primary_label\\\">[field_name]\r\n        <span class=\\\"frm_required\\\" aria-hidden=\\\"true\\\">[required_label]<\/span>\r\n    <\/label>\r\n    [input]\r\n    [if description]<div class=\\\"frm_description\\\" id=\\\"frm_desc_field_[key]\\\">[description]<\/div>[\/if description]\r\n    [if error]<div class=\\\"frm_error\\\" role=\\\"alert\\\" id=\\\"frm_error_field_[key]\\\">[error]<\/div>[\/if error]\r\n<\/div>"}]]></field_options>
+		</field>
+		<field>
+			<id>50</id>
+			<field_key><![CDATA[w3qlf]]></field_key>
+			<name><![CDATA[Address 1]]></name>
+			<description><![CDATA[]]></description>
+			<type><![CDATA[text]]></type>
+			<default_value><![CDATA[]]></default_value>
+			<field_order>8</field_order>
+			<form_id>6</form_id>
+			<required>1</required>
+			<options><![CDATA[]]></options>
+			<field_options><![CDATA[{"admin_only":[""],"unique_msg":"This value must be unique.","in_section":"66","blank":"This field cannot be blank.","invalid":"Text is invalid","classes":"frm4 frm_first","custom_html":"<div id=\\\"frm_field_[id]_container\\\" class=\\\"frm_form_field form-field [required_class][error_class]\\\">\r\n    <label for=\\\"field_[key]\\\" id=\\\"field_[key]_label\\\" class=\\\"frm_primary_label\\\">[field_name]\r\n        <span class=\\\"frm_required\\\" aria-hidden=\\\"true\\\">[required_label]<\/span>\r\n    <\/label>\r\n    [input]\r\n    [if description]<div class=\\\"frm_description\\\" id=\\\"frm_desc_field_[key]\\\">[description]<\/div>[\/if description]\r\n    [if error]<div class=\\\"frm_error\\\" role=\\\"alert\\\" id=\\\"frm_error_field_[key]\\\">[error]<\/div>[\/if error]\r\n<\/div>"}]]></field_options>
+		</field>
+		<field>
+			<id>51</id>
+			<field_key><![CDATA[zalyi]]></field_key>
+			<name><![CDATA[Address 2]]></name>
+			<description><![CDATA[]]></description>
+			<type><![CDATA[text]]></type>
+			<default_value><![CDATA[]]></default_value>
+			<field_order>9</field_order>
+			<form_id>6</form_id>
+			<required>0</required>
+			<options><![CDATA[]]></options>
+			<field_options><![CDATA[{"admin_only":[""],"unique_msg":"This value must be unique.","in_section":"66","blank":"This field cannot be blank.","invalid":"Text is invalid","classes":"frm4","custom_html":"<div id=\\\"frm_field_[id]_container\\\" class=\\\"frm_form_field form-field [required_class][error_class]\\\">\r\n    <label for=\\\"field_[key]\\\" id=\\\"field_[key]_label\\\" class=\\\"frm_primary_label\\\">[field_name]\r\n        <span class=\\\"frm_required\\\" aria-hidden=\\\"true\\\">[required_label]<\/span>\r\n    <\/label>\r\n    [input]\r\n    [if description]<div class=\\\"frm_description\\\" id=\\\"frm_desc_field_[key]\\\">[description]<\/div>[\/if description]\r\n    [if error]<div class=\\\"frm_error\\\" role=\\\"alert\\\" id=\\\"frm_error_field_[key]\\\">[error]<\/div>[\/if error]\r\n<\/div>"}]]></field_options>
+		</field>
+		<field>
+			<id>52</id>
+			<field_key><![CDATA[13cir]]></field_key>
+			<name><![CDATA[City]]></name>
+			<description><![CDATA[]]></description>
+			<type><![CDATA[text]]></type>
+			<default_value><![CDATA[]]></default_value>
+			<field_order>10</field_order>
+			<form_id>6</form_id>
+			<required>1</required>
+			<options><![CDATA[]]></options>
+			<field_options><![CDATA[{"admin_only":[""],"unique_msg":"This value must be unique.","in_section":"66","blank":"This field cannot be blank.","invalid":"Text is invalid","classes":"frm4","custom_html":"<div id=\\\"frm_field_[id]_container\\\" class=\\\"frm_form_field form-field [required_class][error_class]\\\">\r\n    <label for=\\\"field_[key]\\\" id=\\\"field_[key]_label\\\" class=\\\"frm_primary_label\\\">[field_name]\r\n        <span class=\\\"frm_required\\\" aria-hidden=\\\"true\\\">[required_label]<\/span>\r\n    <\/label>\r\n    [input]\r\n    [if description]<div class=\\\"frm_description\\\" id=\\\"frm_desc_field_[key]\\\">[description]<\/div>[\/if description]\r\n    [if error]<div class=\\\"frm_error\\\" role=\\\"alert\\\" id=\\\"frm_error_field_[key]\\\">[error]<\/div>[\/if error]\r\n<\/div>","use_global_currency":"1"}]]></field_options>
+		</field>
+		<field>
+			<id>53</id>
+			<field_key><![CDATA[mssgv]]></field_key>
+			<name><![CDATA[State or Province]]></name>
+			<description><![CDATA[]]></description>
+			<type><![CDATA[text]]></type>
+			<default_value><![CDATA[]]></default_value>
+			<field_order>12</field_order>
+			<form_id>6</form_id>
+			<required>0</required>
+			<options><![CDATA[]]></options>
+			<field_options><![CDATA[{"admin_only":[""],"unique_msg":"This value must be unique.","in_section":"66","blank":"This field cannot be blank.","invalid":"Text is invalid","classes":"frm3 frm_first","custom_html":"<div id=\\\"frm_field_[id]_container\\\" class=\\\"frm_form_field form-field [required_class][error_class]\\\">\r\n    <label for=\\\"field_[key]\\\" id=\\\"field_[key]_label\\\" class=\\\"frm_primary_label\\\">[field_name]\r\n        <span class=\\\"frm_required\\\" aria-hidden=\\\"true\\\">[required_label]<\/span>\r\n    <\/label>\r\n    [input]\r\n    [if description]<div class=\\\"frm_description\\\" id=\\\"frm_desc_field_[key]\\\">[description]<\/div>[\/if description]\r\n    [if error]<div class=\\\"frm_error\\\" role=\\\"alert\\\" id=\\\"frm_error_field_[key]\\\">[error]<\/div>[\/if error]\r\n<\/div>","use_global_currency":"1"}]]></field_options>
+		</field>
+		<field>
+			<id>54</id>
+			<field_key><![CDATA[hpd94]]></field_key>
+			<name><![CDATA[ZIP or Postal Code]]></name>
+			<description><![CDATA[]]></description>
+			<type><![CDATA[text]]></type>
+			<default_value><![CDATA[]]></default_value>
+			<field_order>13</field_order>
+			<form_id>6</form_id>
+			<required>1</required>
+			<options><![CDATA[]]></options>
+			<field_options><![CDATA[{"admin_only":[""],"unique_msg":"This value must be unique.","in_section":"66","blank":"This field cannot be blank.","invalid":"Text is invalid","classes":"frm3","custom_html":"<div id=\\\"frm_field_[id]_container\\\" class=\\\"frm_form_field form-field [required_class][error_class]\\\">\r\n    <label for=\\\"field_[key]\\\" id=\\\"field_[key]_label\\\" class=\\\"frm_primary_label\\\">[field_name]\r\n        <span class=\\\"frm_required\\\" aria-hidden=\\\"true\\\">[required_label]<\/span>\r\n    <\/label>\r\n    [input]\r\n    [if description]<div class=\\\"frm_description\\\" id=\\\"frm_desc_field_[key]\\\">[description]<\/div>[\/if description]\r\n    [if error]<div class=\\\"frm_error\\\" role=\\\"alert\\\" id=\\\"frm_error_field_[key]\\\">[error]<\/div>[\/if error]\r\n<\/div>","use_global_currency":"1"}]]></field_options>
+		</field>
+		<field>
+			<id>55</id>
+			<field_key><![CDATA[s9ifj]]></field_key>
+			<name><![CDATA[Country]]></name>
+			<description><![CDATA[]]></description>
+			<type><![CDATA[text]]></type>
+			<default_value><![CDATA[]]></default_value>
+			<field_order>14</field_order>
+			<form_id>6</form_id>
+			<required>1</required>
+			<options><![CDATA[]]></options>
+			<field_options><![CDATA[{"admin_only":[""],"unique_msg":"This value must be unique.","in_section":"66","blank":"This field cannot be blank.","invalid":"Text is invalid","classes":"frm3","custom_html":"<div id=\\\"frm_field_[id]_container\\\" class=\\\"frm_form_field form-field [required_class][error_class]\\\">\r\n    <label for=\\\"field_[key]\\\" id=\\\"field_[key]_label\\\" class=\\\"frm_primary_label\\\">[field_name]\r\n        <span class=\\\"frm_required\\\" aria-hidden=\\\"true\\\">[required_label]<\/span>\r\n    <\/label>\r\n    [input]\r\n    [if description]<div class=\\\"frm_description\\\" id=\\\"frm_desc_field_[key]\\\">[description]<\/div>[\/if description]\r\n    [if error]<div class=\\\"frm_error\\\" role=\\\"alert\\\" id=\\\"frm_error_field_[key]\\\">[error]<\/div>[\/if error]\r\n<\/div>","use_global_currency":"1"}]]></field_options>
+		</field>
+		<field>
+			<id>56</id>
+			<field_key><![CDATA[buav2]]></field_key>
+			<name><![CDATA[Phone]]></name>
+			<description><![CDATA[]]></description>
+			<type><![CDATA[phone]]></type>
+			<default_value><![CDATA[]]></default_value>
+			<field_order>15</field_order>
+			<form_id>6</form_id>
+			<required>0</required>
+			<options><![CDATA[]]></options>
+			<field_options><![CDATA[{"admin_only":[""],"unique_msg":"This value must be unique.","in_section":"66","blank":"This field cannot be blank.","classes":"frm3","custom_html":"<div id=\\\"frm_field_[id]_container\\\" class=\\\"frm_form_field form-field [required_class][error_class]\\\">\r\n    <label for=\\\"field_[key]\\\" id=\\\"field_[key]_label\\\" class=\\\"frm_primary_label\\\">[field_name]\r\n        <span class=\\\"frm_required\\\" aria-hidden=\\\"true\\\">[required_label]<\/span>\r\n    <\/label>\r\n    [input]\r\n    [if description]<div class=\\\"frm_description\\\" id=\\\"frm_desc_field_[key]\\\">[description]<\/div>[\/if description]\r\n    [if error]<div class=\\\"frm_error\\\" role=\\\"alert\\\" id=\\\"frm_error_field_[key]\\\">[error]<\/div>[\/if error]\r\n<\/div>"}]]></field_options>
+		</field>
+		<field>
+			<id>57</id>
+			<field_key><![CDATA[1wdch]]></field_key>
+			<name><![CDATA[Professional Affiliation]]></name>
+			<description><![CDATA[]]></description>
+			<type><![CDATA[text]]></type>
+			<default_value><![CDATA[]]></default_value>
+			<field_order>17</field_order>
+			<form_id>6</form_id>
+			<required>1</required>
+			<options><![CDATA[]]></options>
+			<field_options><![CDATA[{"admin_only":[""],"unique_msg":"This value must be unique.","in_section":"66","blank":"This field cannot be blank.","invalid":"Text is invalid","classes":"frm4 frm_first","custom_html":"<div id=\\\"frm_field_[id]_container\\\" class=\\\"frm_form_field form-field [required_class][error_class]\\\">\r\n    <label for=\\\"field_[key]\\\" id=\\\"field_[key]_label\\\" class=\\\"frm_primary_label\\\">[field_name]\r\n        <span class=\\\"frm_required\\\" aria-hidden=\\\"true\\\">[required_label]<\/span>\r\n    <\/label>\r\n    [input]\r\n    [if description]<div class=\\\"frm_description\\\" id=\\\"frm_desc_field_[key]\\\">[description]<\/div>[\/if description]\r\n    [if error]<div class=\\\"frm_error\\\" role=\\\"alert\\\" id=\\\"frm_error_field_[key]\\\">[error]<\/div>[\/if error]\r\n<\/div>","use_global_currency":"1"}]]></field_options>
+		</field>
+		<field>
+			<id>61</id>
+			<field_key><![CDATA[ri8wi]]></field_key>
+			<name><![CDATA[Affiliation Type]]></name>
+			<description><![CDATA[]]></description>
+			<type><![CDATA[select]]></type>
+			<default_value>1</default_value>
+			<field_order>18</field_order>
+			<form_id>6</form_id>
+			<required>1</required>
+			<options><![CDATA[[{"label":"Academic","value":"1"},{"label":"Government","value":"2"},{"label":"Industry","value":"3"},{"label":"Non-Profit","value":"4"},{"label":"Other","value":"5"}]]]></options>
+			<field_options><![CDATA[{"admin_only":[""],"unique_msg":"This value must be unique.","other":"0","in_section":"66","blank":"This field cannot be blank.","separate_value":"1","classes":"frm4","custom_html":"<div id=\\\"frm_field_[id]_container\\\" class=\\\"frm_form_field form-field [required_class][error_class]\\\">\r\n    <label for=\\\"field_[key]\\\" id=\\\"field_[key]_label\\\" class=\\\"frm_primary_label\\\">[field_name]\r\n        <span class=\\\"frm_required\\\" aria-hidden=\\\"true\\\">[required_label]<\/span>\r\n    <\/label>\r\n    [input]\r\n    [if description]<div class=\\\"frm_description\\\" id=\\\"frm_desc_field_[key]\\\">[description]<\/div>[\/if description]\r\n    [if error]<div class=\\\"frm_error\\\" role=\\\"alert\\\" id=\\\"frm_error_field_[key]\\\">[error]<\/div>[\/if error]\r\n<\/div>"}]]></field_options>
+		</field>
+		<field>
+			<id>58</id>
+			<field_key><![CDATA[a6d9y]]></field_key>
+			<name><![CDATA[Email]]></name>
+			<description><![CDATA[]]></description>
+			<type><![CDATA[email]]></type>
+			<default_value><![CDATA[]]></default_value>
+			<field_order>19</field_order>
+			<form_id>6</form_id>
+			<required>1</required>
+			<options><![CDATA[]]></options>
+			<field_options><![CDATA[{"autocomplete":"email","admin_only":[""],"unique_msg":"This value must be unique.","conf_desc":"Please enter your email again","in_section":"0","blank":"This field cannot be blank.","classes":"frm4","custom_html":"<div id=\\\"frm_field_[id]_container\\\" class=\\\"frm_form_field form-field [required_class][error_class]\\\">\r\n    <label for=\\\"field_[key]\\\" id=\\\"field_[key]_label\\\" class=\\\"frm_primary_label\\\">[field_name]\r\n        <span class=\\\"frm_required\\\" aria-hidden=\\\"true\\\">[required_label]<\/span>\r\n    <\/label>\r\n    [input]\r\n    [if description]<div class=\\\"frm_description\\\" id=\\\"frm_desc_field_[key]\\\">[description]<\/div>[\/if description]\r\n    [if error]<div class=\\\"frm_error\\\" role=\\\"alert\\\" id=\\\"frm_error_field_[key]\\\">[error]<\/div>[\/if error]\r\n<\/div>"}]]></field_options>
+		</field>
+		<field>
+			<id>79</id>
+			<field_key><![CDATA[qjjm3]]></field_key>
+			<name><![CDATA[Membership type]]></name>
+			<description><![CDATA[]]></description>
+			<type><![CDATA[radio]]></type>
+			<default_value><![CDATA[]]></default_value>
+			<field_order>21</field_order>
+			<form_id>6</form_id>
+			<required>1</required>
+			<options><![CDATA[[{"label":"Professional","value":"Professional","image":"Option 1","src":false},{"label":"Retired Professional","value":"Retired Professional","image":"Option 2","src":false},{"label":"Postdoc","value":"Postdoc","image":"0"},{"label":"Student","value":"Student","image":"0"}]]]></options>
+			<field_options><![CDATA[{"admin_only":[""],"other":"0","in_section":"66","custom_html":"<div id=\\\"frm_field_[id]_container\\\" class=\\\"frm_form_field form-field [required_class][error_class]\\\">\r\n\t<div  id=\\\"field_[key]_label\\\" class=\\\"frm_primary_label\\\">[field_name]\r\n\t\t<span class=\\\"frm_required\\\" aria-hidden=\\\"true\\\">[required_label]<\/span>\r\n\t<\/div>\r\n\t<div class=\\\"frm_opt_container\\\" aria-labelledby=\\\"field_[key]_label\\\" role=\\\"group\\\">[input]<\/div>\r\n\t[if description]<div class=\\\"frm_description\\\" id=\\\"frm_desc_field_[key]\\\">[description]<\/div>[\/if description]\r\n\t[if error]<div class=\\\"frm_error\\\" role=\\\"alert\\\" id=\\\"frm_error_field_[key]\\\">[error]<\/div>[\/if error]\r\n<\/div>","image_options":"0","image_size":"small"}]]></field_options>
+		</field>
+		<field>
+			<id>67</id>
+			<field_key><![CDATA[6uv8o]]></field_key>
+			<name><![CDATA[Section Buttons]]></name>
+			<description><![CDATA[]]></description>
+			<type><![CDATA[end_divider]]></type>
+			<default_value><![CDATA[]]></default_value>
+			<field_order>22</field_order>
+			<form_id>6</form_id>
+			<required>0</required>
+			<options><![CDATA[]]></options>
+			<field_options><![CDATA[{"in_section":"0"}]]></field_options>
+		</field>
+		<field>
+			<id>68</id>
+			<field_key><![CDATA[82tbz]]></field_key>
+			<name><![CDATA[Publication Information]]></name>
+			<description><![CDATA[<p>As part of the membership application process, we require that you list your any publication(s) in the peptide field.  If you do not yet have such publications, we ask that you provide the name and contact information of a sponsor below, and arrange for that person to send a letter of reference to the Society at apsoffice17@gmail.com, indicating your involvement in the field.</p>]]></description>
+			<type><![CDATA[divider]]></type>
+			<default_value><![CDATA[]]></default_value>
+			<field_order>24</field_order>
+			<form_id>6</form_id>
+			<required>0</required>
+			<options><![CDATA[]]></options>
+			<field_options><![CDATA[{"admin_only":[""],"in_section":"0","label":"","custom_html":"<div id=\\\"frm_field_[id]_container\\\" class=\\\"frm_form_field frm_section_heading form-field[error_class]\\\">\r\n<h3 class=\\\"frm_pos_[label_position][collapse_class]\\\">[field_name]<\/h3>\r\n[if description]<div class=\\\"frm_description\\\">[description]<\/div>[\/if description]\r\n[collapse_this]\r\n<\/div>","repeat":"0"}]]></field_options>
+		</field>
+		<field>
+			<id>80</id>
+			<field_key><![CDATA[cajsc]]></field_key>
+			<name><![CDATA[Choose one]]></name>
+			<description><![CDATA[]]></description>
+			<type><![CDATA[radio]]></type>
+			<default_value><![CDATA[]]></default_value>
+			<field_order>26</field_order>
+			<form_id>6</form_id>
+			<required>1</required>
+			<options><![CDATA[[{"label":"I have published work in the field of peptide sciene or a related field.","value":"I have published work in the field of peptide sciene or a related field.","image":"Option 1","src":false},{"label":"I will provide a reference letter from someone in the field of peptide science or a related field.","value":"I will provide a reference letter from someone in the field of peptide science or a related field.","image":"Option 2","src":false}]]]></options>
+			<field_options><![CDATA[{"admin_only":[""],"other":"0","in_section":"68","custom_html":"<div id=\\\"frm_field_[id]_container\\\" class=\\\"frm_form_field form-field [required_class][error_class]\\\">\r\n\t<div  id=\\\"field_[key]_label\\\" class=\\\"frm_primary_label\\\">[field_name]\r\n\t\t<span class=\\\"frm_required\\\" aria-hidden=\\\"true\\\">[required_label]<\/span>\r\n\t<\/div>\r\n\t<div class=\\\"frm_opt_container\\\" aria-labelledby=\\\"field_[key]_label\\\" role=\\\"group\\\">[input]<\/div>\r\n\t[if description]<div class=\\\"frm_description\\\" id=\\\"frm_desc_field_[key]\\\">[description]<\/div>[\/if description]\r\n\t[if error]<div class=\\\"frm_error\\\" role=\\\"alert\\\" id=\\\"frm_error_field_[key]\\\">[error]<\/div>[\/if error]\r\n<\/div>","image_options":"0","image_size":"small"}]]></field_options>
+		</field>
+		<field>
+			<id>70</id>
+			<field_key><![CDATA[thk56]]></field_key>
+			<name><![CDATA[Publications]]></name>
+			<description><![CDATA[]]></description>
+			<type><![CDATA[text]]></type>
+			<default_value><![CDATA[]]></default_value>
+			<field_order>30</field_order>
+			<form_id>6</form_id>
+			<required>1</required>
+			<options><![CDATA[]]></options>
+			<field_options><![CDATA[{"any_all":"all","hide_field":["80"],"hide_opt":["I have published work in the field of peptide sciene or a related field."],"admin_only":[""],"unique_msg":"This value must be unique.","in_section":"68","invalid":"Text is invalid","custom_html":"<div id=\\\"frm_field_[id]_container\\\" class=\\\"frm_form_field form-field [required_class][error_class]\\\">\r\n    <label for=\\\"field_[key]\\\" id=\\\"field_[key]_label\\\" class=\\\"frm_primary_label\\\">[field_name]\r\n        <span class=\\\"frm_required\\\" aria-hidden=\\\"true\\\">[required_label]<\/span>\r\n    <\/label>\r\n    [input]\r\n    [if description]<div class=\\\"frm_description\\\" id=\\\"frm_desc_field_[key]\\\">[description]<\/div>[\/if description]\r\n    [if error]<div class=\\\"frm_error\\\" role=\\\"alert\\\" id=\\\"frm_error_field_[key]\\\">[error]<\/div>[\/if error]\r\n<\/div>","placeholder":"Please list publication\/s citation or DOI","use_global_currency":"1"}]]></field_options>
+		</field>
+		<field>
+			<id>71</id>
+			<field_key><![CDATA[bosgh]]></field_key>
+			<name><![CDATA[Sponsor Name]]></name>
+			<description><![CDATA[The letter of reference should be sent to APSoffice17@gmail.com]]></description>
+			<type><![CDATA[text]]></type>
+			<default_value><![CDATA[]]></default_value>
+			<field_order>32</field_order>
+			<form_id>6</form_id>
+			<required>1</required>
+			<options><![CDATA[]]></options>
+			<field_options><![CDATA[{"any_all":"all","hide_field":["80"],"hide_opt":["I will provide a reference letter from someone in the field of peptide science or a related field."],"admin_only":[""],"unique_msg":"This value must be unique.","in_section":"68","invalid":"Text is invalid","classes":"frm6 frm_first","custom_html":"<div id=\\\"frm_field_[id]_container\\\" class=\\\"frm_form_field form-field [required_class][error_class]\\\">\r\n    <label for=\\\"field_[key]\\\" id=\\\"field_[key]_label\\\" class=\\\"frm_primary_label\\\">[field_name]\r\n        <span class=\\\"frm_required\\\" aria-hidden=\\\"true\\\">[required_label]<\/span>\r\n    <\/label>\r\n    [input]\r\n    [if description]<div class=\\\"frm_description\\\" id=\\\"frm_desc_field_[key]\\\">[description]<\/div>[\/if description]\r\n    [if error]<div class=\\\"frm_error\\\" role=\\\"alert\\\" id=\\\"frm_error_field_[key]\\\">[error]<\/div>[\/if error]\r\n<\/div>","use_global_currency":"1"}]]></field_options>
+		</field>
+		<field>
+			<id>72</id>
+			<field_key><![CDATA[gysme]]></field_key>
+			<name><![CDATA[Sponsor Email]]></name>
+			<description><![CDATA[]]></description>
+			<type><![CDATA[email]]></type>
+			<default_value><![CDATA[]]></default_value>
+			<field_order>33</field_order>
+			<form_id>6</form_id>
+			<required>1</required>
+			<options><![CDATA[]]></options>
+			<field_options><![CDATA[{"any_all":"all","hide_field":["80"],"hide_opt":["I will provide a reference letter from someone in the field of peptide science or a related field."],"autocomplete":"email","admin_only":[""],"unique_msg":"This value must be unique.","in_section":"0","invalid":"Email is invalid","classes":"frm6","custom_html":"<div id=\\\"frm_field_[id]_container\\\" class=\\\"frm_form_field form-field [required_class][error_class]\\\">\r\n    <label for=\\\"field_[key]\\\" id=\\\"field_[key]_label\\\" class=\\\"frm_primary_label\\\">[field_name]\r\n        <span class=\\\"frm_required\\\" aria-hidden=\\\"true\\\">[required_label]<\/span>\r\n    <\/label>\r\n    [input]\r\n    [if description]<div class=\\\"frm_description\\\" id=\\\"frm_desc_field_[key]\\\">[description]<\/div>[\/if description]\r\n    [if error]<div class=\\\"frm_error\\\" role=\\\"alert\\\" id=\\\"frm_error_field_[key]\\\">[error]<\/div>[\/if error]\r\n<\/div>"}]]></field_options>
+		</field>
+		<field>
+			<id>69</id>
+			<field_key><![CDATA[zch33]]></field_key>
+			<name><![CDATA[Section Buttons]]></name>
+			<description><![CDATA[]]></description>
+			<type><![CDATA[end_divider]]></type>
+			<default_value><![CDATA[]]></default_value>
+			<field_order>34</field_order>
+			<form_id>6</form_id>
+			<required>0</required>
+			<options><![CDATA[]]></options>
+			<field_options><![CDATA[{"in_section":"0"}]]></field_options>
+		</field>
+		<field>
+			<id>74</id>
+			<field_key><![CDATA[zcuts]]></field_key>
+			<name><![CDATA[User ID]]></name>
+			<description><![CDATA[]]></description>
+			<type><![CDATA[user_id]]></type>
+			<default_value><![CDATA[]]></default_value>
+			<field_order>36</field_order>
+			<form_id>6</form_id>
+			<required>0</required>
+			<options><![CDATA[]]></options>
+			<field_options><![CDATA[{"in_section":"0"}]]></field_options>
+		</field>
+		<field>
+			<id>75</id>
+			<field_key><![CDATA[qna8a]]></field_key>
+			<name><![CDATA[Submit]]></name>
+			<description><![CDATA[]]></description>
+			<type><![CDATA[submit]]></type>
+			<default_value><![CDATA[]]></default_value>
+			<field_order>38</field_order>
+			<form_id>6</form_id>
+			<required>0</required>
+			<options><![CDATA[]]></options>
+			<field_options><![CDATA[{"in_section":"0","custom_html":"<div id=\\\"frm_field_[id]_container\\\" class=\\\"frm_form_field form-field [required_class][error_class]\\\">\r\n\t[input]\r\n<\/div>"}]]></field_options>
+		</field>
+	</form>
+	<view>
+		<title>Confirmation</title>
+		<link></link>
+		<post_author><![CDATA[kanehoopai]]></post_author>
+		<description></description>
+		<content><![CDATA[{"event":["create"],"success_action":"message","success_msg":"Your responses were successfully submitted. We will process your application as soon as possible.\r\nThank you!","success_url":"","redirect_delay_time":"8","redirect_delay_msg":"Please wait while you are redirected.","success_page_id":"0","conditions":{"send_stop":"send","any_all":"any"}}]]></content>
+		<excerpt><![CDATA[on_submit]]></excerpt>
+		<post_id>16419</post_id>
+		<post_date>2024-02-22 08:21:54</post_date>
+		<post_date_gmt>2024-02-22 13:21:54</post_date_gmt>
+		<comment_status>closed</comment_status>
+		<ping_status>closed</ping_status>
+		<post_name>6_on_submit_16419</post_name>
+		<status>publish</status>
+		<post_parent>0</post_parent>
+		<menu_order>6</menu_order>
+		<post_type>frm_form_actions</post_type>
+		<post_password><![CDATA[]]></post_password>
+		<is_sticky>0</is_sticky>
+		<postmeta>
+			<meta_key>_wpv_contains_gutenberg_views</meta_key>
+			<meta_value><![CDATA[]]></meta_value>
+		</postmeta>
+		<postmeta>
+			<meta_key>_wp_old_slug</meta_key>
+			<meta_value><![CDATA[6_on_submit_]]></meta_value>
+		</postmeta>
+	</view>
+	<view>
+		<title>Send API data</title>
+		<link></link>
+		<post_author><![CDATA[kanehoopai]]></post_author>
+		<description></description>
+		<content><![CDATA[{"event":["create","user_registration"],"url":"https:\/\/w9j.d10.myftpupload.com\/wp-json\/mp\/v1\/transactions","api_key":"kanehoopai:ASIi WI7m WLnV qXa1 fUE8 AHMP","format":"json","method":"POST","charset":"blog_charset","data_format":"","data_fields":[{"key":"email","value":"[74 show=\"user_email\"]"},{"key":"username","value":"[74 show=\"user_email\"]"},{"key":"member","value":"[74 show=\"ID\"]"},{"key":"membership","value":"14390"},{"key":"status","value":"complete"}],"conditions":{"send_stop":"send","any_all":"any"}}]]></content>
+		<excerpt><![CDATA[api]]></excerpt>
+		<post_id>16446</post_id>
+		<post_date>2024-02-23 15:24:34</post_date>
+		<post_date_gmt>2024-02-23 20:24:34</post_date_gmt>
+		<comment_status>closed</comment_status>
+		<ping_status>closed</ping_status>
+		<post_name>6_api_16446</post_name>
+		<status>publish</status>
+		<post_parent>0</post_parent>
+		<menu_order>6</menu_order>
+		<post_type>frm_form_actions</post_type>
+		<post_password><![CDATA[]]></post_password>
+		<is_sticky>0</is_sticky>
+		<postmeta>
+			<meta_key>_wpv_contains_gutenberg_views</meta_key>
+			<meta_value><![CDATA[]]></meta_value>
+		</postmeta>
+		<postmeta>
+			<meta_key>_wp_old_slug</meta_key>
+			<meta_value><![CDATA[6_api_16520]]></meta_value>
+		</postmeta>
+	</view>
+	<view>
+		<title>Register User</title>
+		<link></link>
+		<post_author><![CDATA[kanehoopai]]></post_author>
+		<description></description>
+		<content><![CDATA[{"event":["create","update"],"reg_email":"58","reg_username":"","reg_password":"","reg_first_name":"47","reg_last_name":"49","reg_display_name":"","reg_user_url":"","reg_role":"subscriber","reg_avatar":"","reg_usermeta":[{"meta_name":"mepr_title","field_id":"60"},{"meta_name":"mepr_first_name","field_id":"47"},{"meta_name":"mepr_affiliation_type","field_id":"61"},{"meta_name":"mepr_address_2","field_id":"51"},{"meta_name":"mepr_city","field_id":"52"},{"meta_name":"mepr_state_or_province","field_id":"53"},{"meta_name":"mepr_zip_or_postal_code","field_id":"54"},{"meta_name":"mepr_country","field_id":"55"},{"meta_name":"mepr_phone","field_id":"56"},{"meta_name":"mepr_email","field_id":"58"},{"meta_name":"mepr_sponsor","field_id":"71"},{"meta_name":"mepr_sponsor_email","field_id":"72"},{"meta_name":"mepr_publications","field_id":"70"},{"meta_name":"mepr_address_1","field_id":"50"}],"on_email_confirmation":"page","reg_redirect":"0","reg_redirect_url":"","conditions":{"send_stop":"send","any_all":"any"}}]]></content>
+		<excerpt><![CDATA[register]]></excerpt>
+		<post_id>16447</post_id>
+		<post_date>2024-02-23 15:26:19</post_date>
+		<post_date_gmt>2024-02-23 20:26:19</post_date_gmt>
+		<comment_status>closed</comment_status>
+		<ping_status>closed</ping_status>
+		<post_name>6_register_16447</post_name>
+		<status>publish</status>
+		<post_parent>0</post_parent>
+		<menu_order>6</menu_order>
+		<post_type>frm_form_actions</post_type>
+		<post_password><![CDATA[]]></post_password>
+		<is_sticky>0</is_sticky>
+		<postmeta>
+			<meta_key>_wpv_contains_gutenberg_views</meta_key>
+			<meta_value><![CDATA[]]></meta_value>
+		</postmeta>
+		<postmeta>
+			<meta_key>_wp_old_slug</meta_key>
+			<meta_value><![CDATA[6_register_16547]]></meta_value>
+		</postmeta>
+	</view>
+	<view>
+		<title>Send Email</title>
+		<link></link>
+		<post_author><![CDATA[kanehoopai]]></post_author>
+		<description></description>
+		<content><![CDATA[{"event":["create"],"email_to":"apsoffice17@gmail.com","cc":"","bcc":"","from":"[sitename] <[admin_email]>","reply_to":"","email_subject":"New Membership Form","email_message":"Hi Lauren,\r\nA new membership application has just been submitted. Here are the details:\r\n[default-message]\r\n","email_attachment_id":"","conditions":{"send_stop":"send","any_all":"any"}}]]></content>
+		<excerpt><![CDATA[email]]></excerpt>
+		<post_id>16536</post_id>
+		<post_date>2024-03-01 10:52:57</post_date>
+		<post_date_gmt>2024-03-01 15:52:57</post_date_gmt>
+		<comment_status>closed</comment_status>
+		<ping_status>closed</ping_status>
+		<post_name>6_email_16536</post_name>
+		<status>publish</status>
+		<post_parent>0</post_parent>
+		<menu_order>6</menu_order>
+		<post_type>frm_form_actions</post_type>
+		<post_password><![CDATA[]]></post_password>
+		<is_sticky>0</is_sticky>
+		<postmeta>
+			<meta_key>_wpv_contains_gutenberg_views</meta_key>
+			<meta_value><![CDATA[]]></meta_value>
+		</postmeta>
+		<postmeta>
+			<meta_key>_wp_old_slug</meta_key>
+			<meta_value><![CDATA[6_email_16547]]></meta_value>
+		</postmeta>
+	</view>
+</channel>
