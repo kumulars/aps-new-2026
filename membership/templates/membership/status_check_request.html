@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Check Membership Status - American Peptide Society{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h1 class="h3 mb-4">Check Your Membership Status</h1>
+
+                    {% if email_sent %}
+                    <div class="alert alert-success">
+                        <h5 class="alert-heading"><i class="bi bi-check-circle me-2"></i>Check Your Email</h5>
+                        <p class="mb-0">
+                            If the email address you entered is associated with an APS membership,
+                            you will receive an email with a link to view your status.
+                        </p>
+                        <hr>
+                        <p class="mb-0 small">
+                            The link will expire in 24 hours. If you don't receive an email,
+                            please check your spam folder or <a href="mailto:membership@americanpeptidesociety.org">contact us</a>.
+                        </p>
+                    </div>
+                    <a href="{% url 'membership:status_check' %}" class="btn btn-outline-primary">
+                        <i class="bi bi-arrow-left me-1"></i>Try Another Email
+                    </a>
+                    {% else %}
+                    <p class="text-muted mb-4">
+                        Enter the email address associated with your APS membership.
+                        We'll send you a secure link to view your membership status.
+                    </p>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control form-control-lg" id="email"
+                                   name="email" placeholder="you@example.com" required autofocus>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg w-100">
+                            <i class="bi bi-envelope me-2"></i>Send Status Link
+                        </button>
+                    </form>
+
+                    <hr class="my-4">
+                    <p class="small text-muted mb-0">
+                        <strong>Not a member yet?</strong>
+                        <a href="{% url 'membership:apply' %}">Apply for membership</a>
+                    </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

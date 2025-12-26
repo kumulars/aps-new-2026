@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Your Membership Status - American Peptide Society{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h1 class="h3 mb-4">Your Membership Status</h1>
+
+                    <div class="mb-4">
+                        <h5 class="text-muted mb-3">Account Information</h5>
+                        <table class="table table-borderless">
+                            <tr>
+                                <th style="width: 150px;">Name</th>
+                                <td>{{ user.get_full_name|default:user.email }}</td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>{{ user.email }}</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    {% if profile %}
+                    <div class="mb-4">
+                        <h5 class="text-muted mb-3">Membership Details</h5>
+                        <table class="table table-borderless">
+                            <tr>
+                                <th style="width: 150px;">Status</th>
+                                <td>
+                                    {% if profile.status == 'approved' %}
+                                    <span class="badge bg-success fs-6">
+                                        <i class="bi bi-check-circle me-1"></i>Active Member
+                                    </span>
+                                    {% elif profile.status == 'pending' %}
+                                    <span class="badge bg-warning text-dark fs-6">
+                                        <i class="bi bi-clock me-1"></i>Pending Review
+                                    </span>
+                                    {% else %}
+                                    <span class="badge bg-secondary fs-6">{{ profile.get_status_display }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Type</th>
+                                <td>{{ profile.get_membership_type_display }}</td>
+                            </tr>
+                            {% if profile.professional_affiliation %}
+                            <tr>
+                                <th>Affiliation</th>
+                                <td>{{ profile.professional_affiliation }}</td>
+                            </tr>
+                            {% endif %}
+                            {% if profile.approved_at %}
+                            <tr>
+                                <th>Member Since</th>
+                                <td>{{ profile.approved_at|date:"F Y" }}</td>
+                            </tr>
+                            {% endif %}
+                        </table>
+                    </div>
+
+                    {% if profile.status == 'approved' %}
+                    <div class="alert alert-success">
+                        <i class="bi bi-check-circle me-2"></i>
+                        <strong>Your membership is active.</strong>
+                        You have full access to APS member benefits.
+                    </div>
+                    {% elif profile.status == 'pending' %}
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle me-2"></i>
+                        <strong>Your application is being reviewed.</strong>
+                        We will contact you once your membership is approved.
+                    </div>
+                    {% endif %}
+
+                    {% else %}
+                    <div class="alert alert-warning">
+                        <i class="bi bi-exclamation-triangle me-2"></i>
+                        <strong>No membership profile found.</strong>
+                        Your email is in our system, but you don't have a membership profile yet.
+                    </div>
+                    <p>
+                        <a href="{% url 'membership:apply' %}" class="btn btn-primary">
+                            Apply for Membership
+                        </a>
+                    </p>
+                    {% endif %}
+
+                    <hr class="my-4">
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="{% url 'account_login' %}" class="btn btn-outline-primary">
+                            <i class="bi bi-box-arrow-in-right me-1"></i>Log In to Your Account
+                        </a>
+                        <a href="{% url 'membership:info' %}" class="text-muted">
+                            Membership Information
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

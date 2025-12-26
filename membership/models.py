@@ -6,9 +6,11 @@ Uses django-allauth for authentication, with a custom MemberProfile for
 additional member data.
 """
 
+import secrets
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from datetime import timedelta
 from wagtail.images.models import Image
 
 
@@ -239,4 +241,43 @@ class MemberProfile(models.Model):
         """Reject the membership application."""
         self.status = self.STATUS_REJECTED
         self.rejection_reason = reason
+        self.save()
+
+
+class MembershipStatusToken(models.Model):
+    """
+    Secure token for magic link membership status checks.
+    Tokens expire after 24 hours for security.
+    """
+    email = models.EmailField()
+    token = models.CharField(max_length=64, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    used_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Status Check Token"
+        verbose_name_plural = "Status Check Tokens"
+
+    def __str__(self):
+        return f"Token for {self.email} ({self.created_at})"
+
+    @classmethod
+    def create_for_email(cls, email):
+        """Create a new token for the given email."""
+        token = secrets.token_urlsafe(32)
+        return cls.objects.create(email=email.lower(), token=token)
+
+    @property
+    def is_expired(self):
+        """Token expires 24 hours after creation."""
+        return timezone.now() > self.created_at + timedelta(hours=24)
+
+    @property
+    def is_valid(self):
+        """Token is valid if not expired and not yet used."""
+        return not self.is_expired and self.used_at is None
+
+    def mark_used(self):
+        """Mark token as used."""
+        self.used_at = timezone.now()
         self.save()
