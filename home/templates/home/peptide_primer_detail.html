@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% load static wagtailimages_tags gallery_tags %}
+
+{% block title %}{{ primer.title }} - Peptide Primers{% endblock %}
+
+{% block body_class %}template-peptide-primer-detail{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/primers.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row">
+
+        {# Sidebar Navigation - col-2 on desktop, horizontal on mobile #}
+        <div class="col-12 col-lg-2 primer-sidebar-col">
+            <div class="primer-sidebar">
+                <div class="primer-nav-sidebar">
+                    {% for tab in primer.tabs.all %}
+                    <a href="#tab-{{ tab.tab_id }}"
+                       class="primer-nav-btn {% if forloop.first %}active{% endif %}"
+                       data-tab-id="{{ tab.tab_id }}">
+                        <span class="nav-label">{{ tab.title }}</span>
+                    </a>
+                    {% endfor %}
+                    <hr class="my-2">
+                    <a href="{% url 'peptide_primer_index' %}" class="primer-nav-btn back-link">
+                        <i class="bi bi-arrow-left me-1"></i>
+                        <span class="nav-label">All Primers</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        {# Main Content - col-10 on desktop #}
+        <div class="col-12 col-lg-10 primer-main-col">
+
+            {# Page Title #}
+            <div class="primer-header">
+                <h1 class="page-top-header">{{ primer.title }}</h1>
+                {% if primer.introduction %}
+                <div class="primer-intro">
+                    {{ primer.introduction|safe }}
+                </div>
+                {% endif %}
+            </div>
+
+            {# Tab Content Panels #}
+            <div class="primer-content">
+                {% for tab in primer.tabs.all %}
+                <div class="primer-tab-pane {% if forloop.first %}active{% endif %}"
+                     id="tab-{{ tab.tab_id }}"
+                     data-tab-id="{{ tab.tab_id }}">
+
+                    <h2 class="primer-section-header">{{ tab.title }}</h2>
+
+                    <div class="primer-body">
+                        {{ tab.content|fix_media_urls }}
+                    </div>
+
+                    {# Navigation between tabs #}
+                    <div class="primer-tab-nav">
+                        {% if not forloop.first %}
+                        <button class="btn btn-outline-primary prev-tab">
+                            <i class="bi bi-arrow-left me-1"></i> Previous
+                        </button>
+                        {% else %}
+                        <div></div>
+                        {% endif %}
+
+                        {% if not forloop.last %}
+                        <button class="btn btn-primary next-tab">
+                            Next <i class="bi bi-arrow-right ms-1"></i>
+                        </button>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<script>
+(function() {
+    var navBtns = document.querySelectorAll('.primer-nav-btn[data-tab-id]');
+    var tabPanes = document.querySelectorAll('.primer-tab-pane');
+
+    // Switch tab function
+    function switchToTab(tabId) {
+        // Update nav buttons
+        navBtns.forEach(function(btn) {
+            btn.classList.remove('active');
+            if (btn.getAttribute('data-tab-id') === tabId) {
+                btn.classList.add('active');
+            }
+        });
+
+        // Update tab panes
+        tabPanes.forEach(function(pane) {
+            pane.classList.remove('active');
+            if (pane.getAttribute('data-tab-id') === tabId) {
+                pane.classList.add('active');
+            }
+        });
+
+        // Update URL hash
+        history.replaceState(null, null, '#tab-' + tabId);
+    }
+
+    // Nav button click handlers
+    navBtns.forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            var tabId = this.getAttribute('data-tab-id');
+            switchToTab(tabId);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    });
+
+    // Next/Prev button handlers
+    document.querySelectorAll('.next-tab').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var currentPane = document.querySelector('.primer-tab-pane.active');
+            var nextPane = currentPane.nextElementSibling;
+            if (nextPane && nextPane.classList.contains('primer-tab-pane')) {
+                switchToTab(nextPane.getAttribute('data-tab-id'));
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    });
+
+    document.querySelectorAll('.prev-tab').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var currentPane = document.querySelector('.primer-tab-pane.active');
+            var prevPane = currentPane.previousElementSibling;
+            if (prevPane && prevPane.classList.contains('primer-tab-pane')) {
+                switchToTab(prevPane.getAttribute('data-tab-id'));
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    });
+
+    // Handle URL hash on page load
+    var hash = window.location.hash;
+    if (hash && hash.startsWith('#tab-')) {
+        var tabId = hash.replace('#tab-', '');
+        switchToTab(tabId);
+    }
+})();
+</script>
+{% endblock %}

@@ -1,0 +1,302 @@
+/* =============================================================================
+   PEPTIDE PRIMERS STYLES - Sidebar Layout (2+10)
+   Matching People Directory pattern
+   ============================================================================= */
+
+/* Sidebar Column */
+.primer-sidebar-col {
+    padding: 0;
+}
+
+.primer-sidebar {
+    padding: 1rem;
+}
+
+/* Sidebar Navigation */
+.primer-nav-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.primer-nav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.875rem 0.5rem;
+    background: white;
+    border: 2px solid #dee2e6;
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--aps-blue);
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.primer-nav-btn:hover {
+    background: #e9ecef;
+    border-color: var(--aps-blue);
+    color: var(--aps-blue);
+    text-decoration: none;
+}
+
+.primer-nav-btn.active {
+    background: var(--aps-blue);
+    border-color: var(--aps-blue);
+    color: white;
+}
+
+.primer-nav-btn.back-link {
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.25rem;
+    background: transparent;
+    border-color: transparent;
+    color: #6c757d;
+    padding: 0.5rem;
+}
+
+.primer-nav-btn.back-link:hover {
+    background: #f8f9fa;
+    border-color: transparent;
+    color: var(--aps-blue);
+}
+
+.primer-nav-btn .nav-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+/* Main Content Column */
+.primer-main-col {
+    padding: 0;
+}
+
+/* Header Section */
+.primer-header {
+    padding: 1.5rem 1.5rem 1rem;
+}
+
+.primer-intro {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-top: 0.5rem;
+}
+
+/* Content Area */
+.primer-content {
+    padding: 0 1.5rem 2rem;
+}
+
+/* Tab Panes - show/hide */
+.primer-tab-pane {
+    display: none;
+}
+
+.primer-tab-pane.active {
+    display: block;
+}
+
+/* Section Header */
+.primer-section-header {
+    font-weight: 600;
+    font-size: 1.3em;
+    margin-top: 1.5em;
+    margin-bottom: 0.75em;
+    padding-left: 0.5rem;
+    border-left: 4px solid var(--aps-orange);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    color: var(--aps-blue);
+}
+
+/* Primer Body Content */
+.primer-body {
+    line-height: 1.7;
+    color: var(--aps-text);
+}
+
+.primer-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin: 1rem 0;
+}
+
+.primer-body h3,
+.primer-body h4 {
+    color: var(--aps-blue);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.primer-body p {
+    margin-bottom: 1rem;
+}
+
+.primer-body ul,
+.primer-body ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+    font-size: inherit;
+    line-height: 1.7;
+    color: var(--aps-text);
+}
+
+.primer-body li {
+    margin-bottom: 0.5rem;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+}
+
+/* Disclaimer/Safety Box */
+.disclaimer-box {
+    background-color: #fff3cd;
+    border: 1px solid #ffc107;
+    border-left: 4px solid #ffc107;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+.disclaimer-box p:last-child {
+    margin-bottom: 0;
+}
+
+/* Video Container */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    margin: 20px 0;
+    border-radius: 4px;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Video Toggle Buttons */
+.video-toggle {
+    margin-bottom: 15px;
+}
+
+.video-toggle summary {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 0.875rem;
+    border: 2px solid var(--aps-green);
+    border-radius: 4px;
+    background-color: transparent;
+    color: var(--aps-green);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.video-toggle summary:hover {
+    background-color: var(--aps-green);
+    color: white;
+}
+
+.video-toggle[open] summary {
+    background-color: var(--aps-green);
+    color: white;
+    margin-bottom: 10px;
+}
+
+/* Tab Navigation (bottom of each pane) */
+.primer-tab-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #dee2e6;
+}
+
+/* Citations */
+.citation {
+    font-size: 0.9em;
+    color: #666;
+    padding-left: 20px;
+    text-indent: -20px;
+    margin-bottom: 8px;
+}
+
+/* =============================================================================
+   MOBILE STYLES
+   ============================================================================= */
+
+@media (max-width: 991.98px) {
+    /* On mobile, sidebar becomes horizontal scroll */
+    .primer-sidebar-col {
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .primer-sidebar {
+        padding: 0.75rem 1rem;
+    }
+
+    .primer-nav-sidebar {
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 0.5rem;
+        padding-bottom: 0.25rem;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .primer-nav-sidebar hr {
+        display: none;
+    }
+
+    .primer-nav-btn {
+        flex-direction: row;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        white-space: nowrap;
+        min-width: auto;
+    }
+
+    .primer-nav-btn.back-link {
+        order: -1;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .primer-nav-btn .nav-label {
+        font-size: 0.85rem;
+    }
+
+    .primer-header {
+        padding: 1rem;
+    }
+
+    .primer-content {
+        padding: 0 1rem 1.5rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .primer-nav-btn {
+        padding: 0.5rem 0.75rem;
+    }
+
+    .primer-nav-btn .nav-label {
+        font-size: 0.8rem;
+    }
+
+    .primer-tab-nav {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .primer-tab-nav .btn {
+        width: 100%;
+    }
+}

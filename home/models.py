@@ -48,6 +48,11 @@ class HomePage(Page):
             is_featured=True
         ).first()
 
+        # Get featured primer for homepage
+        context['featured_primer'] = PeptidePrimer.objects.filter(
+            is_featured=True
+        ).first()
+
         return context
 
 
@@ -2056,3 +2061,130 @@ class JournalIssue(models.Model):
     @property
     def display_date(self):
         return f"{self.get_month_display()} {self.year}"
+
+
+# =============================================================================
+# PEPTIDE PRIMER (Educational Content with Tabbed Sections)
+# =============================================================================
+
+class PeptidePrimerTab(models.Model):
+    """
+    A tab/section within a Peptide Primer article.
+    Each tab contains educational content with its own title and body.
+    """
+    primer = ParentalKey(
+        'PeptidePrimer',
+        on_delete=models.CASCADE,
+        related_name='tabs'
+    )
+    title = models.CharField(
+        max_length=100,
+        help_text="Tab title, e.g., 'Getting Started'"
+    )
+    tab_id = models.SlugField(
+        max_length=50,
+        help_text="URL-friendly ID for the tab, e.g., 'getting-started'"
+    )
+    content = models.TextField(
+        help_text="HTML content for this tab"
+    )
+    sort_order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['sort_order']
+
+    def __str__(self):
+        return self.title
+
+    panels = [
+        FieldPanel('title'),
+        FieldPanel('tab_id'),
+        FieldPanel('content'),
+        FieldPanel('sort_order'),
+    ]
+
+
+@register_snippet
+class PeptidePrimer(ClusterableModel):
+    """
+    Educational content for the Peptide Primers section.
+    Each primer has multiple tabbed sections for organized content.
+
+    Display contexts:
+    - Homepage: Featured primer with image and blurb
+    - Index page: List of all primers
+    - Detail page: Full content with tabbed navigation
+    """
+    # === Core Identification ===
+    title = models.CharField(
+        max_length=200,
+        help_text="Full title, e.g., 'Peptide Synthesis for Beginners'"
+    )
+    short_title = models.CharField(
+        max_length=50,
+        help_text="Short title for navigation, e.g., 'SPPS Basics'"
+    )
+    slug = models.SlugField(unique=True, max_length=200, blank=True)
+
+    # === Homepage Display ===
+    homepage_blurb = models.TextField(
+        help_text="~55 words for homepage card display"
+    )
+    homepage_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="Image for homepage card (recommended: 400x280)"
+    )
+    is_featured = models.BooleanField(
+        default=False,
+        help_text="Show on homepage (only one should be featured at a time)"
+    )
+
+    # === Metadata ===
+    publish_date = models.DateField(
+        default=timezone.now,
+        help_text="Used for ordering (newest first)"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    # === Introduction (shown above tabs) ===
+    introduction = models.TextField(
+        blank=True,
+        help_text="Optional introduction shown above the tabbed content"
+    )
+
+    panels = [
+        MultiFieldPanel([
+            FieldPanel('title'),
+            FieldPanel('short_title'),
+            FieldPanel('slug'),
+        ], heading="Identification"),
+        MultiFieldPanel([
+            FieldPanel('homepage_blurb'),
+            FieldPanel('homepage_image'),
+            FieldPanel('is_featured'),
+            FieldPanel('publish_date'),
+        ], heading="Homepage Display"),
+        FieldPanel('introduction'),
+        InlinePanel('tabs', label="Content Tabs"),
+    ]
+
+    class Meta:
+        ordering = ['-publish_date']
+        verbose_name = "Peptide Primer"
+        verbose_name_plural = "Peptide Primers"
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.short_title or self.title)
+        super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('peptide_primer_detail', kwargs={'slug': self.slug})

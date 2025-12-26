@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 
-from .models import ResearchItem, ResearchItemCategory, AwardRecipient, AwardType, InMemoriam, PostdocProfile, StudentProfile, Proceeding, JournalIssue
+from .models import ResearchItem, ResearchItemCategory, AwardRecipient, AwardType, InMemoriam, PostdocProfile, StudentProfile, Proceeding, JournalIssue, PeptidePrimer
 
 
 def research_item_detail(request, slug):
@@ -129,3 +129,15 @@ def journal_issues(request):
     """Display all journal issues."""
     issues = JournalIssue.objects.all()
     return render(request, 'home/journal_issues.html', {'issues': issues})
+
+
+def peptide_primer_index(request):
+    """Display all Peptide Primers (educational resources)."""
+    primers = PeptidePrimer.objects.all().order_by('-publish_date')
+    return render(request, 'home/peptide_primer_index.html', {'primers': primers})
+
+
+def peptide_primer_detail(request, slug):
+    """Display a single Peptide Primer with tabbed content."""
+    primer = get_object_or_404(PeptidePrimer, slug=slug)
+    return render(request, 'home/peptide_primer_detail.html', {'primer': primer})

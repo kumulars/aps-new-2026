@@ -41,6 +41,9 @@ urlpatterns = [
     # APS Journal (Peptide Science)
     path("journal/", home_views.journal_index, name="journal_index"),
     path("journal/recent-issues/", home_views.journal_issues, name="journal_issues"),
+    # Peptide Primers (Educational Content)
+    path("primers/", home_views.peptide_primer_index, name="peptide_primer_index"),
+    path("primers/<slug:slug>/", home_views.peptide_primer_detail, name="peptide_primer_detail"),
 ]
 
 

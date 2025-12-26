@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static wagtailimages_tags %}
+
+{% block title %}Peptide Primers - Educational Resources{% endblock %}
+
+{% block body_class %}template-peptide-primer-index{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    <h1 class="page-top-header">Peptide Primers</h1>
+    <p class="lead mb-4" style="margin-top: -15px;">
+        Educational resources for peptide science, from foundational techniques to advanced methods.
+    </p>
+
+    <div class="row">
+        {% for primer in primers %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100">
+                {% if primer.homepage_image %}
+                <a href="{% url 'peptide_primer_detail' slug=primer.slug %}">
+                    {% image primer.homepage_image fill-400x280 as card_img %}
+                    <img src="{{ card_img.url }}" class="card-img-top" alt="{{ primer.title }}">
+                </a>
+                {% else %}
+                <a href="{% url 'peptide_primer_detail' slug=primer.slug %}">
+                    <div class="bg-secondary d-flex align-items-center justify-content-center" style="height: 180px;">
+                        <i class="bi bi-book text-white" style="font-size: 3rem;"></i>
+                    </div>
+                </a>
+                {% endif %}
+                <div class="card-body">
+                    <h2 class="card-title h5">
+                        <a href="{% url 'peptide_primer_detail' slug=primer.slug %}" class="text-decoration-none text-dark">
+                            {{ primer.title }}
+                        </a>
+                    </h2>
+                    <p class="card-text small">{{ primer.homepage_blurb|truncatewords:30 }}</p>
+
+                    {% if primer.tabs.count > 0 %}
+                    <p class="card-text">
+                        <small class="text-muted">
+                            <i class="bi bi-list-ul me-1"></i>
+                            {{ primer.tabs.count }} section{{ primer.tabs.count|pluralize }}
+                        </small>
+                    </p>
+                    {% endif %}
+                </div>
+                <div class="card-footer bg-transparent">
+                    <a href="{% url 'peptide_primer_detail' slug=primer.slug %}" class="btn btn-sm btn-outline-primary">
+                        Start Learning
+                    </a>
+                    <small class="text-muted float-end mt-1">{{ primer.publish_date|date:"M Y" }}</small>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle me-2"></i>
+                Educational primers are coming soon. Check back for tutorials on peptide synthesis, characterization, and more.
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock content %}

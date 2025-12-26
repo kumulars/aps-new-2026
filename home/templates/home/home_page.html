@@ -45,6 +45,53 @@
         <div class="col-md-8">
 
             <div class="mb-4">
+                <h2 class="page-top-header">Peptide Primers</h2>
+                <p class="small" style="margin-top:-10px; margin-bottom:20px; font-style:italic;">
+                    Educational resources for peptide science.
+                </p>
+                {% if featured_primer %}
+                <div class="row align-items-stretch">
+                    <div class="col-md-5 mb-3 mb-md-0">
+                        <div class="primer-homepage-blurb h-100">
+                            <h3 class="h5 mb-2">
+                                <a href="{% url 'peptide_primer_detail' slug=featured_primer.slug %}" class="text-decoration-none">{{ featured_primer.title }}</a>
+                            </h3>
+                            {% if featured_primer.tabs.count > 0 %}
+                            <p class="small text-muted mb-2">
+                                <i class="bi bi-book me-1"></i>{{ featured_primer.tabs.count }} section{{ featured_primer.tabs.count|pluralize }}
+                            </p>
+                            {% endif %}
+                            <p class="mb-2">{{ featured_primer.homepage_blurb|safe|truncatewords_html:50 }}</p>
+                            <a href="{% url 'peptide_primer_detail' slug=featured_primer.slug %}" class="btn btn-sm btn-outline-primary">Start Learning</a>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        {% if featured_primer.homepage_image %}
+                        <a href="{% url 'peptide_primer_detail' slug=featured_primer.slug %}">
+                            {% image featured_primer.homepage_image fill-600x400 as primer_img %}
+                            <img src="{{ primer_img.url }}" class="img-fluid rounded" alt="{{ featured_primer.title }}">
+                        </a>
+                        {% else %}
+                        <a href="{% url 'peptide_primer_detail' slug=featured_primer.slug %}" class="d-block bg-secondary rounded h-100 d-flex align-items-center justify-content-center" style="min-height: 180px;">
+                            <i class="bi bi-book text-white" style="font-size: 3rem;"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% else %}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="bg-light rounded p-4 text-center">
+                            <p class="text-muted mb-0">Educational primers coming soon.</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <hr class="blue">
+
+            <div class="mb-4">
                 <h2 class="page-top-header">Global Peptide Groups</h2>
                 <p class="small" style="margin-top:-10px; margin-bottom:20px; font-style:italic;">
                     Featuring Internationally Notable Peptide Science Research Groups.
@@ -174,24 +221,6 @@
                     </div>
                 </div>
                 {% endif %}
-            </div>
-
-            <hr class="blue">
-
-            <div class="mb-4">
-                <h2 class="page-top-header">Featured</h2>
-                <p class="small" style="margin-top:-10px; margin-bottom:20px; font-style:italic;">
-                    Special announcements and highlighted content.
-                </p>
-                <div class="row">
-                    <div class="col-md-5">
-                        <div class="bg-light rounded p-4" style="min-height: 180px;">
-                        </div>
-                    </div>
-                    <div class="col-md-7">
-                        <div class="bg-secondary rounded" style="height: 180px;"></div>
-                    </div>
-                </div>
             </div>
 
         </div>
