@@ -112,6 +112,12 @@
     color: var(--aps-blue);
 }
 
+/* Remove top margin from first section header */
+.primer-body .primer-section-header:first-child,
+.primer-tab-pane > .primer-section-header:first-of-type {
+    margin-top: 0;
+}
+
 /* Primer Body Content */
 .primer-body {
     line-height: 1.7;
