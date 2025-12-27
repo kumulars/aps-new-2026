@@ -1,7 +1,10 @@
+import os
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
+from django.http import FileResponse, Http404
+from django.conf import settings
 
-from .models import ResearchItem, ResearchItemCategory, AwardRecipient, AwardType, InMemoriam, PostdocProfile, StudentProfile, Proceeding, JournalIssue, PeptidePrimer
+from .models import ResearchItem, ResearchItemCategory, AwardRecipient, AwardType, InMemoriam, PostdocProfile, StudentProfile, Proceeding, JournalIssue, PeptidePrimer, SymposiaArchive
 
 
 def research_item_detail(request, slug):
@@ -13,6 +16,11 @@ def research_item_detail(request, slug):
 def about(request):
     """Display the About page."""
     return render(request, 'home/about.html')
+
+
+def women_in_peptide_science(request):
+    """Display the Women in Peptide Science page."""
+    return render(request, 'home/women_in_peptide_science.html')
 
 
 def research_archive(request):
@@ -141,3 +149,54 @@ def peptide_primer_detail(request, slug):
     """Display a single Peptide Primer with tabbed content."""
     primer = get_object_or_404(PeptidePrimer, slug=slug)
     return render(request, 'home/peptide_primer_detail.html', {'primer': primer})
+
+
+def symposia_archive_index(request):
+    """Display the Symposia Archive index with clickable screenshot cards."""
+    archives = SymposiaArchive.objects.all().order_by('-year')
+    return render(request, 'home/symposia_archive_index.html', {'archives': archives})
+
+
+def symposia_archive_site(request, folder, path='index.html'):
+    """
+    Serve archived symposia static sites.
+    Files are stored in BASE_DIR/symposia_archive/<folder>/
+    """
+    # Security: validate folder name (alphanumeric only)
+    if not folder.replace('_', '').replace('-', '').isalnum():
+        raise Http404("Invalid archive folder")
+
+    # Construct file path
+    archive_root = settings.BASE_DIR / 'symposia_archive' / folder
+    file_path = archive_root / path
+
+    # Security: ensure path doesn't escape the archive directory
+    try:
+        file_path = file_path.resolve()
+        archive_root = archive_root.resolve()
+        if not str(file_path).startswith(str(archive_root)):
+            raise Http404("Invalid path")
+    except (ValueError, RuntimeError):
+        raise Http404("Invalid path")
+
+    if not file_path.exists() or not file_path.is_file():
+        raise Http404("File not found")
+
+    # Determine content type
+    content_type = 'text/html'
+    suffix = file_path.suffix.lower()
+    content_types = {
+        '.html': 'text/html',
+        '.htm': 'text/html',
+        '.css': 'text/css',
+        '.js': 'application/javascript',
+        '.jpg': 'image/jpeg',
+        '.jpeg': 'image/jpeg',
+        '.png': 'image/png',
+        '.gif': 'image/gif',
+        '.pdf': 'application/pdf',
+        '.ico': 'image/x-icon',
+    }
+    content_type = content_types.get(suffix, 'application/octet-stream')
+
+    return FileResponse(open(file_path, 'rb'), content_type=content_type)

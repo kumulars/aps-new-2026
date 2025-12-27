@@ -9,7 +9,7 @@
         <div class="col-md-6">
             <div class="card shadow-sm">
                 <div class="card-body p-4">
-                    <h1 class="h3 mb-4">Check Your Membership Status</h1>
+                    <h1 class="page-top-header mb-4">Check Your Membership Status</h1>
 
                     {% if email_sent %}
                     <div class="alert alert-success">
@@ -21,7 +21,7 @@
                         <hr>
                         <p class="mb-0 small">
                             The link will expire in 24 hours. If you don't receive an email,
-                            please check your spam folder or <a href="mailto:membership@americanpeptidesociety.org">contact us</a>.
+                            please check your spam folder.
                         </p>
                     </div>
                     <a href="{% url 'membership:status_check' %}" class="btn btn-outline-primary">

@@ -11,36 +11,49 @@
 
 {% block content %}
 <div class="container py-4">
+    <div class="row">
 
-    <h1 class="page-top-header">In Memoriam</h1>
-
-    <p class="mb-4" style="margin-top: -15px; font-style: italic;">Honoring colleagues who have contributed to the peptide science community.</p>
-
-    <div class="people-grid">
-        {% for person in people %}
-        <a href="{% url 'in_memoriam_detail' person.slug %}" class="text-decoration-none">
-            <div class="person-card">
-                <div class="person-photo-wrapper">
-                    {% if person.photo %}
-                        {% image person.photo fill-140x170 class="person-photo" %}
-                    {% else %}
-                        <div class="person-photo-placeholder">
-                            <i class="bi bi-person"></i>
-                        </div>
-                    {% endif %}
-                </div>
-                <div class="person-info">
-                    <div class="person-name">{{ person.full_name }}</div>
-                    <div class="person-role" style="font-weight: normal; font-size: 0.8rem;">Read tribute →</div>
-                </div>
+        {# Sidebar Navigation #}
+        <div class="col-12 col-lg-2 people-sidebar-col">
+            <div class="people-sidebar">
+                {% include "home/includes/people_nav.html" %}
             </div>
-        </a>
-        {% empty %}
-        <div class="col-12">
-            <p class="text-muted">No entries yet.</p>
         </div>
-        {% endfor %}
-    </div>
 
+        {# Main Content #}
+        <div class="col-12 col-lg-10 people-main-col">
+
+            <h1 class="page-top-header">In Memoriam</h1>
+
+            <p class="mb-4" style="font-style: italic;">Honoring colleagues who have contributed to the peptide science community.</p>
+
+            <div class="people-grid">
+                {% for person in people %}
+                <a href="{% url 'in_memoriam_detail' person.slug %}" class="text-decoration-none">
+                    <div class="person-card">
+                        <div class="person-photo-wrapper">
+                            {% if person.photo %}
+                                {% image person.photo fill-140x170 class="person-photo" %}
+                            {% else %}
+                                <div class="person-photo-placeholder">
+                                    <i class="bi bi-person"></i>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="person-info">
+                            <div class="person-name">{{ person.full_name }}</div>
+                            <div class="person-role" style="font-weight: normal; font-size: 0.8rem;">Read tribute →</div>
+                        </div>
+                    </div>
+                </a>
+                {% empty %}
+                <div class="col-12">
+                    <p class="text-muted">No entries yet.</p>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
 </div>
 {% endblock content %}

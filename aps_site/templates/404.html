@@ -1,11 +1,49 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %}Page not found{% endblock %}
+{% block title %}Page Not Found{% endblock %}
 
 {% block body_class %}template-404{% endblock %}
 
 {% block content %}
-<h1>Page not found</h1>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
 
-<h2>Sorry, this page could not be found.</h2>
+            <h1 class="display-1 text-muted mb-3">404</h1>
+            <h2 class="mb-4">Page Not Found</h2>
+
+            <p class="lead mb-4">
+                The page you're looking for doesn't exist or may have been moved.
+            </p>
+
+            {% if '/symposia-archive/' in request.path %}
+            <div class="alert alert-info text-start mb-4" role="alert">
+                <strong><i class="bi bi-archive me-2"></i>Browsing an Archived Symposium?</strong>
+                <p class="mb-0 mt-2">
+                    You may have followed a broken link within one of our historical symposium archives.
+                    These websites were recovered from the Wayback Machine and some pages, images,
+                    or resources may not have been preserved. Please use the symposium's main navigation
+                    to find available content.
+                </p>
+            </div>
+            {% endif %}
+
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="/" class="btn btn-primary">
+                    <i class="bi bi-house me-2"></i>Return Home
+                </a>
+                {% if '/symposia-archive/' in request.path %}
+                <a href="{% url 'symposia_archive_index' %}" class="btn btn-outline-secondary">
+                    <i class="bi bi-collection me-2"></i>Symposia Archive
+                </a>
+                {% endif %}
+                <a href="{% url 'research_archive' %}" class="btn btn-outline-secondary">
+                    <i class="bi bi-journal-text me-2"></i>Peptide Publications
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
 {% endblock %}

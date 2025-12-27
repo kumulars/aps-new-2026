@@ -24,6 +24,7 @@ urlpatterns = [
     # Static pages
     path("about/", home_views.about, name="about"),
     path("merrifield-essay/", home_views.merrifield_essay, name="merrifield_essay"),
+    path("women-in-peptide-science/", home_views.women_in_peptide_science, name="women_in_peptide_science"),
     path("people/student-activities-committee/", home_views.student_activities_committee, name="student_activities_committee"),
     # In Memoriam
     path("people/in-memoriam/", home_views.in_memoriam_index, name="in_memoriam_index"),
@@ -44,6 +45,10 @@ urlpatterns = [
     # Peptide Primers (Educational Content)
     path("primers/", home_views.peptide_primer_index, name="peptide_primer_index"),
     path("primers/<slug:slug>/", home_views.peptide_primer_detail, name="peptide_primer_detail"),
+    # Symposia Archive (historical conference websites)
+    path("symposia-archive/", home_views.symposia_archive_index, name="symposia_archive_index"),
+    path("symposia-archive/<str:folder>/", home_views.symposia_archive_site, name="symposia_archive_site"),
+    path("symposia-archive/<str:folder>/<path:path>", home_views.symposia_archive_site, name="symposia_archive_file"),
 ]
 
 

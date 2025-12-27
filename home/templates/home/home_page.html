@@ -233,7 +233,13 @@
                 <h3 style="font-weight: 600; font-size: 1.3em; padding-left: 8px; border-left: 4px solid var(--aps-green); margin-bottom: 12px;">{{ news.title }}</h3>
                 {% if news.image %}
                 {% image news.image original as news_img %}
+                {% if news.link_url and news.link_url != '#' %}
+                <a href="{{ news.link_url }}"{% if news.is_external %} target="_blank" rel="noopener"{% endif %}>
+                    <img src="{{ news_img.url }}" class="news-item-image" alt="{{ news.title }}">
+                </a>
+                {% else %}
                 <img src="{{ news_img.url }}" class="news-item-image" alt="{{ news.title }}">
+                {% endif %}
                 {% endif %}
                 {% if news.body %}
                 <div class="news-item-body">{{ news.body|fix_media_urls }}</div>

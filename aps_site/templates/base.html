@@ -80,16 +80,18 @@
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {% if '/research/' in request.path or '/symposia-images/' in request.path or '/proceedings/' in request.path or '/journal/' in request.path or '/global-peptide-groups/' in request.path or '/students/' in request.path or '/postdocs/' in request.path %}active{% endif %}" href="#" id="navExplore" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle {% if '/research/' in request.path or '/symposia-images/' in request.path or '/symposia-archive/' in request.path or '/proceedings/' in request.path or '/journal/' in request.path or '/global-peptide-groups/' in request.path or '/students/' in request.path or '/postdocs/' in request.path or '/women-in-peptide-science/' in request.path %}active{% endif %}" href="#" id="navExplore" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Explore
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navExplore">
                             <li><a class="dropdown-item" href="{% url 'research_archive' %}">Peptide Publications</a></li>
+                            <li><a class="dropdown-item" href="{% url 'women_in_peptide_science' %}">Women in Peptide Science</a></li>
                             <li><a class="dropdown-item" href="/global-peptide-groups/">Global Peptide Groups</a></li>
                             <li><a class="dropdown-item" href="{% url 'student_index' %}">Student Spotlights</a></li>
                             <li><a class="dropdown-item" href="{% url 'postdoc_index' %}">Peptide Postdocs</a></li>
                             <li><a class="dropdown-item" href="/symposia-images/">Symposia Images</a></li>
-                            <li><a class="dropdown-item" href="{% url 'proceedings_index' %}">Symposium Proceedings</a></li>
+                            <!-- TODO: Restore Symposia Archive link when sites are ready -->
+                            <li><a class="dropdown-item" href="{% url 'proceedings_index' %}">Symposia Proceedings</a></li>
                             <li><a class="dropdown-item" href="{% url 'journal_index' %}">Our Journal</a></li>
                         </ul>
                     </li>
@@ -153,37 +155,58 @@
         {% block content %}{% endblock %}
     </main>
 
-    <footer class="site-footer mt-5 py-4" style="background-color: var(--aps-footer);">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 text-white mb-3">
-                    <h5>American Peptide Society</h5>
-                    <p class="small" style="color: rgba(255,255,255,0.8);">
-                        Advancing peptide science through research, education, and collaboration.
-                    </p>
-                </div>
-                <div class="col-md-4 text-white mb-3">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled small" style="color: rgba(255,255,255,0.8);">
-                        <li><a href="{% url 'about' %}" class="text-white-50">About Us</a></li>
-                        <li><a href="{% url 'membership:info' %}" class="text-white-50">Membership</a></li>
-                        <li><a href="mailto:info@americanpeptidesociety.org" class="text-white-50">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4 text-white mb-3">
-                    <h5>Connect</h5>
-                    <p class="small" style="color: rgba(255,255,255,0.8);">
-                        <i class="bi bi-envelope me-2"></i> info@americanpeptidesociety.org
-                    </p>
+    <footer class="site-footer mt-5">
+        <div class="py-5" style="background-color: var(--aps-footer);">
+            <div class="container">
+                <div class="row">
+                    <!-- Column 1: Logo & Description -->
+                    <div class="col-md-4 text-white mb-4">
+                        <img src="{% static 'images/aps_logo_white.png' %}" width="299" alt="APS Logo" class="mb-4">
+                        <p style="color: #FFFFFF;">The American Peptide Society, APS, a nonprofit scientific and educational organization founded in 1990, provides a forum for advancing and promoting knowledge of the chemistry and biology of peptides.</p>
+                    </div>
+
+                    <!-- Column 2: Association Contact -->
+                    <div class="col-md-4 text-white mb-4">
+                        <h5 class="mb-3" style="color: #FFFFFF;">Association Contact</h5>
+                        <div class="row">
+                            <div class="col-4 pe-0">
+                                <img src="{{ MEDIA_URL }}original_images/cline_lauren.jpg" alt="Lauren Cline" class="img-fluid rounded mb-3" style="max-width: 100px;">
+                            </div>
+                            <div class="col-8">
+                                <p style="color: #FFFFFF;">
+                                    <strong>Lauren Cline, Ph.D.</strong><br>
+                                    Association Manager<br>
+                                    <i class="bi bi-telephone me-1"></i> 614-300-5887<br>
+                                    <i class="bi bi-envelope me-1"></i> <a href="mailto:APSoffice17@gmail.com?subject=Website Inquiry" class="text-white">APSoffice17@gmail.com</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 3: Website Contact -->
+                    <div class="col-md-4 text-white mb-4">
+                        <h5 class="mb-3" style="color: #FFFFFF;">Website Contact</h5>
+                        <div class="row">
+                            <div class="col-4 pe-0">
+                                <img src="{{ MEDIA_URL }}original_images/sahl_lars.jpg" alt="Lars Sahl" class="img-fluid rounded mb-3" style="max-width: 100px;">
+                            </div>
+                            <div class="col-8">
+                                <p style="color: #FFFFFF;">
+                                    <strong>Lars Sahl, MS</strong><br>
+                                    Web Creator<br>
+                                    <i class="bi bi-envelope me-1"></i> <a href="mailto:lars@americanpeptidesociety.org?subject=Website Inquiry" class="text-white">lars@americanpeptidesociety.org</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <hr style="border-color: rgba(255,255,255,0.2);">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <p class="small mb-0" style="color: rgba(255,255,255,0.6);">
-                        &copy; {% now "Y" %} American Peptide Society. All rights reserved.
-                    </p>
-                </div>
+        </div>
+        <div class="py-3" style="background-color: #2A628F;">
+            <div class="container">
+                <p class="small mb-0" style="color: rgba(255,255,255,0.8);">
+                    &copy; {% now "Y" %} American Peptide Society. All rights reserved.
+                </p>
             </div>
         </div>
     </footer>

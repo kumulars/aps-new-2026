@@ -12,9 +12,9 @@
 {% block content %}
 <div class="container py-5">
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-10">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h1>My Profile</h1>
+                <h1 class="page-top-header mb-0">My Profile</h1>
                 <a href="{% url 'membership:profile_edit' %}" class="btn btn-outline-primary">
                     <i class="bi bi-pencil me-2"></i>Edit Profile
                 </a>
@@ -139,18 +139,7 @@
             </div>
 
         </div>
-
-        <div class="col-lg-4">
-            <div class="card bg-light">
-                <div class="card-body">
-                    <h5 class="card-title">Need Help?</h5>
-                    <p class="card-text">If you have questions about your membership or need to update information not available here, please contact us.</p>
-                    <a href="mailto:membership@americanpeptidesociety.org" class="btn btn-outline-primary btn-sm">
-                        <i class="bi bi-envelope me-2"></i>Contact Support
-                    </a>
-                </div>
-            </div>
-        </div>
+        <!-- Need Help box to be added when email addresses are configured -->
     </div>
 </div>
 {% endblock %}

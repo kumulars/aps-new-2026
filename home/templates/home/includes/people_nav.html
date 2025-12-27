@@ -1,0 +1,18 @@
+{# People Section Navigation Buttons - Vertical Sidebar #}
+<div class="people-nav-sidebar">
+    <a href="/people/?view=officers" class="people-nav-btn {% if '/people/' in request.path and 'officers' in request.GET.view or request.path == '/people/' and not request.GET.view %}active{% endif %}">
+        <span class="nav-label">Officers &amp; Councilors</span>
+    </a>
+    <a href="/people/?view=past-presidents" class="people-nav-btn {% if 'past-presidents' in request.GET.view %}active{% endif %}">
+        <span class="nav-label">Past Presidents</span>
+    </a>
+    <a href="/people/?view=committees" class="people-nav-btn {% if 'committees' in request.GET.view %}active{% endif %}">
+        <span class="nav-label">APS Committees</span>
+    </a>
+    <a href="/people/student-activities-committee/" class="people-nav-btn {% if '/student-activities-committee/' in request.path %}active{% endif %}">
+        <span class="nav-label">Student Activities Committee</span>
+    </a>
+    <a href="/people/in-memoriam/" class="people-nav-btn {% if '/in-memoriam/' in request.path %}active{% endif %}">
+        <span class="nav-label">In Memoriam</span>
+    </a>
+</div>

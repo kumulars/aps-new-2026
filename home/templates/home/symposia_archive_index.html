@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static wagtailimages_tags %}
+
+{% block title %}Symposia Archive{% endblock %}
+
+{% block body_class %}template-symposia-archive{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    <h1 class="page-top-header">Symposia Archive</h1>
+
+    <div class="intro-text mb-4">
+        <p class="lead">A digital preservation of historical American Peptide Symposium websites.</p>
+
+        <p>These archived websites have been recovered from the <a href="https://web.archive.org/" target="_blank">Internet Archive's Wayback Machine</a>
+        and restored to provide a glimpse into past APS symposia. Each site has been cleaned of archival artifacts
+        to make navigation possible, preserving the original design and content as it appeared when the symposium took place.</p>
+
+        <div class="alert alert-secondary" role="alert">
+            <strong><i class="bi bi-info-circle me-2"></i>Please Note:</strong>
+            These are historical snapshots with inherent limitations. Some images may be missing,
+            external links will likely be broken, and certain interactive features may no longer function.
+            Registration forms, email links, and other dynamic content are no longer active.
+            We present these archives as historical records of the peptide community's gatherings over the years.
+        </div>
+    </div>
+
+    {# Archives Grid - 3 per row for larger screenshots #}
+    <div class="row">
+        {% for archive in archives %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 symposia-card">
+                {% if archive.screenshot %}
+                <a href="{{ archive.get_archive_url }}" target="_blank">
+                    {% image archive.screenshot fill-400x280 as card_img %}
+                    <img src="{{ card_img.url }}" class="card-img-top" alt="{{ archive.title }}">
+                </a>
+                {% else %}
+                <a href="{{ archive.get_archive_url }}" target="_blank">
+                    <div class="card-img-placeholder bg-light d-flex align-items-center justify-content-center" style="height: 280px;">
+                        <span class="display-4 text-muted">{{ archive.year }}</span>
+                    </div>
+                </a>
+                {% endif %}
+                <div class="card-body">
+                    <h3 class="card-title h5">
+                        <a href="{{ archive.get_archive_url }}" target="_blank" class="text-decoration-none">
+                            {{ archive.title }}
+                        </a>
+                    </h3>
+                    {% if archive.location %}
+                    <p class="card-text small text-muted mb-1">{{ archive.location }}</p>
+                    {% endif %}
+                    {% if archive.theme %}
+                    <p class="card-text small fst-italic">"{{ archive.theme }}"</p>
+                    {% endif %}
+                </div>
+                <div class="card-footer bg-transparent">
+                    <a href="{{ archive.get_archive_url }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-box-arrow-up-right"></i> View Archived Site
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="text-muted">No archived symposia available yet.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock content %}

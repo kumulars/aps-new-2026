@@ -16,14 +16,7 @@
         {# Sidebar Navigation - col-2 on desktop, horizontal on mobile #}
         <div class="col-12 col-lg-2 people-sidebar-col">
             <div class="people-sidebar">
-                <div class="people-nav-sidebar">
-                    {% for item in nav_items %}
-                    <a href="?view={{ item.key }}"
-                       class="people-nav-btn {% if item.key == current_view %}active{% endif %}">
-                        <span class="nav-label">{{ item.label }}</span>
-                    </a>
-                    {% endfor %}
-                </div>
+                {% include "home/includes/people_nav.html" %}
             </div>
         </div>
 

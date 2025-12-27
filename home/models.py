@@ -2188,3 +2188,80 @@ class PeptidePrimer(ClusterableModel):
 
     def get_absolute_url(self):
         return reverse('peptide_primer_detail', kwargs={'slug': self.slug})
+
+
+# =============================================================================
+# SYMPOSIA ARCHIVE
+# =============================================================================
+
+@register_snippet
+class SymposiaArchive(models.Model):
+    """
+    Archived historical APS Symposium websites recovered from Wayback Machine.
+    Each entry represents a symposium with a screenshot and link to the archived site.
+    """
+    year = models.IntegerField(
+        help_text="Symposium year (e.g., 2007)"
+    )
+    symposium_number = models.CharField(
+        max_length=10,
+        blank=True,
+        help_text="Symposium number (e.g., '20th', '22nd')"
+    )
+    title = models.CharField(
+        max_length=200,
+        help_text="Full title (e.g., '20th American Peptide Symposium')"
+    )
+    location = models.CharField(
+        max_length=200,
+        blank=True,
+        help_text="Location (e.g., 'Montreal, Quebec, Canada')"
+    )
+    screenshot = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="Homepage screenshot (973x670 recommended)"
+    )
+    folder_name = models.CharField(
+        max_length=50,
+        help_text="Folder name for static site (e.g., 'aps2007')"
+    )
+    theme = models.CharField(
+        max_length=200,
+        blank=True,
+        help_text="Conference theme if known (e.g., 'Peptides for Youth')"
+    )
+    notes = models.TextField(
+        blank=True,
+        help_text="Any notes about the archived site"
+    )
+
+    panels = [
+        MultiFieldPanel([
+            FieldPanel('year'),
+            FieldPanel('symposium_number'),
+            FieldPanel('title'),
+        ], heading="Symposium Info"),
+        MultiFieldPanel([
+            FieldPanel('location'),
+            FieldPanel('theme'),
+        ], heading="Details"),
+        FieldPanel('screenshot'),
+        FieldPanel('folder_name'),
+        FieldPanel('notes'),
+    ]
+
+    class Meta:
+        ordering = ['-year']
+        verbose_name = "Symposia Archive"
+        verbose_name_plural = "Symposia Archives"
+
+    def __str__(self):
+        return f"{self.title} ({self.year})"
+
+    def get_archive_url(self):
+        """Returns URL path to the archived static site."""
+        return f"/symposia-archive/{self.folder_name}/"
