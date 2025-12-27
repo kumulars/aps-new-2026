@@ -12,10 +12,8 @@
 
 .gpg-homepage-img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top;
-    max-height: 300px;
+    height: auto;
+    max-height: 420px;
 }
 
 .gpg-homepage-img.gpg-img-bottom {

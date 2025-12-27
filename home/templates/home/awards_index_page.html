@@ -95,26 +95,45 @@
 
         </div>
 
-        {# Sponsor Column - 4 cols #}
+        {# Right Column - 4 cols #}
         <div class="col-12 col-lg-4 awards-sponsor-col">
-            <div class="sponsor-section">
 
-                {% if current_award.sponsor_logo or current_award.sponsor_description %}
+            {# Award Namesake Section #}
+            {% if current_award.namesake_name or current_award.namesake_photo %}
+            <div class="award-namesake-section mb-4">
+                {% if current_award.namesake_photo %}
+                <div class="namesake-photo mb-3">
+                    {% image current_award.namesake_photo width-300 class="img-fluid" %}
+                </div>
+                {% endif %}
+                {% if current_award.namesake_description %}
+                <div class="namesake-description">
+                    {{ current_award.namesake_description|linebreaks }}
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            {# Sponsor Section #}
+            {% if current_award.sponsor_logo or current_award.sponsor_description %}
+            <div class="sponsor-section">
                 <div class="award-image-card">
                     {% if current_award.sponsor_logo %}
-                    <div class="award-image">
+                    <div class="award-image mb-3">
+                        {% if current_award.sponsor_url %}
+                        <a href="{{ current_award.sponsor_url }}" target="_blank">
+                            {% image current_award.sponsor_logo original class="img-fluid" %}
+                        </a>
+                        {% else %}
                         {% image current_award.sponsor_logo original class="img-fluid" %}
+                        {% endif %}
                     </div>
                     {% endif %}
 
                     {% if current_award.sponsor_description %}
                     <div class="award-image-caption">
-                        {{ current_award.sponsor_description }}
+                        {{ current_award.sponsor_description|linebreaks }}
                     </div>
-                    {% endif %}
-
-                    {% if current_award.sponsor_name %}
-                    <div class="sponsor-name">{{ current_award.sponsor_name }}</div>
                     {% endif %}
 
                     {% if current_award.sponsor_url %}
@@ -123,9 +142,9 @@
                     </a>
                     {% endif %}
                 </div>
-                {% endif %}
-
             </div>
+            {% endif %}
+
         </div>
 
     </div>

@@ -188,14 +188,50 @@
     font-style: italic;
 }
 
-/* Sponsor Column - 4 cols */
+/* Right Column - 4 cols */
 .awards-sponsor-col {
     padding: 0 1rem;
 }
 
+/* Sidebar Section Headers */
+.sidebar-section-header {
+    font-weight: 600;
+    font-size: 1.1em;
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+    border-left: 4px solid var(--aps-green);
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    color: var(--aps-text);
+}
+
+/* Award Namesake Section */
+.award-namesake-section {
+    margin-bottom: 2rem;
+}
+
+.namesake-photo img {
+    width: 100%;
+    border-radius: 6px;
+}
+
+.namesake-description {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #555;
+}
+
+.namesake-description p {
+    margin-bottom: 0.75rem;
+}
+
+.namesake-description p:last-child {
+    margin-bottom: 0;
+}
+
+/* Sponsor Section */
 .sponsor-section {
-    position: sticky;
-    top: 70px;
+    /* No longer sticky - both sections can scroll */
 }
 
 /* Award Image Card */

@@ -1114,6 +1114,25 @@ class AwardType(models.Model):
     )
     description = models.TextField(blank=True)
 
+    # Namesake information (e.g., Vincent du Vigneaud, Murray Goodman)
+    namesake_name = models.CharField(
+        max_length=200,
+        blank=True,
+        help_text="Name of the person the award is named after"
+    )
+    namesake_photo = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="Photo of the award namesake"
+    )
+    namesake_description = models.TextField(
+        blank=True,
+        help_text="Biography of the person the award is named after"
+    )
+
     # Sponsor information
     sponsor_name = models.CharField(max_length=200, blank=True)
     sponsor_description = models.TextField(blank=True)
@@ -1142,11 +1161,16 @@ class AwardType(models.Model):
         FieldPanel('slug'),
         FieldPanel('description'),
         MultiFieldPanel([
+            FieldPanel('namesake_name'),
+            FieldPanel('namesake_photo'),
+            FieldPanel('namesake_description'),
+        ], heading="Award Namesake (Right Column)"),
+        MultiFieldPanel([
             FieldPanel('sponsor_name'),
             FieldPanel('sponsor_description'),
             FieldPanel('sponsor_logo'),
             FieldPanel('sponsor_url'),
-        ], heading="Sponsor Information"),
+        ], heading="Sponsor Information (Right Column)"),
         FieldPanel('additional_content'),
         FieldPanel('display_order'),
         FieldPanel('is_active'),
